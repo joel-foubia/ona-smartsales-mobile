@@ -1,0 +1,32 @@
+<!-- Generated template for the ProductComponent component -->
+<div text-center (click)="onEvent('onClick', product)">
+
+    <img *ngIf="product.id == 0" src="assets/svg/refreshing.svg" id="off" alt="">
+    <img *ngIf="product.qty_available > 0" src="assets/icon/circle_green.png" id="qty" alt="">
+    <img *ngIf="product.qty_available <= 0" src="assets/icon/circle_red.png" id="qty" alt="">
+    <div class="qty-indicator"> </div>
+    <op-lazy-img *ngIf="product.image_url" [source]="product.image_url" [defaultImage]="defaultImg"></op-lazy-img>
+
+
+    <h6 id="prodcutName">
+      <strong>
+        {{product.name}}
+      </strong>
+    </h6>
+    <div class="price-qty">
+
+      <span>
+        {{product?.list_price | currency:product?.currency_id?.name:'symbol':'':'fr-BE'}}
+      </span>
+      <div class="vl"></div>  
+      <span *ngIf="product.qty_available > 0">
+        {{product?.qty_available}} {{product?.uom_id?.name}}
+        </span>
+        <span class="empty" *ngIf="product.qty_available <= 0">
+          {{'module.catalogue.stock_empty' | translate}}
+        </span>
+      </div>
+    <p *ngIf="product.pos_categ_id.id != 0" class="cat"> {{product?.pos_categ_id?.name}}</p>
+    <p *ngIf="product.pos_categ_id.id == 0" class="cat">{{'module.catalogue.not_classified' | translate}}</p>
+
+</div>

@@ -1,0 +1,50 @@
+product {
+	#prodcutName {
+		color: color($colors, dark) !important;
+	}
+	.price-qty {
+        color: color($colors, secondary) !important;
+		.vl {
+			border-left: 1px solid color($colors, secondary);
+            height: 18px;
+            display: inline-block !important;
+            margin-bottom: -3px !important;
+		}
+	}
+	.cat {
+        color: color($colors, gris) !important;
+        margin-top: 2px !important
+    }
+	
+    #off{
+        position: absolute !important;
+        top: 10px !important;
+        left: 10px !important;
+        width: 15px !important
+    }
+    #qty{
+        position: absolute !important;
+        width: 15px !important;
+        top: 10px !important;
+        right: 10px !important;
+    }
+    .qty-indicator{
+        position: absolute !important;
+        width: 15px !important;
+        top: 10px !important;
+        right: 10px !important;
+        height: 15px !important;
+        border-radius: 100% !important;
+
+    }
+    .empty{
+        color: color($colors, rouge) !important;
+    }
+    op-lazy-img{
+        // font-size: 12px !important;
+    }
+	
+    img{
+        max-width: 60% !important;
+    }
+}

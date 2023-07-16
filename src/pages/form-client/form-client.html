@@ -1,0 +1,158 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title *ngIf="!modif">
+      {{'module.partner.title' | translate}}
+    </ion-title>
+    <ion-title *ngIf="modif">
+      {{'module.partner.title_modif' | translate:client}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content formAffaire>
+  <ion-segment class="forms-examples-segment" [(ngModel)]="section" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="post">
+      {{'module.partner.profile' | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="event">
+      {{'menu.contact' | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="card">
+      {{'pop.other' | translate}}
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="section" class="forms-wrapper" padding>
+    <div *ngSwitchCase="'post'" class="post-example-view">
+      <section class="form-section">
+        <ion-grid radio-group [(ngModel)]="client.company_type">
+          <ion-row>
+            <ion-col>
+              <ion-item transparent>
+                <ion-label>{{'form.individual' | translate}}</ion-label>
+                <ion-radio value="person"></ion-radio>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item transparent>
+                <ion-label>{{'form.company' | translate}}</ion-label>
+                <ion-radio value="company"></ion-radio>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item *ngIf="client.company_type=='person'" class="country" (click)="selectPartner('client','partner')">
+          <p color="primary">{{'form.txt_company' | translate}} </p>
+          <h3>{{client.parent_id.name}}</h3>
+          <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+        </ion-item>
+        <ion-item transparent>
+          <ion-label id="name" stacked>{{'form.nom' | translate}}</ion-label>
+          <ion-input type="text" placeholder="{{'form.egnom' | translate}}" [(ngModel)]="client.name"></ion-input>
+        </ion-item>
+        <div text-center class="picture">
+          <img [src]="photo" (click)="selectImage($event)" />
+          <button ion-button outline *ngIf="modif" (click)="selectImage($event)" >{{'pop.edit_img' | translate}}</button>
+          <!-- <img *ngIf="!modif" [lazyLoad]="photo" (click)="selectImage($event)" /> -->
+        </div>
+      </section>
+    </div>
+    <div *ngSwitchCase="'event'" class="post-example-view">
+      <ion-item class="address" transparent>
+        <ion-label stacked>{{'module.agenda.f_adress' | translate}}</ion-label>
+        <ion-input type="text" [(ngModel)]="client.street"></ion-input>
+      </ion-item>
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col col-9>
+            <ion-item class="city" transparent>
+              <ion-label stacked>{{'form.city' | translate}}</ion-label>
+              <ion-input type="text" [(ngModel)]="client.city"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-3>
+            <ion-item class="zip" transparent>
+              <ion-label stacked>{{'module.partner.zip' | translate}}</ion-label>
+              <ion-input type="text" [(ngModel)]="client.zip"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item class="country" (click)="selectPartner('country','partner')">
+        <p>{{'form.country' | translate}} </p>
+        <h3>{{client.country_id.name}}</h3>
+        <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+      </ion-item>
+      <ion-item class="country" (click)="selectPartner('state','partner')">
+        <p>{{'form.state' | translate}} </p>
+        <h3>{{client.state_id.name}}</h3>
+        <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+      </ion-item>
+      <ion-item id="other" transparent>
+        <ion-label stacked>{{'form.website' | translate}}</ion-label>
+        <ion-input type="url" placeholder="www.ona-itconsulting.com" [(ngModel)]="client.website"></ion-input>
+      </ion-item>
+    </div>
+    <div *ngSwitchCase="'card'" class="card-example-view">
+      <ion-item id="other" transparent *ngIf="client.company_type=='person'">
+        <ion-label stacked>{{'form.function' | translate}}</ion-label>
+        <ion-input type="text" [(ngModel)]="client.function" placeholder="{{'form.egfunction' | translate}}"></ion-input>
+      </ion-item>
+      <ion-item id="other" transparent>
+        <ion-label stacked>{{'form.phone' | translate}}</ion-label>
+        <ion-input type="tel" placeholder="{{'form.egphone' | translate}}" [(ngModel)]="client.phone"></ion-input>
+      </ion-item>
+
+      <ion-item id="other" transparent>
+        <ion-label stacked>{{'form.mobile' | translate}}</ion-label>
+        <ion-input type="tel" placeholder="{{'form.egphone' | translate}}" [(ngModel)]="client.mobile"></ion-input>
+      </ion-item>
+
+      <ion-item id="other" transparent>
+        <ion-label stacked>{{'form.fax' | translate}}</ion-label>
+        <ion-input type="text" [(ngModel)]="client.fax"></ion-input>
+      </ion-item>
+
+      <ion-item id="other" transparent>
+        <ion-label stacked>{{'form.email' | translate}}</ion-label>
+        <ion-input type="email" [(ngModel)]="client.email"></ion-input>
+      </ion-item>
+
+      <ion-item id="other_title" transparent *ngIf="client.company_type=='person' && titres.length!=0">
+        <ion-label stacked>{{'form.title' | translate}}</ion-label>
+        <ion-select [(ngModel)]="client.title.id" (ionChange)="changeValue($event,'title')" interface="popover">
+          <ion-option *ngFor="let p of titres" [value]="p.me.id.me">
+            {{p.me.name.me}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item id="other2" transparent>
+        <ion-label stacked>{{'form.lang' | translate}}</ion-label>
+        <ion-select [(ngModel)]="client.lang">
+          <ion-option value="fr_BE" checked="true">{{'form.tab_lang.be' | translate}}</ion-option>
+          <ion-option value="en_US">{{'form.tab_lang.us' | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <div bloc-btn>
+    <button ion-button full clear *ngIf="modif && !copy" (click)="saveItem()" icon-right>
+      <ion-icon name="checkmark"></ion-icon> {{'btns.update' | translate}}
+    </button>
+    <button ion-button full clear *ngIf="!modif" (click)="saveItem()" icon-right>
+      <ion-icon name="checkmark"></ion-icon> {{'btns.save' | translate}}
+    </button>
+    <button ion-button full clear *ngIf="copy" (click)="saveItem()" icon-right>
+      <ion-icon name="ios-copy-outline"></ion-icon> {{'btns.copy' | translate}}
+    </button>
+  </div>
+</ion-footer>

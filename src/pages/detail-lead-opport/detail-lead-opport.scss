@@ -1,0 +1,110 @@
+page-detail-lead-opport {
+	.bloc-header {
+		background-color: color($colors, light);
+		// text-align: center;
+		ul {
+			padding: 0px !important;
+			&.rating li {
+				padding: 5px 10px !important;
+				padding-right: 2px !important;
+				padding-left: 2px !important;
+				background: none;
+				color: color($colors, lightest);
+				ion-icon {
+					font-size: 13px !important;
+					padding: 1px 3px !important;
+					padding-bottom: 3px !important;
+					border-radius: 4px !important;
+				}
+				.ion-md-star {
+					background: linear-gradient(to bottom right, rgba(252, 163, 128, 0.8), color($colors, rateColor)) !important;
+				}
+				.ion-md-star-outline {
+					background-color: color($colors, grislight) !important;
+				}
+			}
+		}
+		
+		ul.rating {
+			margin: 0 !important;
+		}
+
+		[col-9]{
+			h2, h3{
+				margin-bottom:0;
+				font-size: 1.3em;
+			}
+
+			h3{
+				color: color($colors, gris);
+				font-size: 1.2em;
+				margin-bottom: 5px;
+			}
+
+			p{
+				color: color($colors, plants);
+				font-size: 1.1em;
+				margin-bottom: 5px;
+			}
+
+			.bloc-lead{
+				span:first-child{
+					color: color($colors, orange);
+					font-family: "Roboto-Bold";
+				}
+
+				span:last-child{
+					color: color($colors, orange);
+				}
+			}
+		
+		}
+	}
+
+
+	.bloc-date {
+		padding: 10px;
+		background-color: color($colors, grislight);
+		p{
+			color: color($colors, gris);
+		}
+
+		span{
+			font-size: 1.2em;
+			font-family: "Roboto-Regular";
+		}
+	}
+
+	.bloc-user{
+		padding: 10px;
+		
+		p{
+			font-size: 1.1em;
+			font-style: italic;
+			// color: color($colors, light);
+		}
+	}
+
+	ion-item-divider{
+		background-color: color($colors, primary) !important;
+		color: color($colors, light) !important;
+	}
+
+	.bloc-contact{
+		h3{
+			padding: 5px;
+			font-size: 1.05em;
+			color: color($colors, gris);
+		}
+
+		ion-item ion-icon{
+			color: color($colors, secondary);
+		}
+	}
+
+	h6{
+		padding: 10px;
+		font-family: "Roboto-Regular";
+		color: color($colors, gris);
+	}
+}

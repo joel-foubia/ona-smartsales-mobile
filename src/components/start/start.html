@@ -1,0 +1,99 @@
+
+<ion-slides #wizardSlider *ngIf="data.items!==undefined && data.items.length" (ionSlideWillChange)="slideWillChange()" (ionSlideDidChange)="slideHasChanged()" pager="false">
+  <ion-slide background-size *ngFor="let item of data.items; let i = index" [ngStyle]="{'background-image': 'url(' + item.backgroundImage + ')'}">
+    <!-- <div *ngIf="i==0" wizard-description text-left>
+	  <div wizard-logo><img src="{{item.logo}}" ></div>
+      <h1 wizard-title>{{item.title}}</h1>
+      <h3 wizard-body-text *ngIf="data===undefined">{{item.description}}</h3>
+      <h3 wizard-body-text *ngIf="data!==undefined">{{item.description}}</h3>
+	  
+    </div> -->
+	<div *ngIf="i==0 && !lock" wizard-description text-left class="bloc-sub">
+	  <h3 wizard-body-text>{{item.description}}</h3>
+      <div wizard-form-1>
+      	<button ion-button color="secondary" medium icon-left (click)="openScan()">
+      		<ion-icon name="ios-qr-scanner-outline"></ion-icon> {{item.scan}}
+		</button>
+      	<p color="light">{{item.ou}}</p>
+		<ion-list no-lines>
+		  <ion-item text-center>
+			<ion-label floating>{{item.clientNumber}}</ion-label>
+			<ion-input text-center type="text" [(ngModel)]="clientNumber"></ion-input>
+		  </ion-item>
+		  <ion-item text-center>
+			<ion-label floating>{{item.abonneNumber}}</ion-label>
+			<ion-input text-center type="text" [(ngModel)]="abonneNumber"></ion-input>
+		  </ion-item>
+		</ion-list>
+		<p class="request">
+				<button text-center clear ion-button (click)="onEvent('onRequestSub')" >
+						{{data?.btnRequest}}
+				</button>
+		</p>
+		<p text-center *ngIf="!objSetting">
+				<button color="secondary" ion-button (click)="onEvent('onRequestDemo')" >
+						{{data?.btnDemo}}
+				</button>
+		</p>
+		<!-- spinner -->
+			<div custom-spinner *ngIf="objSpinner"><ion-spinner> </ion-spinner></div>
+		<!-- end spinner -->
+		<!--<button ion-button right default-button (click)="onEvent('onLogin')">{{item.btnLogin}}</button>-->
+		
+	  </div>
+    </div>
+	<div *ngIf="i==1" text-left>
+	  <div *ngIf="objSetting" bloc-resume> 
+		 <!-- <div wizard-logo><img [lazyLoad]="logo_client" ></div>
+			<h3 wizard-body-text>{{objSetting.customer}}</h3>-->
+			  <ion-list>
+				<ion-item>
+				    <ion-thumbnail item-start>
+				      <!-- <img [lazyLoad]="logo_client"> -->
+				      <img [src]="logo_client">
+				    </ion-thumbnail>
+				    <h2 text-wrap>{{objSetting.customer}}</h2>
+				    <p text-wrap>{{objSetting.email}}</p>
+				</ion-item>
+				<ion-item>
+					<p>{{item.label_numero}}</p>
+					<h4>{{clientNumber}}</h4>
+				</ion-item>
+				<ion-item>
+					<p>{{item.note}}</p>
+					<h4>{{objSetting.subNumber}}</h4>
+				</ion-item>
+				<ion-item>
+					<p>{{item.pack}}</p>
+					<h4>{{objSetting.type}}</h4>
+				</ion-item>
+				<ion-item>
+					<p>{{item.sd}} </p>
+					<h4>{{objSetting.startDate}}</h4>
+				</ion-item>
+				<ion-item>	
+					<p>{{item.db}}</p>
+					<h4>{{objSetting.endDate}}</h4>
+				</ion-item>
+				<ion-item>	
+					<p>{{item.url}}</p>
+					<h4>{{objSetting.url}}</h4>
+				</ion-item>
+			  </ion-list>  
+					  
+		  
+	   </div>
+    </div>
+  </ion-slide>
+</ion-slides>
+<!--Button section-->
+<button navigation text-center button-clear clear ion-button (click)="onEvent('onLogin')" *ngIf="show('valid')">
+    {{data?.btnValid}}
+</button>
+
+<!-- <button navigation text-center button-clear clear ion-button (click)="changeSlide(1)" *ngIf="show('next')">
+    {{data?.btnNext}}
+</button> -->
+<button class="btn-finish" navigation text-center button-clear clear ion-button (click)="onEvent('onFinish')" *ngIf="show('finish')">
+    {{data?.btnFinish}}
+</button> 

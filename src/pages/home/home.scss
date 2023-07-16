@@ -1,0 +1,38 @@
+page-home {
+	
+	.bg-home{
+		height: 100%;
+	}
+
+	[wizard-title]{
+		font-size: 1.5em !important;
+		text-align: center;
+	}
+
+	[wizard-logo]{
+		text-align: center;
+		margin-bottom: 10%;
+		img{
+			width: 190px;
+		}
+	}
+
+	[wizard-body-text]{
+		margin-top:6%;
+		font-size: 0.9em !important;
+		text-align: center;
+		color: color($colors, light);
+		line-height: 1.3em !important;
+	}
+
+	[wizard-emoji]{
+		width: 25px;
+	}
+
+	ion-toast .toastErr .toast-wrapper {
+		color: #a71916;
+      	background-color:#ffffff !important;
+	}
+
+	
+}

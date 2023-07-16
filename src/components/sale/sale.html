@@ -1,0 +1,12 @@
+<ion-row>
+  <ion-col col-7>
+      <h5>{{sale.name}}</h5>
+      <h4 text-wrap text-uppercase>{{sale.partner_id.name}}</h4>
+      <h4 class="opport" text-wrap *ngIf="sale.opportunity_id.id!=0">{{sale.opportunity_id.name}}</h4>
+  </ion-col>
+  <ion-col col-5 class="{{sale.state}}">
+      <h4 class="amount" text-right>{{sale.amount_total | currency:sale.currency_id.name:'symbol':'':current_lang}}</h4>
+      <p class="image"><img src="assets/images/icon-small/rich.png"> </p>
+      <p date text-right>{{sale.date_order | date:'longDate':'':current_lang}}</p>
+  </ion-col>
+</ion-row>

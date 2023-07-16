@@ -1,0 +1,52 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{team.name}}</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="openLeftMenu()"><ion-icon name="more"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <p text-center *ngIf="markers.length==0">
+      <ion-spinner name="dots"></ion-spinner>
+    </p>
+
+    <div class="bloc-map" *ngIf="markers.length>0 && currentPosition === undefined && markers[0]!==undefined">
+
+        <agm-map [styles]="mapStyles" [zoom]="12" [latitude]="markers[0]?.lat" [longitude]="markers[0]?.lng">
+            <agm-marker *ngFor="let data of markers" [iconUrl]="data?.icon" [latitude]="data?.lat" [longitude]="data?.lng">
+                <agm-info-window [disableAutoPan]="true">
+                    <ion-item (click)="openUser(data.infos)">
+                      <ion-avatar item-start>
+                          <op-lazy-img [source]="data?.infos.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+                      </ion-avatar>
+                      <h4>{{data?.infos.display_name}}</h4>
+                      <p>{{data?.infos.email}}</p>
+                    </ion-item>
+                </agm-info-window>
+            </agm-marker>
+        </agm-map>
+        
+    </div>
+
+    <div class="bloc-map" *ngIf="markers.length>0 && currentPosition !== undefined">
+
+        <agm-map [styles]="mapStyles" [zoom]="txtZoom" [latitude]="currentPosition.latitude" [longitude]="currentPosition.longitude">
+            <agm-marker *ngFor="let data of markers" [iconUrl]="data.icon" [latitude]="data.lat" [longitude]="data.lng">
+                <agm-info-window [disableAutoPan]="true">
+                    <ion-item (click)="openUser(data.infos)">
+                        <ion-avatar item-start>
+                            <op-lazy-img [source]="data.infos.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+                        </ion-avatar>
+                        <h4>{{data?.infos.display_name}}</h4>
+                        <p>{{data?.infos.email}}</p>
+                      </ion-item>
+                </agm-info-window>
+            </agm-marker>
+        </agm-map>
+    </div>
+</ion-content>

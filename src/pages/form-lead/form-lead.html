@@ -1,0 +1,201 @@
+<ion-header>
+
+    <ion-toolbar>
+        <ion-title *ngIf="is_modif"> {{lead.name}} </ion-title>
+        <ion-title *ngIf="!is_modif">{{'module.form_lead.new' | translate}} </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content formAffaire>
+    <p obj-loader>
+        <ion-spinner *ngIf="objSpinner" name="dots"></ion-spinner>
+    </p>
+    <div *ngIf="!is_modif" padding form-section>
+        <h6 text-center>{{'module.form_lead.new_opport' | translate}}</h6>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.form_lead.lead_name' | translate}}</ion-label>
+            <ion-input [(ngModel)]="lead.name" type="text"></ion-input>
+        </ion-item>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.form_lead.contact_canme' | translate}}</ion-label>
+            <ion-input [(ngModel)]="lead.contact_name" type="text"></ion-input>
+        </ion-item>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.form_lead.street' | translate}}</ion-label>
+            <ion-input [(ngModel)]="lead.street" type="text"></ion-input>
+        </ion-item>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.form_lead.email' | translate}}</ion-label>
+            <ion-input [(ngModel)]="lead.email_from" placeholder="Ex. info@ona-itconsulting.com" type="email"></ion-input>
+        </ion-item>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.form_lead.phone' | translate}}</ion-label>
+            <ion-input [(ngModel)]="lead.phone" placeholder="Ex. +2376900000" type="tel"></ion-input>
+        </ion-item>
+        <ion-item transparent *ngIf="type && list_activities.length!=0">
+            <ion-label stacked>{{'module.form_lead.next_act' | translate}}</ion-label>
+            <ion-select [(ngModel)]="lead.next_activity_id.id" (ionChange)="changeValue($event,'activite')">
+                <ion-option *ngFor="let p of list_activities" value="{{p.me.id.me}}">
+                    {{p.me.name.me}}
+                </ion-option>
+            </ion-select>
+        </ion-item>
+    </div>
+    <ion-slides *ngIf="is_modif" #formSlide pager="true" ion-fixed padding>
+        <ion-slide>
+
+            <ion-item transparent>
+                <ion-label stacked>{{'module.form_lead.lead_name' | translate}}</ion-label>
+                <ion-input [(ngModel)]="lead.name" type="text"></ion-input>
+            </ion-item>
+            <ion-grid *ngIf="type" no-padding>
+                <ion-row>
+                    <ion-col col-8>
+                        <ion-item transparent>
+                            <ion-label stacked>{{'module.form_lead.planned_rev' | translate}}</ion-label>
+                            <ion-input [(ngModel)]="lead.planned_revenue" type="number"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col col-4>
+                        <ion-item transparent>
+                            <ion-label stacked>{{'module.form_lead.proba' | translate}} (%)</ion-label>
+                            <ion-input [(ngModel)]="lead.probability" type="number"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-item class="country" (click)="selectPartner('client','partner')">
+                <p>{{'module.form_lead.cust' | translate}}</p>
+                <h3>{{lead.partner_id.name}}</h3>
+                <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+            </ion-item>
+
+            <div *ngIf="!type">
+                <ion-item transparent>
+                    <ion-label stacked>{{'module.form_lead.street' | translate}}</ion-label>
+                    <ion-input [(ngModel)]="lead.street" type="text"></ion-input>
+                </ion-item>
+                <ion-item transparent>
+                    <ion-label stacked></ion-label>
+                    <ion-input [(ngModel)]="lead.street2" type="text"></ion-input>
+                </ion-item>
+            </div>
+            <div *ngIf="type">
+
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <ion-item transparent>
+                <ion-label stacked>{{'module.form_lead.comp_name' | translate}}</ion-label>
+                <ion-input [(ngModel)]="lead.partner_name" type="text"></ion-input>
+            </ion-item>
+            <div *ngIf="!type">
+                <ion-item transparent>
+                    <ion-label stacked>{{'module.form_lead.city' | translate}}</ion-label>
+                    <ion-input [(ngModel)]="lead.city" type="text"></ion-input>
+                </ion-item>
+                <ion-item transparent>
+                    <ion-label stacked>{{'module.form_lead.zip_code' | translate}}</ion-label>
+                    <ion-input [(ngModel)]="lead.zip" type="text"></ion-input>
+                </ion-item>
+                <ion-item class="country" (click)="selectPartner('country','partner')">
+                    <p>{{'module.form_lead.country' | translate}} </p>
+                    <h3>{{lead.country_id.name}}</h3>
+                    <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+                </ion-item>
+                <ion-item class="country" (click)="selectPartner('state','partner')">
+                    <p>{{'module.form_lead.state' | translate}} </p>
+                    <h3>{{lead.state_id.name}}</h3>
+                    <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+                </ion-item>
+
+            </div>
+            <div *ngIf="type">
+                <ion-item transparent>
+                    <ion-label stacked>{{'module.form_lead.email' | translate}}</ion-label>
+                    <ion-input [(ngModel)]="lead.email_from" type="email"></ion-input>
+                </ion-item>
+                <ion-item transparent>
+                    <ion-label stacked>{{'module.form_lead.phone' | translate}}</ion-label>
+                    <ion-input [(ngModel)]="lead.phone" type="tel"></ion-input>
+                </ion-item>
+                <ion-item transparent *ngIf="list_activities.length!=0">
+                    <ion-label stacked>{{'module.form_lead.next_act' | translate}}</ion-label>
+                    <ion-select [(ngModel)]="lead.next_activity_id.id" (ionChange)="changeValue($event,'activite')">
+                        <ion-option *ngFor="let p of list_activities" value="{{p.me.id.me}}">
+                            {{p.me.name.me}}
+                        </ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item transparent>
+                    <ion-label stacked>{{'module.form_lead.exp_closing' | translate}}</ion-label>
+                    <ion-input [(ngModel)]="lead.date_deadline" type="date"></ion-input>
+                </ion-item>
+            </div>
+        </ion-slide>
+
+        <ion-slide>
+
+            <ion-item transparent>
+                <ion-label stacked>{{'module.form_lead.contact_canme' | translate}}</ion-label>
+                <ion-input [(ngModel)]="lead.contact_name" type="text"></ion-input>
+            </ion-item>
+            <ion-item transparent>
+                <ion-label stacked>{{'module.form_lead.title' | translate}}</ion-label>
+                <ion-select [(ngModel)]="lead.title.id" (ionChange)="changeValue($event,'title')">
+                    <ion-option *ngFor="let p of listTitles" value="{{p.me.id.me}}">
+                        {{p.me.name.me}}
+                    </ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-slide>
+        <ion-slide>
+            <div *ngIf="!type">
+                <ion-item transparent>
+                    <ion-label stacked>{{'module.form_lead.email' | translate}}</ion-label>
+                    <ion-input [(ngModel)]="lead.email_from" type="email"></ion-input>
+                </ion-item>
+                <ion-item transparent>
+                    <ion-label stacked>{{'module.form_lead.phone' | translate}}</ion-label>
+                    <ion-input [(ngModel)]="lead.phone" type="tel"></ion-input>
+                </ion-item>
+            </div>
+            <ion-item transparent>
+                <ion-label stacked>{{'module.form_lead.mobile' | translate}}</ion-label>
+                <ion-input [(ngModel)]="lead.mobile" type="tel"></ion-input>
+            </ion-item>
+            <ion-item transparent>
+                <ion-label stacked>{{'module.form_lead.fax' | translate}}</ion-label>
+                <ion-input [(ngModel)]="lead.fax" type="tel"></ion-input>
+            </ion-item>
+        </ion-slide>
+        <ion-slide>
+            <h4>{{'module.form_lead.tags' | translate}}</h4>
+            <div class="tag">
+                <div *ngFor="let tag of tags; let i = index">
+                    <span (press)="changeObj(tag, 'tag')">{{tag?.me.name.me}}</span>
+                    <ion-icon name="close" (click)="removeObj(tag, i, 'category')"></ion-icon>
+                </div>
+                <div class="add-tag" (click)="addObjetFromPop($event, 'category')">{{'module.form_lead.add_tag' | translate}}
+                    <ion-icon name="add"></ion-icon>
+                </div>
+            </div>
+            <h3> {{'module.form_lead.priority' | translate}}</h3>
+            <rating [(ngModel)]="lead.priority" max="3" (ngModelChange)="onModelChange($event)" class="custom-rating"> </rating>
+            <h3>{{'module.form_lead.notes' | translate}}</h3>
+            <ion-textarea class="signe" autosize [(ngModel)]="lead.description" placeholder="{{'module.form_lead.write_note' | translate}}"></ion-textarea>
+        </ion-slide>
+    </ion-slides>
+
+</ion-content>
+<ion-footer>
+    <div bloc-btn>
+        <button *ngIf="is_modif && action=='update'" ion-button full clear (click)="saveItem()">{{'module.form_lead.update' | translate}}</button>
+        <button *ngIf="is_modif && action=='copy'" ion-button full clear (click)="saveItem()">{{'module.form_lead.copy' | translate}}</button>
+        <button *ngIf="!is_modif" ion-button full clear (click)="saveItem()">{{'module.form_lead.save' | translate}}</button>
+    </div>
+</ion-footer>

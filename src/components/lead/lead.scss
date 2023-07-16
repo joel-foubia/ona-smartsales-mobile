@@ -1,0 +1,184 @@
+lead {
+
+    ul {
+        padding: 0px !important;
+        &.rating li {
+            padding: 5px 10px !important;
+            padding-right: 2px !important;
+            padding-left: 2px !important;
+            background: none;
+            color: color($colors, lightest);
+            ion-icon {
+                font-size: 13px !important;
+                padding: 1px 3px !important;
+                padding-bottom: 3px !important;
+                border-radius: 4px !important;
+            }
+            .ion-md-star {
+                background: linear-gradient(to bottom right, rgba(252, 163, 128, 0.8), color($colors, rateColor)) !important;
+            }
+            .ion-md-star-outline {
+                background-color: color($colors, grislight) !important;
+            }
+        }
+    }
+    
+    ul.rating {
+        margin: 0 !important;
+    }
+
+    #off {
+        width: 13px !important;
+        position: absolute;
+        top: 15px;
+        right: 5px;
+    }
+
+    .btn-options, .btn-quotation{
+        position: absolute;
+        z-index: 3;
+        top: 30px;
+        right: 5px;
+        ion-icon{
+            font-size: 1.8em;
+            color: color($colors, primary)
+        }
+    }
+
+    .btn-quotation{
+        top: 60px;
+    }
+    
+    .custom-case {
+        margin-bottom: 3px !important;
+        border-radius: 0.40em;
+    }
+    
+    .addtop {
+        margin-top: 70px !important;
+    }
+    .activity {
+        font-weight: bold;
+        font-size: 1.0em;
+    }
+    ion-item {
+        background-color: transparent !important;
+        [item-title] {
+            // font-family: 'PT-Sans-bold', serif !important;
+            color: color($colors, dark) !important;
+            font-size: 1.2em !important;
+            width: 93%;
+        }
+        
+        .bloc-contenu{
+            margin-top: 5px;
+            ion-col{
+                color: color($colors, gris);
+            }
+
+            [col-3]{
+                color: color($colors, primary);
+            }
+
+            .activity{
+                [col-10]{
+                    color: color($colors, rouge);
+                }
+            }
+
+            .revenue{
+                [col-7] span{
+                    background-color: color($colors, gris);
+                    color: color($colors, light);
+                    padding: 3px;
+                    border-bottom-right-radius: 5px;
+                    border-top-left-radius: 5px;
+
+                }
+            }
+
+            .team{
+                [col-9]{
+                    // display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .no_team{
+                    color: color($colors, rouge);
+                }
+
+                .bloc-lead{
+                    span:first-child{
+                        color: color($colors, orange);
+                        font-family: "Roboto-Bold";
+                    }
+
+                    span:last-child{
+                        color: color($colors, orange);
+                    }
+                }
+            }
+        }
+
+        [note] {
+            text-align: right;
+            color: color($colors, secondary) !important;
+        }
+
+        [client] {
+            // font-family: 'PT-Sans-bold', serif !important;
+            font-size: 1.1em;
+            color: color($colors, secondary);
+        }
+    }
+
+    .priority ion-icon {
+        color: color($colors, jaune);
+    }
+   
+    #won_div {
+        height: 200px !important;
+        h2 {
+            color: black !important;
+            font-style: italic;
+            margin-bottom: 10px !important
+        }
+        button {
+            margin-top: 20px;
+        }
+        #won_img {
+            margin-left: 43%;
+            width: 50px !important;
+            display: block !important
+        }
+        #won_span {
+            display: block !important;
+            text-align: center !important;
+        }
+    }
+    #lost_div {
+        margin-top: -5px;
+        background-color: color($colors, danger);
+        height: 200px !important;
+        h2 {
+            color: black !important;
+            font-style: italic;
+            margin-bottom: 40px !important;
+            // margin-top: 30px !important;
+            padding-top: 20px !important
+        }
+        button {
+            margin-top: 20px;
+        }
+        #lost_img {
+            margin-left: 40%;
+            width: 70px !important;
+            display: block !important
+        }
+        #lost_span {
+            display: block !important;
+            text-align: center !important;
+        }
+    }
+}

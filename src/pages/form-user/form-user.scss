@@ -1,0 +1,45 @@
+page-form-user {
+	.scroll-content{
+		background-color: color($colors, primary);
+	}
+
+	[image]{
+		text-align: center;
+		img{
+			width: 90px;
+			height: 90px;
+			border-radius: 50%;
+		}
+	}
+
+	ion-item, h4{
+		color:color($colors, light) !important;
+	}
+
+	.signe{
+		margin:10px;
+		border-radius: 0.45em;
+		min-height: 100px;
+		width: 95%;
+		border:1px solid rgba(255, 255, 255, 0.5);
+	}
+
+
+	.btn-send{
+		text-align: center;
+		button{
+			border:1px solid color($colors, light);
+		}
+		
+	}
+
+	ion-list{
+		ion-radio .radio-checked{
+			border-color:color($colors, secondary) !important;
+		}
+
+		.item-radio-checked ion-label{
+			color: rgba(255, 255, 255, 0.5) !important;
+		}
+	}
+}

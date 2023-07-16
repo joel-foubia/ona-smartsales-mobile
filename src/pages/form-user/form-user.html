@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{user.display_name}}</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content formAffaire>
+	<div image>
+		<img src="{{user.image_url}}" (click)="changeImage" />
+	</div>
+	<ion-item transparent>
+	    <ion-label floating>{{'form.nom' | translate}}</ion-label>
+	    <ion-input [(ngModel)]="user.name" type="text"></ion-input>
+	</ion-item>
+	<ion-item transparent>
+	    <ion-label floating>{{'form.lang' | translate}}</ion-label>
+	    <ion-select [(ngModel)]="user.lang.id" (ionChange)="changeValue($event,'lang')">
+	        <ion-option *ngFor="let obj of langues" value="{{obj.id}}">{{obj.text}}</ion-option>
+	    </ion-select>
+	</ion-item>
+	<ion-item transparent>
+	    <ion-label floating>{{'form.timezone' | translate}}</ion-label>
+	    {{user.tz.titre}}
+	    <!-- <ion-select [(ngModel)]="user.tz.id" (ionChange)="changeValue($event,'tz')">
+	       <ion-option *ngFor="let obj of timezones" value="{{obj.id}}">{{obj.text}}</ion-option>
+	    </ion-select> -->
+	</ion-item>
+	<ion-item-divider>{{'form.email_notif' | translate}}</ion-item-divider>
+	<ion-list radio-group [(ngModel)]="user.notify_email.id" name="notif" (ionChange)="changeValue($event,'notif')">
+		<ion-item *ngFor="let obj of notifs" transparent>
+		    <ion-label>{{obj.text}}</ion-label>
+		    <ion-radio value="{{obj.id}}"></ion-radio>
+		</ion-item>
+	</ion-list>
+	<h4>
+      	<ion-icon padding-left><i class="icon icon-pencil-box-outline"></i></ion-icon>
+      	{{'form.sign' | translate}}
+    </h4>
+    <ion-textarea class="signe" autosize [(ngModel)]="user.signature" placeholder="{{'form.txt_sign' | translate}}"></ion-textarea>
+    <div class="btn-send">
+		<button ion-button outline clear (click)="saveItem()">{{'form.update_user' | translate}}</button> 
+	</div>
+</ion-content>

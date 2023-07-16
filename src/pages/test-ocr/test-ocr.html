@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar text-center color="dark">
+    <ion-title>
+      OCR Engine
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeRecharge()"> <ion-icon name="close"></ion-icon> </button>
+  </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <!-- <ng-progress></ng-progress>  -->
+    <progress-bar [progress]="rec_progress" [color-degraded]="{'0': '#00cbcb',  '15': '#f9c3d3', '25': '#fd8c8e'}">
+    </progress-bar>
+  <button ion-button full (click)="ocrGenerate()">Capturer l'image</button>
+  <button ion-button full (click)="recognizeImage()" [disabled]="!selectedImage">Identifier Image</button>
+  <img [src]="selectedImage" alt="selectedImage" *ngIf="selectedImage">
+  <div>
+    <ion-card *ngIf="imageText">
+      <ion-card-header>
+        Text Image 
+      </ion-card-header>
+      <ion-card-content>
+        {{imageText}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <!-- <p color="secondary" (click)="next()">click here</p> -->
+  </ion-content>

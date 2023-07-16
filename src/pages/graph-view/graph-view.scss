@@ -1,0 +1,113 @@
+page-graph-view {
+   
+
+    .info-bloc{
+        h3{
+            font-size: 2.8rem !important;
+            color: color($colors, primary) !important;
+            text-transform: uppercase
+        }
+        #total{
+            color: color($colors, secondary) !important;
+            font-style: italic !important
+        }
+        .horizontal-scroll {
+            white-space: nowrap;
+            height: 300px;
+            background-color: transparent !important;
+            margin-top: 15px !important;
+            .scroll-content {
+                padding: 0px !important;
+                background-color: transparent !important;
+            }
+        }
+        .scroll-bloc{
+            margin-top: 15px;
+            margin-bottom: 15px;
+        
+            border: 1px solid color($colors, grislight);
+            padding: 10px !important;
+            border-radius: 10px !important;
+            div{
+                margin-top: 5px !important
+            }
+        }
+    }
+    .scoll-content{
+        background-color: color($colors, lightest) !important;
+    }
+    #ca_bloc{
+		display: block !important
+    }
+    #barchart-canvas-large {
+		display: inline-block !important;
+		width: 100% !important;
+		height: 35% !important;
+		margin-bottom: 8px !important;
+  }
+  .bloc-team{
+      margin-top: 10px !important;
+    ion-slides{
+        // height: 180px;
+        .slide-zoom{
+            margin-bottom: 30px !important;
+        }
+    }
+    .bloc-btn{
+        text-align: center !important;
+        display: block !important;
+        // position: absolute !important;
+        top:1%;
+        p{
+            font-size: 1.9rem !important
+        }
+    }
+
+    color:color($colors, dark);
+    .btn-left, .btn-right{
+        background-color: transparent;
+        box-shadow: none;
+        z-index: 1000;
+        
+        ion-icon{
+            color: color($colors, gris);
+        }
+    }
+    
+  .btn-left{
+    // left: 5px;
+    float: left !important;
+  }
+
+  .btn-right{
+    // right: 5px;
+    float: right !important;
+  }
+}
+ion-item-divider{
+    background-color: color($colors, primary) !important;
+    color: color($colors, light) !important;
+}
+
+#user_tot{
+    color: color($colors, secondary) !important;
+    font-style: italic !important   
+}
+
+op-lazy-img{
+
+    img.loaded {
+        margin-left: 18px !important;
+        margin-right: 18px !important;
+        width: 70px;
+        height: 70px;
+        border-radius: 50% !important;
+        object-fit: cover;
+    }
+}
+.commercial-bloc{
+    // width: 250px !important;
+    margin: 10px !important;
+    text-align: center !important
+}
+}

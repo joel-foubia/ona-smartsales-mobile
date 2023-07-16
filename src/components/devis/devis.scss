@@ -1,0 +1,70 @@
+devis {
+
+    #off{
+        position: absolute;
+        left: 19px;
+        top: 18px;
+        width: 12px;
+	}
+    
+	ion-item{
+		background-color: color($colors, lightest) !important;
+	}
+
+	.to_invoice{
+		border-left: 3px solid color($colors, orange) !important;	
+	}
+	
+	.invoiced{
+		border-left: 3px solid color($colors, plants) !important;	
+	}
+
+	.no_lead{
+		color: color($colors, rouge);
+		font-size: 0.75em !important;
+	}
+
+	.opport{
+		color: color($colors, secondary) !important;
+	}
+
+	ion-grid{
+
+		.no, .invoiced, .invoice{
+			color: color($colors, light);
+			padding: 3px;
+			margin-right: 3px;
+			font-size: 0.7em;
+			border-radius: 2px;
+		}
+
+		.invoice {
+			background-color: color($colors, orange);
+			// font-size: 0.7em;
+		}
+	
+		.no {
+			background-color: color($colors, rouge);
+		}
+	
+		.invoiced {
+			background-color: color($colors, plants);
+			// font-size: 0.7em;
+		}
+	
+		.amount{
+			font-size: 1.1em !important;
+			color: color($colors, gris) !important;
+		}
+
+	}
+
+	#date{
+		// margin-left: 10px !important
+		font-size: 0.9em;
+	}
+
+	h5{
+		color: color($colors, primary) !important
+	}
+}

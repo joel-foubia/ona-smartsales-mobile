@@ -1,0 +1,55 @@
+
+<ion-split-pane when="md">
+<ion-menu [content]="content" id="objMenu">
+    <ion-header no-border>
+        <ion-item  transparent no-lines class="synchronize">
+          <h5 *ngIf="!isSync" text-wrap>{{'last_sync' | translate}} {{last_update | date:'short'}}</h5>
+          <h5 *ngIf="isSync" text-uppercase> {{'sync_pending' | translate}}</h5>
+          <button *ngIf="!isSync" ion-button icon-only clear color="light" (click)="refreshData()" item-end>
+              <ion-icon name="ios-refresh"></ion-icon>
+          </button>
+        </ion-item>
+    </ion-header>
+  <!-- Menu Main List -->
+  <ion-content item-left-bcg>
+    <div class="header-background-image" *ngIf="avocat">
+      <ion-thumbnail >
+        <img [src]="mon_logo" />
+        <!-- <img cache="{{mon_logo}}" imageCache> -->
+      </ion-thumbnail>
+    <h3 item-title text-center>{{avocat.nom}}</h3>
+    <ion-item user no-lines>
+        <ion-avatar menuClose item-start (click)="showProfile(avocat.user)">
+          <!-- <img [src]="avocat.user.image_url" /> -->
+          <op-lazy-img [source]="avocat.user.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+        </ion-avatar>
+        <h2 menuClose (click)="showProfile(avocat.user)">{{avocat.user.name}}</h2>
+        <h3>{{avocat.user.sale_team_id.name}}</h3>  
+        <p>{{avocat.user.email}}</p>
+      
+      <button ion-button icon-only clear (click)="logOff()" item-end>
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-item>
+    </div>
+    <ion-list no-margin no-padding>
+      <button menuClose ion-item item-title no-padding item-bcg main-menu *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-avatar item-start padding-left>
+          <img src="{{p.icon}}" />
+        </ion-avatar>
+        {{p.title}}
+      </button>
+    </ion-list>
+    <ion-list no-margin>
+        <button menuClose ion-item item-title no-padding main-menu *ngFor="let p of sections" (click)="openPage(p)">
+          <ion-icon *ngIf="p.icon!=''" padding-left name="{{p.icon}}"></ion-icon>
+          <span [class]="p.slug==='divider' ? 'divider':'aucun'">{{p.title}}</span>
+        </button>
+      </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content main swipeBackEnabled="false"></ion-nav>
+</ion-split-pane>
+ 

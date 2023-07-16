@@ -1,0 +1,75 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{titre}}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="onFilter($event)"><ion-icon name="md-funnel"></ion-icon></button>
+            <!-- <button ion-button icon-only (click)="onGroup($event)"><ion-icon name="ios-crop"></ion-icon></button>  -->
+            <button ion-button>{{leads.length}}</button>
+            <button ion-button icon-only (click)="openLeftMenu()"><ion-icon name="md-more"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+    <ion-navbar *ngIf="!objLoader" class="filter">
+        <ion-title *ngIf="txtFiltre.length!=0">
+            <span *ngFor="let obj of txtFiltre">{{obj.nom}} - </span>
+        </ion-title>
+        <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}" animated="true"></ion-searchbar>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <p *ngIf="objLoader" obj-loader>
+        <ion-spinner name="dots"></ion-spinner>
+    </p>
+
+    <ion-grid *ngIf="!objLoader">
+        <ion-row *ngIf="leads.length!=0">
+            <ion-col *ngFor="let item of leads | slice:0:max" col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4 no-padding>
+                <ion-card class="custom-case">
+                    <div>
+                        <img *ngIf="item.id == 0" src="assets/svg/refreshing.svg" id="off" alt="">
+                        <ion-item (click)="onTapItem( item, $event)">
+                            <ion-icon name="ios-bookmark" item-start></ion-icon>
+                            <h2 item-title text-wrap>{{item.name}} </h2>
+                            <h3 text-wrap>{{item.partner_name}}</h3>
+                            <!-- <p class="priority"><ion-icon name="ios-star"></ion-icon></p> -->
+                            <p text-right class="team">{{item.team_id.name}}</p>
+                            <p text-right class="date">{{item.date_open | date:'':'':current_lang}}</p>
+                        </ion-item>
+                    </div>
+                </ion-card>
+            </ion-col>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{'module.leads.load_more_data' | translate}}"></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </ion-row>
+        <!-- Aucun client enregistré -->
+        <ion-row *ngIf="leads.length==0">
+            <ion-col col-12>
+                <div bloc-empty>
+                    <img src="assets/images/lawyer.png">
+                    <h4 *ngIf="txtFiltre.length==0">{{'module.leads.no_leads' | translate}}</h4>
+                    <h4 *ngIf="txtFiltre.length!=0">{{'module.leads.filter' | translate}}</h4>
+                    <button ion-button outline (click)="synchronizing()">
+                    {{'module.leads.sync' | translate}} <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+                    </button>
+                    <p *ngIf="display" text-center>{{'module.leads.sync_process' | translate}}</p>
+                </div>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+    <!-- </ul> -->
+
+    <!-- fin vide -->
+    <!-- </ion-grid> -->
+</ion-content>
+
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="onAdd($event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

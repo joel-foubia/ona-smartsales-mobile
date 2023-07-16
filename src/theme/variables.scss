@@ -1,0 +1,172 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+
+
+$font-path: "../assets/fonts";
+
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+%box-shadow{
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.3) !important;
+}
+
+$white: #FFFFFF;
+$white-a: darken($white, 3%);
+$white-b: darken($white, 6%);
+$white-c: darken($white, 12%);
+$white-d: darken($white, 24%);
+$black: rgba(#000000, .8);
+$black-a: lighten($black, 10%);
+$black-b: lighten($black, 20%);
+$black-c: lighten($black, 40%);
+$black-d: lighten($black, 60%);
+$theme-color-1: #00e9d5;
+$theme-color-2: #ae75e7;
+$theme-color-3: #5e5874;
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #154360,
+  secondary:  #82B14A,
+  danger:     #f53d3d,
+  light:      #ffffff,
+  accent:     #202020,
+  dark:       #222222,
+  gris:       #666666,
+  grislight:  #f3f3f3,
+  lightest:   #faf8f8, 
+  favorite:   #69BB7B,
+  jaune:      #ffc20f,
+  marron:     #b07912,
+  orange:	  #e55f16, // orange text colors
+  vert: 	    #145724,
+  rouge:      #cd1c0e,
+  rateColor:  #f1520e,
+  bleu:       #1195d1,
+  bleulight:  #b6e4f0,
+  jaunelight: #f5f5a4,
+  rougelight: #fadfd2,
+  vertlight:  #befab8,
+  orangelight: #fadeb2,
+  noir:       #292929,
+  plants:     #09b21b,
+  primaryDark:#0a2a39,
+  // Button Twitter
+  twitter:(
+    base: #64B5F6,
+    contrast: #fff
+  ),
+  // Button Facebook
+  facebook:(
+    base: #3949ab,
+    contrast: #fff
+  ),
+  // Button Google
+  google:(
+    base: #bf360c,
+    contrast: #fff
+  ),
+  // Button Pinterest
+  pinterest:(
+    base: #ff3d00,
+    contrast: #fff
+  ),
+  button:( base: $theme-color-1, contrast: $white), 
+  button-alt:( base: $theme-color-2, contrast: $white), 
+  background:( base: $white-a, contrast: $black-b), 
+  tabs-navigation:( base: $white, contrast: $white-d), 
+  walkthrough:( base: $theme-color-1, contrast: $white), 
+  walkthrough-alt:( base: $theme-color-2, contrast: $white), 
+  walkthrough-header:( base: transparent, contrast: $white), 
+  header:( base: $theme-color-1, contrast: $white), 
+  header-alt:( base: $theme-color-2, contrast: $white)
+);
+
+$red: #FF4136;
+$blue: lighten(mix(#39CCCC, #7FDBFF), 15%);
+$yellow: #ffba10;
+$green-1: darken(#99E15A, 5%);
+$green-2: mix(#3D9970, #2ECC40);
+$green: mix($green-1, $green-2);
+$orange: #ff4c00;
+$purple: #b6e4f0;
+$gray: color($colors, grislight);
+$slateblue: #70ACB5;
+$couleurs: $slateblue, rgb(241, 172, 172), $red, rgb(172, 219, 172), $green, rgb(101, 101, 238), $blue, rgb(248, 248, 95), $yellow, rgb(245, 200, 117), $orange, rgb(250, 189, 250), $purple;
+$couleurs_col: $slateblue, rgb(45, 114, 194), $red, rgb(11, 185, 11), $green, rgb(101, 101, 238), $blue, rgb(248, 248, 95), $yellow, rgb(245, 200, 117), $orange, rgb(163, 81, 163), $purple;
+
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+// App Animation
+// --------------------------------------------------
+@import "animate";
+
+// App Main Sass
+// --------------------------------------------------
+@import "main";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+// // App Fontelo Style
+//--------------------------------------------------
+@import "fontello";
+
+@import "ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+//@import "roboto";
+
+@import "noto-sans";

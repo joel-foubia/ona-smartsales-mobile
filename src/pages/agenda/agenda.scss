@@ -1,0 +1,189 @@
+page-agenda {
+
+	.scroll-content{
+		background-color: color($colors, primary);
+	}
+	
+	ion-content.has-refresher > .scroll-content{
+		background-color: color($colors, primary);
+    }
+		
+    ion-content.has-refresher > .scroll-content .content{
+			background-color: transparent !important;
+    }
+		
+		ion-spinner *{
+			fill: color($colors, light) !important;
+		}
+		
+		.header-calendar .toolbar-background{
+			background-color: color($colors, secondary) !important;
+		}
+		
+		.dayview-allday-label{
+			color: color($colors, light);
+			width: 50px;
+		}
+		
+		.weekview-allday-label{
+			color: color($colors, light);
+		}
+		
+		.calendar-event, .weekAllday, .jrAllday, .calendar-event-inner{
+		background-color: color($colors, light);
+	}
+	
+	.header-calendar .toolbar-title{
+		font-size: 1.0em;
+	}
+	
+	.calendar td{
+		padding:11px !important;
+		color:color($colors, light);
+		border:none !important;
+		// font-family: 'Ope-Sans' !important;
+		font-size: 0.95em;
+		height: 51px;
+		padding-top: 15px !important;
+		margin:2px;
+	}
+	
+	.calendar .monthview-current{
+		border-radius: 50%;
+		color:color($colors, primary);	
+	}
+	
+	.calendar .monthview-selected{
+		background-color: color($colors, secondary);
+		border-radius: 50%;
+	}
+	
+	.calendar .monthview-primary-with-event, .calendar .monthview-secondary-with-event{
+		border-radius: 50%;
+	}
+	
+	.calendar thead{
+		background-color: color($colors, secondary);
+		color:color($colors, light);
+		border:none;
+	}
+	
+	.calendar table, .calendar thead th{
+		border:none !important;
+	}
+	
+	.dayview-container{
+		margin-bottom: 80px;
+	}
+
+	.mois{
+		margin-bottom: 80px;
+		[ion-item]{
+			border-radius: 0.50em;
+			margin-bottom: 7px;
+			
+			.monthview-eventdetail{
+				font-size: 0.9em;
+				//font-family: 'PT-Sans';
+			}
+			
+			.person{
+				color:color($colors, secondary);
+			}
+			
+			ion-icon{
+				opacity: 0.5;
+			}
+		}
+		
+		h3{
+			font-size: 1.0em;
+			//font-family: 'Open-Sans-bold';
+		}
+
+	}
+
+	.jrAllday h4, .jrStandart h4, .jrStandart span, .jrAllday span, .weekAllday h4, .weekAllday span{
+		color: color($colors, noir);
+	}
+
+	.jrAllday h4, .jrStandart h4{
+		font-size: 1.1em;
+		font-family: 'Open-Sans-bold';
+	}
+	
+	.jrAllday h4, .weekAllday h4{
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.weekview-allday-content-table{
+		.calendar-cell{
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+		}
+	}
+
+	
+	.custom-footer{
+		background-color: color($colors, primary);
+		transition: opacity 1s;
+		
+		.collabos li{
+			list-style: none;
+			display: inline-block;
+			margin-right: 10px;
+		}
+		
+		.collabos li img{
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			transition: opacity 1s;
+			opacity: 0;
+		}
+		
+		.collabos li img.ng-lazyloaded {
+            opacity: 1;
+        }
+	}
+
+	/** SCSS LIST ATTENDEES **/
+	.gu-mirror {
+		position: fixed !important;
+	  margin: 0 !important;
+	  z-index: 9999 !important;
+	  opacity: 0.8;
+	  filter: alpha(opacity=80);
+	}
+	.gu-hide {
+	  display: none !important;
+	}
+	.gu-unselectable {
+	  -webkit-user-select: none !important;
+	  -moz-user-select: none !important;
+	  -ms-user-select: none !important;
+	  user-select: none !important;
+	}
+	.gu-transit {
+		opacity: 0.2;
+	  filter: alpha(opacity=20);
+	}
+	
+	#off {
+		width: 15px !important;
+		position: absolute;
+		top: 5px;
+		right: 5px;
+    }
+		
+		.list-view{
+			.scroll-content{		
+				background-color: color($colors, lightest) !important;
+			}
+		}
+
+		.list-container{
+			// padding: 9px !important
+		}
+}

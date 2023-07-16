@@ -1,0 +1,1200 @@
+//////////////////////////////////////////////////
+// YELLOW DARK THEME
+
+//  Font Style
+//  Font sizes
+//  Global Colors
+//  Global Opacity
+//  Color Function
+//  Gradients
+//  Changing Background Images in Black&White Mode
+//  Blend Mode Colors
+//  Dividers Settings
+//  Border Radius
+//  Content Color Settings
+//  Shadows
+//  Icon Sizes
+//  Icon Settings
+//  Social Icons Color
+//  Span Settings
+//  LIST VIEWS - Header
+//  LIST VIEWS - Item Parameters
+//  LIST VIEWS - Subitem Parameters
+//  Button Settings
+//  Google Cards Settings
+//  Swipe Item
+//  Parallax Settings
+//  Checkbox
+//  Wizard Settings
+//  Input Field Settings
+//  Search Bar Settings
+//  Google Maps
+//  Animations
+//  Background Sizes
+//  Default Overview Ionic
+//////////////////////////////////////////////////
+
+// Font Style
+$font-name: 'Roboto-Light', sans-serif;
+$font-weight-value: 300 !default;
+
+
+.bar.bar-stable .title,
+
+.item h2[item-title],
+.item h3[item-subtitle],
+.item h2[subitem-title],
+.item h3[subitem-subtitle],
+h2[swiped-item-title],
+ion-card h2[card-title],
+ion-card h3[card-subtitle],
+ion-card p[card-body-text],
+h2[search-bar-title],
+ion-title .toolbar-title,
+.main-menu ion-label,
+.submenu ion-label,
+ion-item h1[parallax-title],
+button[button-clear],
+body,
+ion-label,
+a,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+p {
+  font-family: $font-name;
+  font-weight: $font-weight-value; }
+
+
+// Font sizes
+$font-size-text:(
+  'h1': 24px,
+  'h2': 20px,
+  'h3': 16px,
+  'h4': 14px,
+  'h5': 12px,
+  'h6': 10px,
+  'p': 14px
+);
+
+[transparent] {
+  background-color: transparent !important;
+}
+@function font-size-text($key) {
+  @return map-get($font-size-text, $key);
+}
+
+[left] {
+  float: left;
+}
+[right] {
+  float: right;
+}
+
+
+// Global Colors
+$palettes: (
+    mainColors: ( // Also used for backgrounds.
+
+        primary:   #154360, // Used for toolbars
+		    active:    #195d37,
+		    inactive:  #b63732,
+        secondary: #82B14A, // Used for various small elements
+        accent:   #ffffff //Used for icon-search-bar, loaders-spinners, checkbox-item, icon, button, span, input-field-icons
+    ),
+
+    textColors: ( // Used for text colors in all screens
+
+        primary: #ffffff, // Used for text colors in: item-title, item-subtitle, header-title, header-subtitle
+        secondary: #ffffff, // Used for text colors in: buttons, header-title, subitem-title, subitem-subtitle
+        accent:   #ffffff // Used for text colors in: header-title, header-subtitle
+		
+    ),
+    blendModes: ( // Used for blend modes
+
+        primary:  #ffffff,
+        secondary: #01579B
+    )
+);
+
+// Global Opacity
+$global-opacity: (
+  'opacity0': 0,
+  'opacity10': 0.1,
+  'opacity20': 0.2,
+  'opacity30': 0.3,
+  'opacity40': 0.4,
+  'opacity50': 0.5,
+  'opacity60': 0.6,
+  'opacity70': 0.7,
+  'opacity80': 0.8,
+  'opacity90': 0.9,
+  'opacity100': 1
+);
+
+// Function to print color
+@function theme-colors($name: 'blendModes', $variant: 'primary', $opacity: 1) {
+  // Get the color spectrum
+  $color-spectrum: map-get($palettes, $name);
+  // Get the color variant
+  $color: map-get($color-spectrum, $variant);
+  // Get the alpha setting
+  $alpha: if(type-of($opacity) == 'number', $opacity, map-get($global-opacity, $opacity));
+  // Set the alpha of the color
+  @if $alpha {
+    $color: rgba($color, $alpha);
+  }
+  @return $color;
+}
+
+// Gradient
+@mixin gradient-accent {
+  background: #fcb64e;
+  background: -moz-linear-gradient(left, #fcb64e 0%, #f1582c 50%, #b72025 100%);
+  background: -webkit-linear-gradient(left, #fcb64e 0%, #f1582c 50%,#b72025 100%);
+  background: linear-gradient(to left, #fcb64e 0%, #f1582c 50%,#b72025 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#fcb64e', endColorstr='#b72025',GradientType=1 );
+}
+
+// Changing Background Images in Black&White Mode
+@mixin black-white-mode {
+  background-color: theme-colors('blendModes', 'primary');
+  background-blend-mode: luminosity;
+}
+// Darkening and Black&White Blend Mode
+@mixin darkening-blend-mode {
+    @include black-white-mode;
+     &::before {
+       content: "";
+       display: block;
+       height: 100%;
+       width: 100%;
+       top: 0;
+       left: 0;
+       position: absolute;
+       pointer-events: none;
+       mix-blend-mode: multiply;
+      background-color: theme-colors('blendModes', 'secondary');
+     }
+}
+
+[images-filter] {
+  -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+// Divider Settings
+$item-divider-small: 1px solid theme-colors('mainColors', 'secondary');
+$item-divider-medium: 2px solid theme-colors('mainColors', 'secondary');
+$item-divider-large: 4px solid theme-colors('mainColors', 'secondary');
+
+// Border Radius
+$border-radius: 5px;
+
+// Content Color Settings
+$content-bcg: theme-colors('mainColors', 'accent');
+
+// Shadows
+$box-shadow-z1: 0 2px 10px rgba(0, 0, 0, 0.2);
+$box-shadow-z2: 0 4px 10px rgba(0, 0, 0, 0.2);
+$box-shadow-z3: 0 6px 10px rgba(0, 0, 0, 0.2);
+
+// Icon Sizes
+$icon-size:(
+  'icon-small': 20px,
+  'icon-medium': 32px,
+  'icon-large': 60px
+);
+@function icon-size($key: 'icon-small') {
+  @return map-get($icon-size, $key);
+}
+
+// Icon Settings
+[icon-small] {
+  color: theme-colors('mainColors', 'secondary', 'opacity60') !important;
+  font-size: icon-size('icon-small') !important;
+}
+[icon-medium] {
+  color: theme-colors('mainColors', 'secondary', 'opacity60') !important;
+  font-size: icon-size('icon-medium') !important;
+}
+
+[icon-large] {
+  color: theme-colors('mainColors', 'secondary', 'opacity60') !important;
+  font-size: icon-size('icon-large') !important;
+}
+
+//  Social Icons Color
+@mixin social {
+   @if &{
+    i.icon {
+      color: theme-colors('mainColors', 'secondary', 'opacity60');
+      font-size: icon-size('icon-small');
+      width: 20px;
+    }
+  }
+}
+
+// Span Settings
+[span-small]{
+  color: theme-colors('mainColors', 'secondary');
+  font-size: font-size-text('h5');
+}
+
+[span-medium]{
+  color: theme-colors('mainColors', 'secondary');
+  font-size: font-size-text('h1');
+}
+
+[span-large]{
+  color: theme-colors('mainColors', 'secondary');
+  font-size: font-size-text('h1');
+}
+
+
+
+
+// LIST VIEWS - Header
+[header-title]{
+  color: theme-colors('mainColors', 'primary');
+  font-size: font-size-text('h1');
+}
+
+[header-subtitle]{
+  color: theme-colors('mainColors', 'primary');
+  font-size: font-size-text('h4');
+}
+
+[header-bcg]{
+  background-color: theme-colors('mainColors', 'secondary') !important;
+  box-shadow: $box-shadow-z1;
+}
+
+[header-divider]{
+  background-color: theme-colors('mainColors', 'secondary');
+  box-shadow: $box-shadow-z1;
+  border: none;
+}
+
+[item-bcg] {
+  background-color: theme-colors('mainColors', 'primary')!important;
+  .item-inner{ // Border Color
+        border-color: theme-colors('mainColors', 'accent') !important;
+  }
+}
+
+[item-title] {
+  color: theme-colors('textColors', 'primary') !important;
+  font-size: font-size-text('h2') !important;
+}
+
+[item-subtitle] {
+  color: theme-colors('textColors', 'secondary', 'opacity60') !important;
+  font-size: font-size-text('h5') !important;
+}
+
+// LIST VIEWS - Subitem Parameters
+[subitem-bcg] {
+  background-color: theme-colors('mainColors', 'accent') !important;
+}
+
+[subitem-title] {
+  color: theme-colors('textColors', 'accent');
+  font-size: font-size-text('h4');
+  line-height: normal;
+}
+
+[subitem-subtitle] {
+  color: theme-colors('textColors', 'accent', 'opacity60');
+  font-size: font-size-text('h5');
+}
+
+// Button Settings
+[default-button] {
+  background-color: theme-colors('mainColors', 'secondary') !important;
+  color: theme-colors('mainColors', 'accent') !important;
+  font-size: font-size-text('h3') !important;
+  font-weight: 400 !important;
+  border-radius: $border-radius !important;
+}
+
+[btn-clear] {
+  background-color: theme-colors('mainColors', 'secondary') !important;
+  color: theme-colors('mainColors', 'accent') !important;
+  font-size: font-size-text('h3') !important;
+  font-weight: 200 !important;
+  border-radius: $border-radius !important;
+}
+
+[button-clear] {
+  color: theme-colors('textColors', 'primary') !important;
+  font-size: font-size-text('h3') !important;
+}
+
+[button-clear-outline] {
+  color: theme-colors('mainColors', 'primary') !important;
+  font-size: font-size-text('h3') !important;
+  border: 1px solid theme-colors('mainColors', 'primary') !important;
+}
+
+// Fab Button Settings
+[button-ion-fab] {
+  background-color: theme-colors('mainColors', 'secondary') !important;
+  color: theme-colors('mainColors', 'accent') !important;
+  z-index: 9 !important;
+  bottom: 20px;
+  right: 20px;
+  -webkit-transition: all 300ms !important;
+  transition: all 300ms !important;
+
+  ion-icon {
+    margin-top: 2px;
+    display: block;
+  }
+}
+
+// Fab Button Settings Animation
+.fab-button-out {
+  bottom: -80px;
+  animation: fade-out 300ms ease-in;
+  -ms-animation: fade-out 300ms ease-in;
+  -webkit-animation: fade-out 300ms ease-in;
+  -o-animation: fade-out 300ms ease-in;
+  -moz-animation: fade-out 300ms ease-in;
+}
+
+@keyframes fade-out {
+  from {
+    bottom: 20px;
+  }
+
+  to {
+    bottom: -80px;
+  }
+}
+
+//Google Cards Settings
+[card-title]{
+  color: theme-colors('textColors', 'primary') !important;
+  font-size: font-size-text('h2') !important;
+}
+
+[card-subtitle]{
+  color: theme-colors('textColors', 'secondary', 'opacity60') !important;
+  font-size: font-size-text('h4') !important;
+}
+
+[card-body-text]{
+  color: theme-colors('textColors', 'secondary', 'opacity60') !important;
+  font-size: font-size-text('p');
+}
+
+[card-bcg]{
+  background-color: theme-colors('mainColors', 'primary') !important;
+  box-shadow: $box-shadow-z1;
+  border-radius: $border-radius !important;
+}
+
+// Swipe Item
+[swiped-item-bcg]{
+  background-color: theme-colors('mainColors', 'primary', 'opacity60')!important;
+}
+
+[swiped-item-title]{
+  color: theme-colors('textColors', 'accent');
+  margin: 0;
+  font-size: font-size-text('h5') !important;
+  text-transform: initial;
+}
+
+// Parallax Settings
+[parallax-title]{
+  color: theme-colors('textColors', 'primary');
+  font-size: font-size-text('h1') !important;
+}
+
+[parallax-subtitle]{
+  color: theme-colors('textColors', 'primary');
+  font-size: font-size-text('h4') !important;
+}
+
+// Checkbox
+  // Settings for ios
+$checkbox-ios-background-color-on: theme-colors('mainColors', 'secondary');
+$checkbox-ios-background-color-off: theme-colors('mainColors', 'primary');
+$checkbox-ios-icon-border-color-off: theme-colors('mainColors', 'secondary');
+$checkbox-ios-icon-border-color-on: theme-colors('mainColors', 'secondary');
+  // Settings for android
+$checkbox-md-icon-background-color-on: theme-colors('mainColors', 'secondary');
+$checkbox-md-icon-background-color-off: theme-colors('mainColors', 'primary');
+$checkbox-md-icon-border-color-off: theme-colors('mainColors', 'secondary');
+$checkbox-md-icon-border-color-on: theme-colors('mainColors', 'secondary');
+$checkbox-md-icon-border-width: 2px;
+$checkbox-md-icon-border-radius: 4px;
+$checkbox-md-icon-size: 18px;
+$checkbox-md-icon-checkmark-color: theme-colors('mainColors', 'accent');
+
+.checkbox-md {
+  .checkbox-icon {
+    height: 20px !important;
+    width: 20px !important;
+  }
+  .checkbox-inner {
+      top: 1px !important;
+      left: 6px !important;
+      width: 6px !important;
+      height: 11px !important;
+  }
+}
+
+
+// Wizard Setting
+
+[wizard-bcg] {
+  background-color: theme-colors('mainColors', 'secondary');
+}
+[wizard-title] {
+  color: theme-colors('textColors', 'primary');
+  font-size: font-size-text('h3') !important;
+}
+[wizard-body-text]{
+  color: theme-colors('textColors', 'primary', 'opacity60');
+  font-size: font-size-text('h4') !important;
+}
+
+// Input Field Settings
+$text-input-md-highlight-color: theme-colors('mainColors', 'secondary') !important;
+$text-inpu-highlight-color-valid: theme-colors('mainColors', 'secondary') !important;
+$text-input-highlight-color-invalid: red !important;
+$text-input-md-background-color: theme-colors('mainColors', 'secondary') !important;
+
+// Input Field Settings IOS
+$text-input-ios-highlight-color: theme-colors('mainColors', 'secondary') !important;
+$text-input-ios-background-color: theme-colors('mainColors', 'secondary') !important;
+
+
+// Tabs Setting
+
+[tabs-bcg] {
+  background-color: theme-colors('mainColors', 'primary');
+}
+
+[tabs-title] {
+  color: theme-colors('textColors', 'primary');
+  font-size: font-size-text('h2') !important;
+}
+
+[tabs-subtitle] {
+  color: theme-colors('textColors', 'primary');
+  font-size: font-size-text('h2') !important;
+}
+
+
+// Search Bar Setting
+
+// For ios
+$searchbar-ios-input-background-color: theme-colors('mainColors', 'primary');
+$searchbar-ios-input-placeholder-color: theme-colors('mainColors', 'accent');
+$searchbar-ios-input-search-icon-color: theme-colors('mainColors', 'primary');
+$searchbar-ios-input-clear-icon-color: theme-colors('mainColors', 'primary');
+$searchbar-ios-input-text-color: theme-colors('mainColors', 'accent');
+
+// For android
+$searchbar-md-input-background-color: theme-colors('mainColors', 'primary');
+$searchbar-md-input-placeholder-color: theme-colors('mainColors', 'accent');
+$searchbar-md-input-search-icon-color: theme-colors('mainColors', 'primary');
+$searchbar-md-input-clear-icon-color: theme-colors('mainColors', 'primary');
+$searchbar-md-input-text-color: theme-colors('mainColors', 'accent');
+
+[search-bar-title]{
+  color: theme-colors('textColors', 'primary');
+  font-size: font-size-text('h1') !important;
+}
+
+//  Google Maps
+
+[map-header]{
+  background-color: theme-colors('mainColors', 'secondary');
+  ion-icon {
+    color: theme-colors('mainColors', 'secondary');
+  }
+  [maps-title] {
+      font-size: font-size-text('h1');
+      color: theme-colors('mainColors', 'primary');
+  }
+  [maps-subtitle] {
+    font-size: 14px;
+    color: theme-colors('mainColors', 'primary', 'opacity60');
+    font-size: font-size-text('p');
+  }
+}
+
+
+[map-content] {
+  [title] {
+    font-size: font-size-text('h2');
+    color: theme-colors('mainColors', 'secondary');
+  }
+
+  [description] {
+    color: theme-colors('textColors', 'secondary', 'opacity60') !important;
+    font-size: font-size-text('p');
+  }
+
+  [info] {
+
+    ion-icon {
+      margin: 7px 0 0 !important;
+    }
+
+    .label-md {
+      margin: 0 !important;
+    }
+
+    .item-block {
+      min-height: 1.5em !important;
+    }
+  }
+}
+
+
+//Animations
+@mixin animation {
+  -webkit-animation: fadeInRight 500ms;
+  -moz-animation: fadeInRight 500ms;
+  -o-animation: fadeInRight 500ms;
+  animation: fadeInRight 500ms;
+}
+
+//Background Size
+[background-size] {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+//Default Overview Ionic
+  ion-list > .item:last-child, ion-list > .item-wrapper:last-child .item {
+      border-bottom: 1px solid theme-colors('mainColors', 'accent') !important;
+  }
+
+   ion-list > .item:first-child, ion-list > .item-wrapper:first-child .item{
+     border-top: none !important;
+  }
+  
+   ion-item{
+        img {
+            transition: opacity 1s;
+            opacity: 0;
+        }
+
+        img.ng-lazyloaded {
+            opacity: 1;
+        }
+    }      
+  
+  [no-padding] {
+    padding: 0 !important;
+  }
+
+  [no-margin]{
+    margin: 0 !important;
+  }
+
+  [has-header] .scroll-content{
+    top: 56px;
+  }
+
+  // Settings header for IOS
+  .platform-ios {
+    ion-list {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    [has-header] .scroll-content {
+      top: 60px;
+    }
+
+    [header-bcg] {
+      position: relative !important;
+    }
+  }
+
+  //Background colors settings
+  ion-app.md {
+    background-color: theme-colors('mainColors', 'primary') !important;
+  }
+
+  .scroll-content {
+    
+  }
+  
+  // Toolbar colors
+  .toolbar {
+    .toolbar-background{
+      background-color: theme-colors('mainColors', 'secondary') !important;
+    }
+    .toolbar-title{
+      color: theme-colors('mainColors', 'accent') !important;
+      // text-transform: uppercase;
+	  
+    }
+    .bar-button-default {
+      color: theme-colors('mainColors', 'accent') !important;
+    }
+	
+    [sub-title]{
+      .toolbar-title{
+        font-size: font-size-text('h4') !important;
+        text-align: center;
+        padding-bottom:10px;
+      }
+    }
+
+
+
+    .count_btn {
+      font-size: 1.0em !important;
+      color: color($colors, light) !important;
+      background-color: color($colors, secondary);
+      width: 35px;
+      border-radius: 5px;
+    }
+
+    .searchOn {
+      background-color: color($colors, primary);
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 2em !important;
+      color: color($colors, light) !important
+    } 
+
+    .plus {
+      background-color: color($colors, secondary);
+    }
+
+    .subCatSelected {
+      background-color: color($colors, primary) !important;
+      color: color($colors, light) !important;
+    }
+
+  }
+
+  //Custom search bar and filters
+  [custom-segment]{
+
+    min-height:50px !important;
+    padding-top:10px;
+    padding-bottom: 10px;
+    padding: 8px !important;
+    
+    .toolbar-background {
+        // background-image: none !important;
+        // background-color: color($colors, lightest);
+        background-image: url("../assets/images/bg_segment.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+      
+    input.searchbar-input {
+        border-radius: 10px !important;
+        font-weight: lighter !important;
+        font-size: 1.6rem !important;
+        line-height: 2.5rem !important;
+        color: color($colors, dark) !important;
+        background-color: color($colors, grislight) !important;
+        box-shadow: none !important;
+    }
+
+    .searchbar-input-container {
+        .searchbar-input {
+            &::-webkit-input-placeholder {
+                /* Chrome/Opera/Safari */
+                color: color($colors, gris) !important;
+            }
+            color: color($colors, gris) !important;
+        }
+    }
+
+    .horizontal-scroll {
+        white-space: nowrap;
+        height: 32px;
+        background-color: transparent !important;
+        margin-top: 15px !important;
+        .filter-item {
+            padding: 7px;
+            font-size: 0.9em;
+            border: 1px solid color($colors, secondary);
+            // border-radius: 30px !important;
+            background-color: color($colors, lightest);
+            display: inline-block !important;
+            border-radius: 5px;
+            margin-bottom: 5px !important;
+            margin-right: 10px !important;
+            color: color($colors, gris);
+            ion-icon {
+                margin-left: 5px !important;
+            }
+        }
+        
+        .scroll-content {
+            background-color: transparent !important;
+        }
+    }
+
+    .searchbar-search-icon {
+        color: color($colors, primary) !important;
+    }
+
+    .search-bloc {
+        border-radius: 8px !important;
+        margin-top: 5px !important;
+        background-color: color($colors, light) !important;
+        // margin: 5px !important;
+        ion-label {
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+
+        
+        ion-searchbar {
+            width: 87%; 
+            padding: 0px !important;
+            margin-top: 0px !important;
+            margin-bottom: 0px !important
+        }
+        input.searchbar-input {
+            background: transparent !important;
+        }
+        ion-icon {
+            margin-top: 2px !important;
+            margin-bottom: 2px !important;
+        }
+    }
+
+    .filters-selected{
+      margin-top: 8px;
+      span{
+        border: 1px solid color($colors, light);
+        border-radius: 4px;
+        color: color($colors, light);
+        padding: 5px;
+        margin-right: 5px;
+      }
+    }
+
+  }
+
+  // Alert message
+
+  .alert-md {
+
+  }
+
+ //SEGMENT
+ .segment-button{
+	ion-icon{
+		color: theme-colors('textColors', 'accent') !important;
+	}
+	border-bottom-color: theme-colors('textColors', 'accent') !important;
+ }
+
+ //MAIN MENU DASHBOARD
+ .bg_dashboard{
+  
+  // #notifs_icon {
+	// 	font-size: 2.2em !important;
+	// }
+	
+	#missed_calls {
+		background: color($colors, rouge) !important;
+		border-radius: 5px !important;
+		margin-left: -3px !important;
+		padding-left: 2px !important;
+	}
+
+	.infiniteCount {
+		-webkit-animation-duration: 2.5s;
+		animation-duration: 2.5s;
+		-webkit-animation-iteration-count: infinite;
+		animation-iteration-count: infinite;
+	}
+	.arrow-animation {
+		animation-name: rotation;
+		animation-duration: 0.8s;
+		animation-timing-function: linear;
+		animation-fill-mode: both;
+  }
+  
+	@keyframes rotation {
+		from {
+			transform: rotate(-40deg);
+		}
+		80% {
+			transform: rotate(340deg);
+		}
+		99.999% {
+			transform: rotate(460deg);
+		}
+		to {
+			transform: rotate(-40deg);
+		}
+  }
+  
+	.iter {
+		-webkit-animation-duration: 2.5s;
+		animation-duration: 2.5s;
+		-webkit-animation-iteration-count: 3;
+		animation-iteration-count: 3;
+	}
+
+  .upper-card {
+    margin:7px;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    padding-bottom: 5px !important;
+    border-radius: 5px;
+    h6{
+      font-size: 0.8em;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .bloc-content{
+      text-align: left;
+    }
+  }
+  
+	#next-cation {
+		float: right;
+		margin-top: -10px;
+		width: 1.6em;
+		height: 1.6em;
+    font-size: 1.1em;
+    padding-top: 3px;
+		display: block !important;
+		text-align: center !important;
+		border-radius: 5px;
+		background-color: color($colors, secondary);
+		color: color($colors, light);
+	}
+
+	#missed_callings {
+		float: left;
+		margin-top: -10px;
+		width: 1.6em;
+		height: 1.6em;
+		padding-top: 3px;
+		display: block !important;
+		text-align: center !important;
+		border-radius: 5px;
+		color: color($colors, light) !important;
+		background-color: color($colors, danger);
+	}
+
+	#middle-card-content-icon {
+		// top: 35px;
+		float: right !important;
+		margin-top: -40px;
+		margin-left: -30px;
+		width: 23px;
+	}
+
+	#last_month,
+	#last_month_invoice {
+		font-size: 0.9em !important;
+		float: right;
+	}
+
+	#last_month_invoice {
+		float: left;
+	}
+
+	#middle-card-text {
+		float: right !important;
+		margin-top: -20px;
+		margin-bottom: 15px !important;
+	}
+
+	.upper-card {
+    height: 100% !important;
+    
+	}
+
+	#first-card-title {
+    font-size: 2.5em !important;
+    margin-top: 30px !important;
+    display: block; 
+		color: color($colors, dark);
+  }
+  
+	.second-card-title {
+    font-size: 0.8em !important;
+    color: color($colors, gris);
+  }
+  
+	#middle-last-month {
+    float: right;
+  }
+  
+  .lbl-target{
+    font-size: 0.75em;
+    color: color($colors, gris);
+  }
+
+	#menuIcon {
+		width: 40px !important;
+	}
+	
+	.container {
+		padding-top: 10px !important;
+  }
+   
+	#next_act, #next_header {
+    padding-bottom: 0 !important;
+    margin-bottom: 0;
+  }
+  
+	ion-col {
+		ion-icon {
+			font-size: 2em !important;
+		}
+  }
+  
+	#total_won {
+    font-size: 30px !important;
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+  
+	.swiper-slide {
+		height: 70% !important;
+  }
+  
+	#lead_name {
+    font-size: 0.7em !important;
+    color: color($colors, gris);
+	}
+
+	#action_name {
+		font-size: 1.8em !important;
+  }
+  
+	.swiper-pagination-fraction,
+	.swiper-pagination-custom,
+	.swiper-container-horizontal > .swiper-pagination-bullets {
+    bottom: 60px !important;
+    height:5px;
+    width: 5px;
+	}
+	.swiper-pagination-bullet-active {
+    background: color($colors, marron) !important;
+    
+  }
+  
+	ion-col.col {
+		margin-top: 0px !important;
+	}
+ 
+	#inoice-text-info {
+		float: left !important;
+		margin-top: 5px !important;
+    text-align: left !important;
+    margin-bottom: 10px;
+  }
+  
+	#bar-canvas {
+		// float: left !important;
+		display: inline-block !important;
+		width: 52% !important;
+		margin-top: -5px !important;
+		height: 25% !important;
+  }
+  
+	#barchart-canvas {
+		float: right !important;
+		display: inline-block !important;
+		width: 52% !important;
+		height: 25% !important;
+		margin-bottom: 8px !important;
+  }
+  
+	#barchart-canvas-large {
+		display: inline-block !important;
+		width: 100% !important;
+		height: 45% !important;
+		margin-bottom: 8px !important;
+  }
+  
+	#team-canvas-large {
+		// display: inline-block !important;
+		width: 100% !important;
+		height: 80% !important;
+		// margin-bottom: 8px !important;
+  }
+  
+	#total_invoice {
+		font-size: 2em !important;
+    color: color($colors, gris);
+    // margin-bottom: 25px !important;
+  }
+  
+	#invoice_header {
+		padding-bottom: 0 !important;
+  }
+  
+	.downIcon {
+		font-size: 1em !important;
+		color: color($colors, light);
+		font-weight: 900;
+	}
+
+	ion-item-divider {
+		background-color: color($colors, primary) !important;
+		color: color($colors, light) !important;
+		font-family: "Roboto-Bold";
+		text-align: left !important;
+	}
+	ion-item-divider {
+		border-bottom: none !important;
+		color: color($colors, primary);
+  }
+  
+	.bloc-sub {
+		padding: 8px !important;
+		filter .toolbar-background {
+			background-color: color($colors, primary) !important;
+			box-shadow: none;
+		}
+		ion-icon {
+			font-size: 1.5em !important;
+		}
+		.bottom {
+			background-color: color($colors, grislight);
+			padding: 0 !important;
+			button{
+				font-size: 0.6em;
+			}    
+		}
+
+		.timeOver {
+			border-left: 7px solid #f04040 !important;
+			// border-radius: 30px 30px 0px 0px !important
+		}
+		h1 {
+			color: white !important;
+		}
+
+		#dates_block {
+			ion-icon {
+				color: color($colors, secondary);
+			}
+		}
+		.almostOver {
+			border-left: 7px solid orange !important;
+			// border-radius: 30px 30px 0px 0px !important
+		}
+
+		.gotTime {
+			border-left: 7px solid color($colors, secondary) !important;
+			// border-radius: 30px 30px 0px 0px !important
+		}
+
+		ion-card.card {
+			margin-left: 0px !important;
+			margin-right: 0px !important;
+			width: calc(100% - 0px) !important;
+			border-radius: 0px !important;
+		}
+
+		#days_left {
+			font-weight: 1300 !important;
+			font-size: 1.6rem !important;
+		}
+		#renew_sub {
+			font-weight: 1300 !important;
+			// font-size: 1.6rem !important
+		}
+
+		#end {
+			float: right;
+			ion-icon {
+				color: color($colors, grislight);
+			}
+		}
+	}
+
+	.container{
+		margin-bottom: 60px !important;
+		
+		.upper-card-1{
+			background-color: color($colors, light);
+			#total_won, i{
+				color: color($colors, marron);				
+      }
+      
+      i{
+        font-size: 2em;
+      }
+
+			#last_month{
+				color: color($colors, secondary);
+			}
+
+			#total_won{
+				float:right;
+			}
+
+		}
+		
+		.upper-card-2, .upper-card-3{
+      background-color: color($colors, light);
+      height: 120px !important;
+
+      .bloc-content{
+        margin-bottom: 5px !important;
+
+      }
+		}
+		
+		.upper-card-4{
+      background-color: color($colors, light);
+      width: 90%;    
+		}
+		
+		.upper-card-5{
+			background-color: color($colors, light);
+			#total_invoice, i{
+				color: color($colors, marron);
+      }
+      
+      i{
+        font-size: 2em;
+      }
+      
+      #last_month_invoice{
+        margin-top:10px;
+				color: color($colors, secondary); 
+			}
+		}
+	}
+
+	#btn{
+		margin-left: -210px !important;
+		height: 30px !important; 
+		font-size: 0.7em !important;
+	}
+	#btn2{
+    margin-left: 8px !important;
+    float: left !important;
+		height: 30px !important; 
+    font-size: 0.7em !important;
+    margin-bottom: 20px !important
+  }
+  
+ }

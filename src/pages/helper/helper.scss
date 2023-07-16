@@ -1,0 +1,35 @@
+page-helper {
+	.scroll-content {
+		background-color: color($colors, lightest);
+		color: color($colors, dark) !important;
+	}
+
+	h3 {
+		color: color($colors, dark);
+		font-size: 1.1em;
+		text-align: center;
+	}
+
+	ion-item h2 {
+		color: color($colors, dark);
+	}
+	.item {
+		background-color: color($colors, lightest) !important;
+	  }
+
+	.seachbar-input {
+		background-color: transparent !important;
+	}
+	input.searchbar-input {
+		background-color: color($colors, light) !important;
+		color: color($colors, dark) !important;
+		box-shadow: none !important;
+	}
+	.searchbar-input-container {
+		.searchbar-input {
+			&::-webkit-input-placeholder {
+				color: color($colors, dark);
+			}
+		}
+	}
+}

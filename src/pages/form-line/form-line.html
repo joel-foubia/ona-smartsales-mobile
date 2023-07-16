@@ -1,0 +1,66 @@
+<ion-header>
+	
+    <ion-toolbar>
+      <ion-title *ngIf="is_modif"> {{line.name}} </ion-title>
+      <ion-title *ngIf="!is_modif"> {{'module.facture.add_line' | translate}}</ion-title>
+        <ion-buttons end>
+          <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+      </ion-toolbar>
+   
+  </ion-header> 
+  
+  <ion-content formAffaire padding>
+    <p obj-loader><ion-spinner *ngIf="objSpinner" name="dots"></ion-spinner></p>        
+        <!-- <ion-item class="country" (click)="selectPartner('product')">
+          <p>{{'module.facture.service' | translate}}</p>
+          <h3>{{line.product_id.name}}</h3>
+          <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+        </ion-item>  -->
+        <ion-item transparent>
+          <ion-label stacked>{{'module.facture.description' | translate}}</ion-label>
+          <ion-input [(ngModel)]="line.name" type="text"></ion-input>
+        </ion-item> 
+        <ion-item transparent> 
+            <ion-label stacked>{{'module.facture.compte' | translate}}</ion-label>
+            <ion-select [(ngModel)]="line.account_id.id"  (ionChange)="changeValue($event,'account')" required>
+              <ion-option *ngFor="let p of listAccounts" value="{{p.me.id.me}}">
+                {{p.me.name.me}} 
+              </ion-option>
+            </ion-select>
+       </ion-item>
+       <ion-grid>
+         <ion-row>
+           <ion-col col-8>
+              <ion-item transparent>
+                  <ion-label stacked>{{'module.facture.price_unit' | translate}}</ion-label>
+                  <ion-input [(ngModel)]="line.price_unit" type="number"></ion-input>
+              </ion-item>
+           </ion-col>
+           <ion-col col-4>
+             <ion-item transparent>
+                <ion-label stacked>{{'module.facture.quantite' | translate}}</ion-label>
+                <ion-input [(ngModel)]="line.quantity" type="number"></ion-input>
+              </ion-item>
+           </ion-col>
+         </ion-row>
+       </ion-grid>
+        
+        <h4>{{'module.facture.tax' | translate}}</h4>
+        <div class="tag reminders">
+          <div *ngFor="let obj of taxes; let i = index">
+            <span>{{obj?.me.name.me}}</span>
+            <ion-icon name="close" (click)="removeTag(obj, i, 'taxes')"></ion-icon>
+          </div>
+          <div class="add-tag" (click)="addObjetFromPop($event,'taxes')">{{'module.facture.add_tax' | translate}}
+            <ion-icon name="add"></ion-icon>
+          </div>
+        </div>
+        
+  </ion-content>
+  <ion-footer>
+    <div bloc-btn>
+      <button *ngIf="is_modif" ion-button outline clear (click)="saveItem()">{{'btns.txt_update' | translate}}</button>
+      <button *ngIf="!is_modif" ion-button outline clear (click)="saveItem()">Ajouter</button>  
+    </div>
+  </ion-footer>

@@ -1,0 +1,13 @@
+page-pop-period {
+    ion-scroll {
+        white-space: nowrap;
+        height: 135px;
+        // width: 120px;
+    }
+    .scroll-content{
+    }
+    .contact-popover{
+        background-color: color($colors, favorite) !important;
+        width: 320px;
+    }
+}

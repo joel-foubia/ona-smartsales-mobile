@@ -1,0 +1,34 @@
+
+<ion-header>
+
+    <ion-navbar hideBackButton>
+        <ion-title>{{'menu.users' | translate}}</ion-title>
+        <ion-buttons end>
+            <button class="count_btn" ion-button *ngIf="users.length<=999" icon-only>{{users.length}}</button>
+            <button class="count_btn" ion-button *ngIf="users.length>999" icon-only>999+</button>
+            <button ion-button icon-only (click)="syncOffOnline()"><ion-icon name="refresh"></ion-icon></button>
+            <button ion-button icon-only (click)="openMenu()"><ion-icon name="more"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+    <p *ngIf="objLoader" text-center>
+        <ion-spinner name="dots"></ion-spinner>
+    </p>
+    <!-- <h5 padding-left text-left><span id="users_num"> {{dumpUsers?.length}} Users</span> </h5> -->
+    
+    <ion-grid class="list_user" *ngIf="!objLoader">
+        <ion-row *ngIf="users.length!=0">
+            <ion-col *ngFor="let item of users | slice:0:max" class="animated fadeInUp bloc_user" col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 no-padding>
+                <user [objUser]="item" [events]="eventsBinding"></user>
+            </ion-col>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{'message.txt_load' | translate}}"></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

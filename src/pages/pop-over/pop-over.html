@@ -1,0 +1,59 @@
+<div custom-pop *ngIf="!is_task  && !is_agenda && !is_pipeline && !is_channel && !is_product">
+  
+  <h3>{{objet.name}}</h3>
+  <ul>
+	  <li *ngFor="let item of menus" (click)="openDetails(item)">
+    <img id="ico" [src]="item.img" > <br> {{item.titre}}
+    <!-- <ion-badge *ngIf="item.slug !== 'detail' && item.slug !== 'call' && item.slug != 'update'  && item.slug != 'email' && item.slug != 'archive'" id="notif" style="color: white">1</ion-badge> -->
+	  </li>	
+  </ul>
+ 
+</div>
+
+<div custom-pop *ngIf="is_task && !is_agenda && !is_pipeline">
+  <h3>{{task.code}}: {{task.name}} </h3>
+  <ul>
+    <li *ngFor="let item of menus" (click)="openAction(item)">
+    <img [src]="item.img" > <br> {{item.titre}}
+    </li> 
+  </ul>
+ 
+</div>
+
+<div padding custom-agenda *ngIf="is_agenda">
+  <h3> {{objet.name}} </h3>
+  <ul>
+    <li *ngFor="let item of menus" (click)="openAction(item)">
+    <img [src]="item.img" > <br> {{item.titre}}
+    </li> 
+  </ul>
+ 
+</div>
+
+<div padding custom-pop *ngIf="is_pipeline">
+  <h3> {{objet.name}} </h3>
+  <ul>
+    <li *ngFor="let item of menus" (click)="openAction(item)">
+    <img [src]="item.img" > <br> {{item.titre}}
+    </li> 
+  </ul>
+ 
+</div>
+<div padding custom-pop *ngIf="is_product">
+  <h3> {{objet.name}} </h3>
+  <ul>
+    <li *ngFor="let item of menus" (click)="openAction(item)">
+    <img [src]="item.img" > <br> {{item.titre}}
+    </li> 
+  </ul>
+ 
+</div>
+
+<div padding *ngIf="is_channel">
+    <h5> {{'module.chat.channel' | translate}} </h5>
+    <ion-list>
+      <ion-item *ngFor="let item of menus" (click)="openAction(item)" text-wrap>
+        {{item.name}}
+      </ion-item> 
+    </ion-list>
+  </div>

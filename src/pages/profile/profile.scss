@@ -1,0 +1,153 @@
+page-profile {
+    .scroll-content {
+        background-color: color($colors, lightest);
+    }
+
+    $number-of-colors: length($couleurs);
+    $key: random(length($couleurs));
+    $nth: nth($couleurs, $key);
+
+    $main-color: $nth !default;
+
+    @mixin background_cat($c, $y) {
+        @for $i from 1 through $y {
+            ion-card:nth-child(#{length($couleurs)}n+#{$i}) {
+                background: lighten(nth($couleurs, random(length($couleurs))), 20%);
+            }
+        }
+    }
+
+    .bloc-header {
+        // padding: 5px;
+        // margin-bottom: 25px;
+        ion-item{
+            ion-thumbnail img{
+                border-radius: 5px;
+            }
+
+            h3{
+                font-size: 1.2em;
+            }
+
+            .bloc-company{
+                padding-top: 10px;
+                strong{
+                    color: color($colors, secondary);
+                }
+            }
+        }
+    }
+
+    .details-affaire {
+        ion-scroll {
+            white-space: nowrap;
+            height: 135px;
+            // width: 120px;
+        }
+
+        @include background_cat($main-color, 11);
+
+        ion-card {
+            display: inline-block;
+            width: 225px;
+            padding: 5px;
+            padding-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            height: 120px;
+
+            .sub_title{
+                font-size: 0.9em;
+                span{
+                    padding:3px;
+                    color: color($colors, dark);
+                }
+            }
+
+            .rouge{
+                color: color($colors, rouge);
+            }
+
+            .plants{
+                color: color($colors, plants)
+            }
+
+            .rouge, .plants, .orange {
+                i{
+                    font-size: 0.6em;
+                    color: color($colors, dark);
+                }
+            }
+
+            h5{
+                font-size: 1.75em;
+            }
+            
+            h6{
+                font-size: 1.4em;
+                i{
+                    font-size: 0.6em;
+                }
+            }
+            
+            p {
+                margin-bottom: 0;   
+            }
+            
+            ion-icon{
+                font-size: 1.5em;
+                // color: color($colors, light);
+            }
+        }
+
+
+    }
+
+    [timezone] {
+        background-color: transparent;
+        margin-bottom: 20px;
+        p,
+        h4,
+        ion-icon {
+            color: color($colors, light);
+        }
+    }
+    ion-item-divider {
+        background-color: color($colors, secondary) !important;
+        border-bottom: none !important;
+        color: color($colors, light) !important;
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+    .footer {
+        padding: 10px;
+        font-size: 1.1em;
+        color: color($colors, light);
+    }
+    .preference {
+        ion-item{
+            h5{
+                color: color($colors, primary); 
+            }
+
+            .text-input{
+                background-color: color($colors, light);
+                padding: 10px;
+            }
+        }
+
+        .sous_titre{
+            margin-left: 1.2em;
+            color: color($colors, gris);
+            font-size: 1.0em;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        ion-label,
+        .select-text {
+            color: color($colors, primary) !important;
+        }
+
+    }
+}

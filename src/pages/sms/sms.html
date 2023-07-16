@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>
+        Envoyez un SMS
+    </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+	<h5 text-center>Ecrivez un message avant de cliquer sur le bouton "Envoyer le SMS"</h5>
+		<ion-list>
+			<ion-item>
+	      </ion-item>
+	      <ion-item>
+	        <ion-label floating>Votre Message</ion-label>
+        	<ion-textarea [(ngModel)]="description" name="description"></ion-textarea>
+	      </ion-item>
+	    </ion-list>
+
+	    <button block round ion-button color="primary" (click)="sendMessage()">Envoyer le SMS</button> 
+	
+</ion-content>

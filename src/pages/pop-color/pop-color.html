@@ -1,0 +1,8 @@
+
+<ion-content>
+	<ul palette>
+		<li *ngFor="let obj of colors" [ngStyle]="{'background-color': '' + obj.val + ''}" (click)="setColor(obj, $event)" [ngClass]="{'active': activeColor == obj.code}">
+			<ion-icon *ngIf="activeColor == obj.code" name="checkmark"></ion-icon>
+		</li>
+	</ul>
+</ion-content>

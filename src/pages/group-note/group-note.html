@@ -1,0 +1,7 @@
+
+<ion-list>
+	<ion-item-divider>{{'pop.group' | translate}}</ion-item-divider>
+	<ion-item *ngFor="let obj of groupes" (click)="onAction(obj)" item-start>
+		{{obj.nom}}
+	</ion-item>
+</ion-list>

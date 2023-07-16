@@ -1,0 +1,15 @@
+<ion-list *ngIf="!partner">
+	<ion-item-divider>{{message}}</ion-item-divider>
+	<ion-item *ngFor="let stage of stages" (click)="onAction(stage)" [ngClass]="{'active': id_stage == stage.me.id.me}" >
+		{{stage.me.name.me}}
+	</ion-item>
+</ion-list>
+
+<div *ngIf="partner">
+	<ul class="bloc-tool">
+		<li *ngFor="let tool of tools" (click)="onChoose(tool)" > 
+			<ion-icon name="{{tool.icon}}"></ion-icon><br>
+			<span>{{tool.nom}}</span>
+		</li>
+	</ul>
+</div>

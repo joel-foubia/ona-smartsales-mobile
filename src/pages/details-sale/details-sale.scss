@@ -1,0 +1,92 @@
+page-details-sale {
+
+	.scroll-content{
+		background-color: color($colors, light);
+	}
+
+	.toolbar .toolbar-background{
+		background-color: color($colors, primary) !important;
+	}
+
+	.header-invoice{
+		// height: 250px;        
+		background-color: color($colors, primary);
+		padding: 10px;
+		
+    	// .draft{ color: color($colors, secondary);  }
+    	// .open { color: color($colors, orange); }
+		// .paid { color: color($colors, vert); }
+		h3, h1, h5, span, strong, p{ color: color($colors, light);}
+
+		[col-9]{
+			span{background-color: color($colors, secondary); padding: 3px;}
+		}
+
+		h3{margin-bottom:2px;}
+		
+		.bloc-partner{
+			padding-left:5px;
+			h5{font-size: 0.9em; margin-top:0;}
+			p, strong{margin-top:0; color: color($colors, secondary);}
+			
+		}
+	}
+
+	.bloc-image{
+		background-color: color($colors, light);
+		padding-bottom: 5px !important;
+		h2{
+			margin-top: 0;
+			font-size: 1.33em;
+		}
+
+		span{
+			color: color($colors, secondary);
+		}
+	}
+
+	.footer{
+		// border-radius: 30% 30% 0 0;
+		box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.4);
+		
+		.bloc-details{
+			box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.3);
+			text-align:right;
+			font-size:1.1em;
+			.total, [show-lines]{
+				color: color($colors, primary);
+				// font-size:1.2em;
+			}
+
+			[show-lines]{
+				border-top: 1px solid color($colors, grislight);
+				margin-top:10px;
+			}
+		}
+
+		.bloc-lines{
+			ion-row:first-child, ion-row:last-child{
+				border-bottom: 1px solid color($colors, grislight);
+			}
+			.col{
+				text-align: right;
+				font-size: 1.1em;
+				padding: 7px !important;
+				color:color($colors, gris);
+			}
+
+			.top{
+				background-color:color($colors, grislight);
+				padding:5px;
+				padding-top:10px;
+				padding-bottom: 10px;
+			}
+			
+			.top .col{
+				color:color($colors, gris);
+				text-transform: uppercase;
+			}
+		}
+
+	}
+}

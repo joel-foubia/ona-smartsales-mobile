@@ -1,0 +1,57 @@
+<!-- Themes Login + logo -->
+<div class="bloc-header">
+    <ion-thumbnail>
+      <!-- <img [lazyLoad]="data.logo" [defaultImage]="data.defaultImage"> -->
+      <img cache="{{data.logo}}" imageCache>
+    </ion-thumbnail>
+  </div>
+  <ion-grid class="bloc-login">
+    <ion-row wrap>
+      <ion-col col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+        <!-- <button ion-button button-clear clear (click)="onEvent('onSkip')">{{data.skip}}</button> -->
+        <!---Logo-->
+        <ion-slides *ngIf="data.fonctions" #fonctionsSlide style="height: 320px;" pager="true" autoplay="5000" speed="600" loop="true" padding>
+          <ion-slide *ngFor="let obj of data.fonctions">
+            <ion-card contenu>
+              <div class="bg_image"> 
+                <img src="{{obj.img}}" />
+                <!-- <img cache="{{obj.img}}" imageCache> -->
+              </div>
+              <ion-card-content>
+                <p>{{obj.title}}</p>
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+        <!-- <button ion-button icon-only class="btn-left" (click)="onPrevious()">
+          <ion-icon name="ios-arrow-back-outline"></ion-icon>
+        </button>
+        <button ion-button icon-only class="btn-right" (click)="onNext()">
+          <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+        </button> -->
+      <!-- <ion-item text-wrap login-libelle>
+      {{data.libelle}}
+      </ion-item>
+        
+        <ion-item no-padding color="accent">
+          <ion-label color="secondary" floating>{{data.username}}</ion-label>
+          <ion-input required type="text" [(ngModel)]="username"></ion-input>
+        </ion-item>
+        
+        <ion-item no-padding color="accent">
+          <ion-label color="secondary" floating>{{data.password}}</ion-label>
+          <ion-input required type="password" [(ngModel)]="password"></ion-input>
+        </ion-item> -->
+        <!---Login button-->
+        <!-- <button ion-button left default-button (click)="onEvent('onLogin')">{{data.login}}</button> -->
+        <button ion-button round default-button color="secondary" (click)="loadUsers($event)">
+        {{data.login}} 
+        <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+        </button>
+        <!---Register button
+        <button ion-button right btn-clear (click)="onEvent('onRegister')">{{data.register}}</button>-->
+      </ion-col>
+      
+    </ion-row> 
+    </ion-grid>
+  

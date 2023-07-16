@@ -1,0 +1,18 @@
+page-pop-login {
+	.content{
+		background-color: color($colors, lightest);
+	}
+
+	[obj-login]{
+		text-align: center;
+		img{
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+		}
+
+		// p span{
+		// 	color: color($colors, secondary);
+		// }
+	}
+}

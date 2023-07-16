@@ -1,0 +1,79 @@
+<!--
+  Generated template for the FormCallPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Form Call</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="closeRecharge()"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content formAffaire>
+    
+    <div class="forms-wrapper" padding>
+		<div class="post-example-view">
+			<section class="form-section">
+        <h2 *ngIf="!modif">Fill the form to register a new call.</h2>
+        <h2 *ngIf="modif && !copy">Fill the form to modify the selected call.</h2>
+        <ion-item transparent>
+          <ion-label stacked>Call Summary</ion-label>
+          <ion-input type="text" placeholder="e.g. Information about laptop" [(ngModel)]="objCalls.name"></ion-input>
+        </ion-item>
+
+				<ion-item class="country" (click)="selectPartner('client','call')">
+						<p color="primary">Choose the Contact</p> 
+						<h3>{{objCalls.partner_id.name}}</h3>
+						<ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+        </ion-item>
+      
+
+			</section>
+		</div>
+		<div class="post-example-view">
+			<ion-item transparent>
+				<ion-label stacked>Date</ion-label>
+				<ion-input *ngIf="objCalls.date !='' || objCalls.date != undefined" [(ngModel)]="objCalls.date">{{objCalls.date}}</ion-input>
+				<ion-input *ngIf="objCalls.date =='' || objCalls.date == undefined" type="datetime-local" min="{{currentDate}}" [(ngModel)]="objCalls.date"></ion-input>
+      </ion-item>
+      <ion-item transparent>
+          <ion-label stacked>Phone Number</ion-label>
+          <ion-input type="tel" value = "{{objCalls.partner_phone}}" [(ngModel)]="objCalls.partner_phone">{{objCalls.partner_phone}}</ion-input>
+        </ion-item>
+			<!-- <ion-grid no-padding>
+				<ion-row>
+          <ion-item transparent>
+            <ion-label stacked>Duration</ion-label>
+            <ion-input type="text" placeholder="eg 2" [(ngModel)]="objCalls.duration"></ion-input>
+          </ion-item>
+				</ion-row>
+			</ion-grid> -->
+		</div>
+		
+		</div>
+	
+			
+
+</ion-content>
+
+
+<ion-footer form-footer>
+    <div bloc-btn>
+        <button ion-button full clear *ngIf="modif && !copy" (click)="saveItem()" icon-right>
+          <ion-icon name="checkmark"></ion-icon> Update
+        </button> 
+        <button ion-button full clear *ngIf="!modif" (click)="saveItem()" icon-right>
+           <ion-icon name="checkmark"></ion-icon> Save
+        </button>
+        <button ion-button full clear *ngIf="copy" (click)="saveItem()" icon-right>
+          <ion-icon name="ios-copy-outline"></ion-icon> Copy
+        </button>
+        </div>
+</ion-footer>

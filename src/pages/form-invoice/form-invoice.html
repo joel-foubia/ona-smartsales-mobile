@@ -1,0 +1,116 @@
+<ion-header>
+	
+  <ion-toolbar>
+    <ion-title *ngIf="is_modif"> {{invoice.number}} </ion-title>
+    <ion-title *ngIf="!is_modif">{{'module.facture.txt_add' | translate}}</ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+    </ion-toolbar>
+
+</ion-header> 
+
+<ion-content formAffaire padding>
+	
+  <ion-slides #formSlide pager="true">
+    <ion-slide>
+      
+      <ion-item class="country" (click)="selectPartner('client')">
+        <p color="primary">{{'module.facture.f_customer' | translate}}</p>
+        <h3>{{invoice.partner_id.name}}</h3>
+        <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+      </ion-item>
+      <ion-item transparent>
+        <ion-label stacked>{{'module.facture.f_expired' | translate}}</ion-label>
+        <ion-select [(ngModel)]="invoice.payment_term_id.id" (ionChange)="changeValue($event,'payment')" interface="popover">
+          <ion-option *ngFor="let p of listPeriods" value="{{p.me.id.me}}">
+            {{p.me.name.me}}
+          </ion-option> 
+        </ion-select>
+      </ion-item>
+      <ion-item transparent>
+        <ion-label stacked>{{'module.facture.invoice_date' | translate}}</ion-label>
+        <ion-input type="date" [(ngModel)]="invoice.date_invoice"></ion-input>
+      </ion-item>
+ 
+    </ion-slide>
+    <ion-slide>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.facture.company' | translate}}</ion-label>
+            <ion-select [(ngModel)]="invoice.company_id.id" (ionChange)="changeValue($event,'company')" required>
+              <ion-option *ngFor="let p of listCompanies" value="{{p.me.id.me}}">
+                {{p.me.name.me}}
+              </ion-option> 
+            </ion-select>
+        </ion-item>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.facture.account' | translate}}</ion-label>
+            <ion-select [(ngModel)]="invoice.account_id.id"  (ionChange)="changeValue($event,'account')" required interface="popover">
+                <ion-option *ngFor="let p of listAccounts" value="{{p.me.id.me}}">
+                {{p.me.name.me}}
+              </ion-option>
+            </ion-select>
+          </ion-item> 
+        <ion-item transparent>
+            <ion-label stacked>{{'module.facture.method' | translate}}</ion-label>
+            <ion-select [(ngModel)]="invoice.journal_id.id" (ionChange)="changeValue($event,'journal')" required interface="popover">
+                <ion-option *ngFor="let p of listJournals" value="{{p.me.id.me}}">
+                {{p.me.name.me}}
+              </ion-option> 
+            </ion-select>
+        </ion-item>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.facture.f_currency' | translate}}</ion-label>
+            <ion-select [(ngModel)]="invoice.currency_id.id" (ionChange)="changeValue($event,'currency')" required interface="popover">
+                <ion-option *ngFor="let p of listMonnaies" value="{{p.me.id.me}}">
+                {{p.me.name.me}}
+              </ion-option> 
+            </ion-select>
+        </ion-item>
+    </ion-slide>
+    <ion-slide>
+      <ion-item-divider>{{'module.facture.lines' | translate}}</ion-item-divider>
+        <ion-fab *ngIf="lignes.length==0" #fab top right>
+          <button button-ion-fab ion-fab (click)="addLine('')">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-fab>
+          
+          <ion-grid class="bloc-lines">
+            <ion-row class="top">
+              <ion-col text-left>{{'module.facture.details' | translate}}</ion-col>
+              <!-- <ion-col>{{'module.facture.compte' | translate}}</ion-col> -->
+              <ion-col text-right>{{'module.facture.amount' | translate}}</ion-col>
+              <ion-col></ion-col>
+            </ion-row>
+            <ion-row *ngFor="let obj of lignes; let i = index" (click)="addLine(obj)">
+              <ion-col text-left>{{obj.name}}</ion-col>
+              <!-- <ion-col>{{obj.account_id.name}}</ion-col> -->
+              <ion-col text-right>{{obj.price_subtotal | currency:obj.currency_id.name:'symbol':'':current_lang}}</ion-col>
+              <ion-col><ion-icon name="ios-trash-outline" (click)="removeObj(obj, i)"></ion-icon></ion-col>
+            </ion-row>
+          </ion-grid>
+      <!-- <ion-item transparent>
+        <ion-label stacked>Dépôts Compte</ion-label>
+        <ion-select [(ngModel)]="invoice.account_id.id"  (ionChange)="changeValue($event,'account')">
+            <ion-option *ngFor="let p of listAccounts" value="{{p.me.id.me}}">
+            {{p.me.name.me}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item transparent>
+        <ion-label stacked>Montant</ion-label>
+        <ion-input type="number" [(ngModel)]="invoice.amount_untaxed"></ion-input>
+      </ion-item> -->
+      
+    </ion-slide>
+  </ion-slides>
+	
+</ion-content>
+<ion-footer>
+  <div bloc-btn>
+    <button *ngIf="is_modif && action=='update'" ion-button outline clear (click)="saveItem()">{{'btns.txt_update' | translate}}</button>
+    <button *ngIf="is_modif && action=='copy'" ion-button outline clear (click)="saveItem()">{{'btns.copy' | translate}}</button>
+    <button *ngIf="!is_modif" ion-button outline clear (click)="saveItem()">{{'btns.save' | translate}}</button>  
+  </div>
+</ion-footer>

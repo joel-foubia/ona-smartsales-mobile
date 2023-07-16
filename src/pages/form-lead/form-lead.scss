@@ -1,0 +1,89 @@
+page-form-lead {
+	.scroll-content{
+		background-color: color($colors, lightest);
+	}
+
+	[form-section]{
+		h6{
+			color: color($colors, accent);
+		}
+	}
+
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, secondary);
+
+      [ion-button]{
+      	color:color($colors, light);
+      	
+      }
+    }
+
+    ion-item{
+	    p{
+	    	color:color($colors, light);
+			}
+			ion-select{
+				background-color: color($colors, light) !important;
+			}
+			ion-input{
+				background-color: color($colors, light) !important;
+			}
+
+	    h3{
+	    	font-size: 1.1em !important;
+	    }
+    	
+		}
+		
+    h3, h4{
+    	color:color($colors, light);
+    	font-size: 1.05em;
+    }
+
+    .custom-rating{
+		ul {
+		  padding: 0px;
+
+		  &.rating li {
+		    padding: 5px 7px !important;
+		    background: none;
+		    color: #ffb400;
+
+		    ion-icon {
+		      font-size: 25px;
+		    }
+		  }
+		}
+	}
+
+	.country h3{
+		color: color($colors, primary);
+		text-transform: uppercase;
+	}
+	
+	.country p{
+		color: color($colors, dark);
+		// text-transform: uppercase;
+	}
+
+  .tag{
+		padding: 10px;
+		text-align: left;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+		div{
+			display: inline-block;
+			border-radius: 0.20em;
+			color:color($colors, light);
+			background-color: color($colors, secondary);
+			padding:3px;
+			margin: 3px;
+		}
+
+		.add-tag{
+			background-color: transparent;
+			border:1px solid color($colors, light);
+		}
+	}
+}

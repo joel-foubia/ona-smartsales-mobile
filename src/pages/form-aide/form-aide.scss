@@ -1,0 +1,12 @@
+page-form-aide {
+
+    .scroll-content{
+        background-color: #f3f3f3;
+    }
+    ion-item{
+
+        ion-label{
+            color: color($colors, primary) !important;
+        }
+    }
+}

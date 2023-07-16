@@ -1,0 +1,62 @@
+page-leads {
+    $blanc: #ffffff;
+    ion-searchbar {
+        animation: fadeInRight 600ms;
+        -webkit-animation: fadeInRight 600ms;
+    }
+    .filter .toolbar-title {
+        font-size: 0.9em;
+    }
+    .filter .toolbar-background {
+        background-color: color($colors, primary) !important;
+        box-shadow: none;
+    }
+    
+    .fade-in-left-item {
+        transition: 1s ease-in-out all;
+    }
+
+    #off {
+        width: 13px !important;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+    .scroll-content {
+        background-color: color($colors, primary);
+        padding-top: 60px;
+    }
+    ion-content.has-refresher>.scroll-content {
+        background-color: color($colors, primary);
+    }
+    ion-content.has-refresher>.scroll-content .content {
+        background-color: transparent !important;
+    }
+    .custom-case {
+        box-shadow: none;
+        ion-icon {
+            color: color($colors, secondary);
+        }
+        ion-item {
+            background-color: transparent !important;
+            [item-title] {
+                // font-family: 'PT-Sans-bold', serif !important;
+                color: color($colors, primary) !important;
+                font-size: 1.1em !important;
+            }
+            h3 {
+                text-transform: uppercase;
+                font-size: 1.05em;
+                color: color($colors, secondary);
+            }
+            .team {
+                text-align: right;
+                font-weight: bold;
+                font-size: 0.9em;
+            }
+        }
+        .priority ion-icon {
+            color: color($colors, jaune);
+        }
+    }
+}

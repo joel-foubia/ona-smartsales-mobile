@@ -1,0 +1,71 @@
+page-about {
+  
+  .scroll-content{
+    margin-top: -0.2em !important;
+    background-color: color($colors, lightest);
+  }
+
+  .photo{
+    ion-col{
+      padding:0;
+    }
+
+    img{
+      width:100%;
+      object-fit: cover;
+    }
+
+  }
+
+  .social ion-col{
+    text-align: center;
+  }
+
+  .social img{
+    width: 40px;
+    height: 40px;
+  }
+
+  .card{
+    ion-card-header{
+      color: color($colors, primary);
+    }
+    .website{
+      color: color($colors, primary);
+      font-size: 1.1em;
+    }
+  }
+
+  ion-fab{
+    -webkit-animation: pulse 1.5s infinite;
+  }
+
+  @-webkit-keyframes pulse {
+    0% {
+      @include transform(scale(.9));
+    }
+    70% {
+      @include transform(scale(1));
+      box-shadow: 0 0 0 50px rgba(#5a99d4, 0);
+    }
+      100% {
+      @include transform(scale(.9));
+      box-shadow: 0 0 0 0 rgba(#5a99d4, 0);
+    }
+  }
+  
+  .bloc-logo{
+    margin-top: 40px;
+    padding:5px;
+    img{
+        transition: opacity 1s;
+        opacity: 0;
+        width: 100px;
+        margin:auto;
+    }
+
+    img.ng-lazyloaded {
+        opacity: 1;
+    }
+  }
+}

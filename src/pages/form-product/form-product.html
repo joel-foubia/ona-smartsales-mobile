@@ -1,0 +1,178 @@
+<!--
+  Generated template for the FormProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'module.prod_form.create' | translate}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+    <ion-toolbar no-border-top class="scroll-toolbar" color="secondary" no-padding>
+        <ion-scroll scrollX="true">
+            <ion-segment mode="md" [(ngModel)]="section">
+                <ion-segment-button value="info">
+                    {{'module.prod_form.info' | translate}}
+                </ion-segment-button>
+                <ion-segment-button value="sales_id">
+                    {{'module.prod_form.sale_id' | translate}}
+                </ion-segment-button>
+                <ion-segment-button value="sales">
+                    {{'module.prod_form.sales' | translate}}
+                </ion-segment-button>
+                <ion-segment-button value="desc">
+                    {{'module.prod_form.desc' | translate}}
+                </ion-segment-button>
+                <ion-segment-button value="pics">
+                    PHOTOS
+                </ion-segment-button>
+            </ion-segment>
+        </ion-scroll>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content [ngSwitch]="section" formAffaire padding>
+    <div *ngSwitchCase="'info'" class="post-example-view">
+        <ion-item class="input" no-lines transparent>
+            <ion-label stacked> {{'module.prod_form.name' | translate}} </ion-label>
+            <ion-input type="text" [(ngModel)]="product.name"></ion-input>
+        </ion-item>
+        <ion-item no-lines transparent>
+            <ion-label>{{'module.prod_form.can_be_sold' | translate}}</ion-label>
+            <ion-toggle [(ngModel)]="product.slae_ok"></ion-toggle>
+        </ion-item>
+        <ion-item no-lines transparent>
+            <ion-label>{{'module.prod_form.ev_sub' | translate}}</ion-label>
+            <ion-toggle [(ngModel)]="product.event_ok"></ion-toggle>
+        </ion-item>
+        <ion-item no-lines transparent>
+            <ion-label>{{'module.prod_form.can_buy' | translate}}</ion-label>
+            <ion-toggle [(ngModel)]="product.purchase_ok"></ion-toggle>
+        </ion-item>
+        <ion-item no-lines transparent>
+            <ion-label>{{'module.prod_form.prod_type' | translate}}</ion-label>
+            <ion-select [(ngModel)]="product.type">
+                <ion-option *ngFor="let t of producType" [value]="t.id">{{t.text}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-list no-lines transparent radio-group [(ngModel)]="product.invoice_policy">
+
+            <!-- <ion-list-header no-lines transparent>
+                {{'module.prod_form.invoice_policy' | translate}}
+            </ion-list-header> -->
+            <ion-item-divider no-lines>{{'module.prod_form.invoice_policy' | translate}}</ion-item-divider>
+
+            <ion-item no-lines transparent *ngFor="let i of invoiceType">
+                <ion-label>{{i.text}}</ion-label>
+                <ion-radio [value]="i.id"></ion-radio>
+            </ion-item>
+        </ion-list>
+
+    </div>
+
+    <div *ngSwitchCase="'sales_id'" class="post-example-view">
+        <ion-item class="input" no-lines transparent>
+            <ion-label stacked> {{'module.prod_form.sale_price' | translate}} </ion-label>
+            <ion-input type="number" [(ngModel)]="product.list_price"></ion-input>
+        </ion-item>
+        <ion-item class="input" no-lines transparent>
+            <ion-label stacked> {{'module.prod_form.cost' | translate}} </ion-label>
+            <ion-input type="number" [(ngModel)]="product.standard_price"></ion-input>
+        </ion-item>
+        <ion-item class="input" no-lines transparent>
+            <ion-label stacked> {{'module.prod_form.stock_ava' | translate}} </ion-label>
+            <ion-input type="number" [(ngModel)]="product.qty_available"></ion-input>
+        </ion-item>
+        <ion-grid no-padding>
+            <ion-row>
+                <ion-col>
+                    <ion-item transparent>
+                        <ion-label stacked>{{'module.prod_form.unit' | translate}}</ion-label>
+                        <ion-select [(ngModel)]="product.uom_id.name" interface="popover">
+                            <ion-option *ngFor="let p of unity" [value]="p.me.name.me">
+                                {{p?.me?.name?.me}}
+                            </ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item transparent>
+                        <ion-label stacked>{{'module.prod_form.unit_measure' | translate}}</ion-label>
+                        <ion-select [(ngModel)]="product.uom_po_id.name" interface="popover">
+                            <ion-option *ngFor="let p of unity" [value]="p.me.name.me">
+                                {{p?.me?.name?.me}}
+                            </ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-list no-lines transparent radio-group [(ngModel)]="product.purchase_method">
+
+            <!-- <ion-list-header no-lines transparent>
+                {{'module.prod_form.purchase' | translate}}
+            </ion-list-header> -->
+            <ion-item-divider no-lines>{{'module.prod_form.purchase' | translate}}</ion-item-divider>
+            <ion-item no-lines transparent *ngFor="let i of purchaseMethod">
+                <ion-label>{{i.text}}</ion-label>
+                <ion-radio [value]="i.id"></ion-radio>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'sales'" class="post-example-view">
+        <ion-item class="input" no-lines transparent>
+            <ion-label stacked> {{'module.prod_form.warranty' | translate}} </ion-label>
+            <ion-input type="number" [(ngModel)]="product.warranty"></ion-input>
+        </ion-item>
+        <ion-item class="input" no-lines transparent>
+            <ion-label stacked> {{'module.prod_form.delay' | translate}} </ion-label>
+            <ion-input type="number" [(ngModel)]="product.produce_delay"></ion-input>
+        </ion-item>
+
+        <ion-item class="input" no-lines transparent>
+            <ion-label stacked> {{'module.prod_form.delivery' | translate}}</ion-label>
+            <ion-input type="number" [(ngModel)]="product.sale_delay"></ion-input>
+        </ion-item>
+        <ion-item no-lines transparent>
+            <ion-label>{{'module.prod_form.sub_prod' | translate}} </ion-label>
+            <ion-toggle [(ngModel)]="product.reccuring_invoice"></ion-toggle>
+        </ion-item>
+        <ion-item no-lines transparent>
+            <ion-label>{{'module.prod_form.sale_point' | translate}} </ion-label>
+            <ion-toggle [(ngModel)]="product.available_in_pos"></ion-toggle>
+        </ion-item>
+    </div>
+
+    <div *ngSwitchCase="'desc'" class="post-example-view">
+        <ion-item no-lines transparent>
+            <ion-textarea [(ngModel)]="product.description_sale" placeholder="Entrer une Description ici"></ion-textarea>
+        </ion-item>
+    </div>
+    <div *ngSwitchCase="'pics'" class="post-example-view">
+        <p id="pic_text" text-center>{{'module.prod_form.add_images' | translate}}</p>
+        <div class="picture">
+            <img [src]="photo" (click)="selectImage($event)" />
+            <!-- <img *ngIf="!modif" [lazyLoad]="photo" (click)="selectImage($event)" /> -->
+        </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <div bloc-btn>
+        <button color="light" ion-button full clear *ngIf="modif" (click)="updateItem()" icon-right>
+      <ion-icon color="light" name="checkmark"></ion-icon> {{'module.form_event.update' | translate}}
+    </button>
+        <button ion-button full clear *ngIf="!modif" color="light" (click)="saveItem()" icon-right>
+       <ion-icon color="light" name="checkmark"></ion-icon> {{'module.form_event.save' | translate}}
+    </button>
+    </div>
+</ion-footer>

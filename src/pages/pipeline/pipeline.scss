@@ -1,0 +1,16 @@
+page-pipeline {
+    $blanc: #ffffff;
+    .scroll-content {
+        // background-color: color($colors, primary);
+        padding-bottom: 150px;
+    }
+
+    ion-content.has-refresher>.scroll-content {
+        background-color: color($colors, lightest);
+    }
+    ion-content.has-refresher>.scroll-content .content {
+        background-color: transparent !important;
+    }
+   
+    
+}

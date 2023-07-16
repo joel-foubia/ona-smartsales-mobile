@@ -1,0 +1,17 @@
+page-optionspop {
+
+    .content{
+       border-radius: 20px !important;
+    }
+    ion-col.col{
+        padding: unset !important;
+    }
+    div.popover-content{
+        left: 80px !important;
+    }
+    //width: 110% !important;
+
+    ion-icon{
+        font-weight: bolder;
+    }
+}

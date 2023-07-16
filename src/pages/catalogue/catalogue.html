@@ -1,0 +1,95 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="prods_received == undefined">{{'pop.catalogue' | translate}}</ion-title>
+    <ion-title *ngIf="prods_received != undefined">{{'pop.catalogue_sold' | translate}}</ion-title>
+    <ion-buttons end>
+
+      <button class="count_btn" ion-button>{{clients.length}}</button>
+      <button [ngClass]="{'searchOn': display_search}" ion-button icon-only (click)="searchItems()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+      <button ion-button (click)="showSideMenu()" icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-navbar *ngIf="display_search || txtFiltre.length > 0" custom-segment class="animated fadeIn">
+    <ion-item class="search-bloc" transparent no-lines no-padding>
+      <ion-searchbar item-start class="animated zoomIn" debounce="500" [showCancelButton]="false" (ionInput)="setFilteredItems($event)"
+        placeholder="{{'message.search' | translate}}"></ion-searchbar>
+      <ion-icon (click)="onSetClick()" color="gris" name="md-funnel" item-end></ion-icon>
+    </ion-item>
+    <ion-list class="animated fadeIn" text-center no-lines [hidden]="showQuickFilter == false">
+      <ion-scroll *ngIf="categories_list.length > 0" class="horizontal-scroll" scrollX="true">
+        <span *ngFor="let item of categories_list;let i = index" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true, 'plus':item.id == 'plus'}"
+          (click)="onQuickFilter(item, i)">
+          {{item.name}}
+          <ion-icon *ngIf="item.id == 'plus'" name="add"></ion-icon>
+        </span>
+      </ion-scroll>
+    </ion-list>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="list-big-content">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Updating catalogues..."></ion-refresher-content>
+  </ion-refresher>
+
+  <p *ngIf="objLoader" obj-loader>
+    <ion-spinner name="dots"></ion-spinner>
+  </p>
+  <ion-grid class="prod-list" [ngClass]="{'goDown': txtFiltre.length > 0}" *ngIf="!objLoader">
+    <ion-row *ngIf="clients.length!=0">
+      <ion-col *ngFor="let c of clients | slice:0:max" class="animated fadeInUp prod-bloc" col-6 col-sm-6 col-md-6
+        col-lg-3 col-xl-4 no-padding>
+        <product [product]="c" [events]="eventsBinding"></product>
+      </ion-col>
+    </ion-row>
+
+    <div bloc-empty *ngIf="clients.length==0" class="img_sync">
+      <div><img src="assets/images/empty/shopping-cart.png" alt="empty"></div>
+      <h4 *ngIf="selected_filter">
+          {{'module.catalogue.empty_text' | translate}}
+            <span>
+              {{selected_filter.name}}
+            </span>
+          {{'module.catalogue.empty_text_2' | translate}}
+        
+      </h4>
+      <h4 *ngIf="txtFiltre.length && clients.length == 0">
+        {{'module.catalogue.empty_text' | translate}}
+          <span *ngFor="let item of txtFiltre">
+              <strong>{{item.title}}</strong>, 
+          </span>
+        {{'module.catalogue.empty_text_2' | translate}}
+      </h4>
+      <button *ngIf="txtFiltre.length && clients.length == 0" ion-button color="light" outline (click)="synchronizing()">
+          {{'module.catalogue.sync' | translate}}
+          <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+        </button>
+      <h4 *ngIf="!selected_filter && txtFiltre.length == 0 && clients.length == 0">{{'module.catalogue.empty_msg' | translate}}</h4>
+
+      <button *ngIf="!selected_filter && !txtFiltre && clients.length == 0" ion-button color="light" outline (click)="synchronizing()">
+        {{'module.catalogue.sync' | translate}}
+        <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+      </button>
+      <p *ngIf="display" style="text-align: center;">{{'module.catalogue.sync_process' | translate}}</p>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{'module.leads.load_more_data' | translate}}"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-grid>
+  <ion-fab #fab bottom right>
+    <button (click)="onAdd()" button-ion-fab ion-fab color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

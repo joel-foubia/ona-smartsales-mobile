@@ -1,0 +1,97 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'module.events.events' | translate}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="onFilter($event)">
+        <ion-icon name="md-funnel"></ion-icon>
+      </button>
+            <button ion-button>{{events?.length}}</button>
+            <button ion-button icon-only (click)="openLeftMenu()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+    <ion-navbar *ngIf="txtFiltre.length!=0" class="filter">
+        <ion-title>
+            <span *ngFor="let obj of txtFiltre">{{obj.nom}} - </span>
+        </ion-title>
+        <!-- <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="search..." animated="true"></ion-searchbar> -->
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content [class]="txtFiltre.length != 0 ? 'addtop' : 'notop'">
+        <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}" animated="true"></ion-searchbar>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <p *ngIf="objLoader" obj-loader>
+        <ion-spinner name="dots"></ion-spinner>
+    </p>
+
+    <ion-grid no-padding *ngIf="!objLoader" class="schedule-list">
+        <ion-row *ngIf="events.length!=0">
+            <ion-col col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4 no-padding *ngFor="let item of events | slice:0:max" class="custom-card" (click)="onTapItem(item)">
+                <ion-card>
+                    <ion-row>
+                        <ion-col col-3 class="schedule-date" text-wrap text-center color='light'>
+                            <h2 class="date">{{item?.date_begin | date:'mediumDate'}}</h2>
+                            <span>{{item?.date_begin | date:'shortTime'}}</span>
+                        </ion-col>
+                        <ion-col col-9 class="schedule-data" text-wrap>
+                            <div class="data-item">
+
+                                <ion-item class="schedule-item">
+                                    <div class="item-content">
+                                        <h2 class="schedule-day"><b>{{item?.name}}</b></h2>
+                                        <h4 class="schedule-time">{{item?.date_end | date:'longDate'}} {{item?.date_end | date:'shortTime'}}</h4>
+                                        <ion-row class="person">
+                                            <ion-col col-2>
+                                                <ion-icon name="ios-people-outline"></ion-icon>
+                                            </ion-col>
+                                            <ion-col col-10>
+                                                <p text-right *ngIf="item.seats_availability=='limited'">{{item?.seats_max}} {{'module.events.part_att' | translate}}</p>
+                                                <p text-right *ngIf="item.seats_availability!='limited'">{{'module.events.place_illi' | translate}}</p>
+                                                <p text-right>{{item?.registration_ids.length}} {{'module.events.part_confirmed' | translate}}</p>
+                                            </ion-col>
+                                        </ion-row>
+                                    </div>
+
+                                </ion-item>
+
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+            </ion-col>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </ion-row>
+
+        <!-- Aucun Evènements enregistré -->
+        <ion-row *ngIf="events.length==0">
+            <ion-col col-12>
+                <div bloc-empty>
+                    <img src="assets/images/lawyer.png">
+                    <h4 *ngIf="txtFiltre.length==0">{{titre}} {{'module.events.file_empty' | translate}}</h4>
+                    <h4 *ngIf="txtFiltre.length!=0">{{'module.events.no' | translate}} {{titre}} {{'module.events.search_found' | translate}}</h4>
+                    <button *ngIf="txtFiltre.length==0" ion-button color="light" outline (click)="synchronizing()">
+              Synchronize
+              <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+            </button>
+                    <p *ngIf="display" style="text-align: center;">{{'module.events.sunc_process' | translate}}</p>
+                </div>
+            </ion-col>
+        </ion-row>
+        <!-- fin vide -->
+    </ion-grid>
+
+</ion-content>
+
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="onAdd($event)">
+      <ion-icon name="add"></ion-icon>
+    </button>
+</ion-fab>

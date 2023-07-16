@@ -1,0 +1,271 @@
+<ion-header no-border>
+  <ion-navbar>
+    <button *ngIf="menu_slide_display != true" ion-button menuToggle>
+      <ion-icon class="icon-menu" name="menu"></ion-icon>
+    </button>
+    <ion-title text-center *ngIf="menu_slide_display" class="animated fadeIn infiniteCount downIcon">
+      {{'module.dashboard.click_exist' | translate}}</ion-title>
+      <ion-title *ngIf="!menu_slide_display"> 
+          <ion-item *ngIf="user" transparent (click)="showProfil()">
+            <h3 *ngIf="txtTime=='jour'">{{'bjr' | translate}} {{user.name}}</h3>
+            <h3 *ngIf="txtTime=='soir'">{{'bsr' | translate}} {{user.name}}</h3>
+            <ion-avatar item-end>
+              <op-lazy-img [source]="user.image_url"></op-lazy-img>
+            </ion-avatar>
+            
+          </ion-item>
+      </ion-title>
+    <ion-buttons *ngIf="menu_slide_display != true" end>
+      <button (click)="reloadPage()" ion-button icon-only>
+        <ion-icon [ngClass]="{'arrow-animation': refreshing == true}" id="notifs_icon" name="ios-refresh-outline"></ion-icon>
+      </button>
+      <button (click)="goToNotifs()" ion-button icon-only>
+        <ion-icon id="notifs_icon" name="ios-chatboxes-outline"></ion-icon>
+      </button>
+      <button (click)="deconnexion()" ion-button icon-only>
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<!--Fist Screen Content-->
+
+<ion-content text-center class="bg_dashboard">
+  <!-- <img src="assets/arrow_up.svg" swipe-up (onSwipeDown)="onSwipeDown($event)" *ngIf="menu_slide_display == true" class="animated fadeOutDown infiniteCount downIcon" id="menuIcon"> -->
+  <!-- <span *ngIf="menu_slide_display == true" class="animated fadeIn infiniteCount downIcon">{{'module.dashboard.click_exist' | translate}}</span> -->
+  <ion-grid no-padding class="container">
+    <ion-row>
+      <ion-col class="upper-card upper-card-1">
+        
+          <h6> <i class="icon icon-walk"></i> 
+            {{'module.dashboard.opport' | translate}} ({{current_date | date:'MMM, y':'':current_lang}})
+          </h6>
+          <div class="bloc-content">
+            
+            <canvas id="bar-canvas" #lineCanvas></canvas>
+
+            <!-- <ion-icon class="animated flash iter" *ngIf="(total_won == null || total_won == undefined)" id="middle-card-content-icon2" name="pulse"></ion-icon> -->
+            <img class="animated fadeIn" *ngIf="(total_won != null && total_won != undefined)" id="middle-card-content-icon"
+              src="{{mood}}" />
+            <span (click)="goToWon()" id="middle-card-text">
+              <span class="animated flash iter" id="total_won" *ngIf="user && (total_won == null || total_won == undefined)">
+                {{0 | currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}
+              </span>
+              <span class="animated fadeIn" *ngIf="user && (total_won != null && total_won != undefined)" id="total_won">{{total_won
+                | currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}</span><br> <span id="last_month">{{last_month
+                | date:'MMM, y':'':current_lang}} : {{last_month_total_won |
+                currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}</span>
+              <br>
+              <span *ngIf="user" class="lbl-target" id="middle-last-month">{{'module.dashboard.target' | translate}} :
+                {{user?.target_sales_won | currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}</span>
+            </span>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="upper-card upper-card-2">
+        
+          <h6 (click)="goToMeetings('m')">
+            <span *ngIf="meetings_ids.length==0" id="next-cation">
+              <span class="animated flash iter">0</span>
+            </span>
+            <span class="animated fadeIn" *ngIf="meetings_ids.length!=0" id="next-cation">{{meetings_ids?.length}}</span>
+            <span class="animated fadeIn" *ngIf="meetings_over.length>0" id="missed_callings">{{meetings_over?.length}}</span>
+          </h6>
+          <div class="bloc-content" (click)="goToMeetings('t')">
+            <span id="first-card-title" class="animated flash iter" *ngIf="meetings_today_ids.length == 0">
+              0
+            </span>
+            <span class="animated fadeIn" *ngIf="meetings_today_ids.length != 0" id="first-card-title">
+              {{meetings_today_ids?.length}} 
+            </span> <br>
+            <span class="second-card-title"><i class="icon icon-calendar"></i> 
+              {{'module.dashboard.meetings' | translate}} {{'module.dashboard.today' | translate}}
+            </span>
+          </div>
+  
+      </ion-col>
+      <ion-col class="upper-card  upper-card-3">
+        
+          <h6 (click)="goToCalls('m', 'today')"> 
+            <span id="next-cation" *ngIf="calls_ids.length==0">
+              <span class="animated flash iter">0</span>
+            </span>
+            <span class="animated fadeIn" *ngIf="calls_ids.length>0" id="next-cation">{{calls_ids?.length}}</span>
+            <span class="animated fadeIn" *ngIf="callsover && callsover.length>0" id="missed_callings">{{callsover?.length}}</span>
+          </h6>
+          <div class="bloc-content" (click)="goToCalls('t', 'today')">
+            <span id="first-card-title" class="animated flash iter" *ngIf="(todaysCalss == null || todaysCalss == undefined)">
+              0
+            </span>
+            <span class="animated fadeIn" *ngIf="todaysCalss != null && todaysCalss != undefined"
+              id="first-card-title">{{todaysCalss?.length}}</span> <br>
+            <span class="second-card-title"> <i class="icon icon-phone"></i> 
+              {{'module.dashboard.calls' | translate}} {{'module.dashboard.today' | translate}}
+            </span> <br>
+
+          </div>
+        
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="upper-card upper-card-4">
+        
+          <h6 id="next_header"><ion-icon color="marron" name="logo-buffer"></ion-icon> {{'module.dashboard.next_actions' | translate}}</h6>
+          
+            <ion-grid class="" id="next_act">
+              <ion-row>
+                <ion-col col-12>
+                  <ion-slides *ngIf="!next_actions.length" class="animated flash iter" pager>
+                    <ion-slide>
+                      <ion-row>
+                        <ion-col>
+                          <span text-center id="action_name">0</span> <br>
+                          <span text-center id="lead_name">{{'module.dashboard.next_actions' | translate}}</span>
+                        </ion-col>
+                      </ion-row>
+                    </ion-slide>
+
+                  </ion-slides>
+                  <ion-slides pager class="animated fadeIn" *ngIf="next_actions.length" autoplay=3000 loop=true speed=1500>
+                    <ion-slide *ngFor="let item of next_actions">
+                      <ion-row>
+                        <ion-col (click)="goToPipeline(next)" *ngFor="let next of item">
+                          <span id="action_name">{{next?.items?.length}}</span><br>
+                          <span id="lead_name">{{next?.name}}</span>
+                        </ion-col>
+                      </ion-row>
+                    </ion-slide>
+
+                  </ion-slides>
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="upper-card upper-card-5">
+        
+          <h6 id="invoice_header"><i class="icon icon-trending-up"></i>
+            {{'module.dashboard.invoiced' | translate}} ({{current_date | date:'MMM, y':'':current_lang}})
+          </h6>
+          <div class="bloc-content" text-center>
+
+            <div (click)="goToInvoices()" id="inoice-text-info">
+
+              <span id="total_invoice" class="animated flash iter" *ngIf="user && (total_invoice == null || total_invoice == undefined)">
+                {{0 | currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}
+              </span>
+              <span id="last_month" class="animated flash iter" *ngIf="user && (total_invoice == null || total_invoice == undefined)">
+                {{0 | currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}
+              </span>
+              <span class="animated fadeIn" id="total_invoice" *ngIf="user && (total_invoice != null && total_invoice != undefined)">
+                {{total_invoice | currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}
+              </span><br>
+              <span class="animated fadeIn" *ngIf="user && (last_month_total != null && last_month_total != undefined)"
+                id="last_month_invoice">
+                {{last_month | date:'MMM, y':'':current_lang}} : {{last_month_total |
+                currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}
+              </span> <br>
+              <span class="animated fadeIn lbl-target" *ngIf="user">
+                {{'module.dashboard.target' | translate}} : {{user?.target_sales_invoiced |
+                currency:user?.currency_id?.name:'symbol':'1.0-0':current_lang}}
+              </span>
+
+            </div>
+            <canvas id="barchart-canvas" #barCanvas></canvas>
+          </div>
+        
+      </ion-col>
+    </ion-row>
+    <ion-list id="canvas_list">
+      <div id="ca_bloc">
+      <ion-item-divider *ngIf="is_manager" text-uppercase>{{'menu.team' | translate}}
+        <button ion-button (click)="filterCAPeriod()" clear item-end color="light">{{period_type}} <ion-icon name="ios-clock-outline"></ion-icon></button>
+        <button ion-button (click)="filterCARegion()" clear item-end color="light"><ion-icon name="globe"></ion-icon></button>
+      </ion-item-divider>
+
+        <canvas id="team-canvas-large" #teamCanvas></canvas>
+
+        <button ion-button *ngIf="is_manager && objTeamCanvas != undefined" (click)="onViewTeamCA()" clear >{{selected_team_name}}</button>
+       <!--  <ion-item transparent *ngIf="is_manager">
+          <ion-label>Teams : </ion-label>
+          <ion-select *ngIf="objTeamCanvas != undefined">
+            <ion-option *ngFor="let item of objTeamCanvas.teams" >{{item.team.name}}</ion-option>
+            
+          </ion-select>
+        </ion-item> -->
+        <!-- <ion-item transparent *ngIf="!is_manager">
+          <ion-label>Commercials : </ion-label>
+          <ion-select *ngIf="objTeamCanvas != undefined">
+            <ion-option *ngFor="let item of objTeamCanvas.users" >{{item.user.display_nam}}</ion-option>
+            
+          </ion-select>
+        </ion-item> -->
+        <button ion-button *ngIf="!is_manager && objTeamCanvas != undefined" (click)="onViewUserCA()" clear >{{selected_user_name}}</button>
+      </div>
+
+      <ion-item-divider text-uppercase>{{'module.partner.prospect' | translate}}
+        <button *ngIf="leads.length>4" ion-button clear item-end color="light" (click)="showMore('leads')">{{'pop.more' | translate}}</button>
+      </ion-item-divider>
+      <h6 *ngIf="leads.length <= 0">{{'module.pipeline.no_prospect' | translate}}</h6>
+
+      <div *ngFor="let item of leads | slice:0:3">
+        <lead [opport]="item" [events]="eventsBinding" [stage]="false"></lead>
+      </div>
+
+      <button id="btn2" ion-button color="secondary" (click)="addLead()" item-start>
+        {{'module.partner.create' | translate}}
+      </button>
+    </ion-list>
+    <ion-list>
+      <ion-item-divider text-uppercase>{{'menu.devis_current_month' | translate}}
+        <button *ngIf="devis.length>3" ion-button clear item-end color="light" (click)="showMore('devis')">{{'pop.more' | translate}}</button>
+      </ion-item-divider>
+      <h6 *ngIf="devis.length <= 0">{{'module.sales.current_devis' | translate}}</h6>
+      <div class="bloc-invoice" *ngFor="let item of devis | slice:0:3">
+        <devis [fact]="item" [events]="devisEventsBinding"></devis>
+      </div>
+      <button id="btn2" ion-button color="secondary" (click)="addDevis()" item-end>
+        <!-- <ion-icon name="add"></ion-icon> -->{{'module.partner.devis' | translate}}
+      </button>
+
+      <ion-item-divider text-uppercase>{{'menu.won_opport' | translate}}
+        </ion-item-divider>
+
+        <canvas id="barchart-canvas-large" #barCanvasLarge></canvas>
+
+    </ion-list>
+    <ion-item-divider text-uppercase>{{'menu.sold_articles' | translate}}
+        <button *ngIf="products.length > 3" item-end ion-button clear color="light" (click)="showMore('produit')">
+            {{'pop.more' | translate}}
+          </button>
+    </ion-item-divider>
+    <h6 *ngIf="products.length <= 0">{{'module.catalogue.prod_empty' | translate}}</h6>
+
+    <div class="bloc-sub" *ngFor="let item of products | slice:0:3">
+      <dashproduct [produit]="item" [events]="eventsProdsBinding"></dashproduct>
+    </div>
+    
+
+
+    <ion-item-divider text-uppercase>{{'menu.abonne_finish' | translate}}
+      <button *ngIf="subs.length>3" ion-button clear item-end color="light" (click)="showMore('subs')" >{{'pop.more' | translate}}</button>
+      <!-- <button ion-button clear color="secondary" (click)="addDevis()" item-end><ion-icon name="add"></ion-icon></button>	 -->
+    </ion-item-divider>
+    <h6 *ngIf="subs.length <= 0">{{'module.subscription.sub_available' | translate}}</h6>
+
+    <div class="bloc-sub" *ngFor="let item of subs | slice:0:3">
+      <abbonement [subscription]="item" [events]="eventsSubsBinding"></abbonement>
+    </div>
+
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer text-center swipe-up (onSwipeUp)="onSwipeUp($event)" (onSwipeDown)="onSwipeDown($event)" (click)="showMenu()">
+  <img src="assets/arrow_up.svg" class="animated fadeOutUp infiniteCount" id="menuIcon">
+</ion-footer>

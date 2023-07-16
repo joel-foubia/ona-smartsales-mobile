@@ -1,0 +1,52 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="!is_modif">{{'module.notes.f_title' | translate}}</ion-title>
+    <ion-title *ngIf="is_modif"></ion-title>
+    <ion-buttons end *ngIf="is_modif">
+    	<button ion-button icon-only *ngFor="let filter of tabButtons" (click)="applyUpdateOnNotes(filter)"><ion-icon name="{{filter.icon}}"></ion-icon></button>
+        <button ion-button icon-only (click)="showMore($event)"><ion-icon name="ios-arrow-down-outline"></ion-icon></button>
+        
+        <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+    <ion-buttons end *ngIf="!is_modif">
+       <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header> 
+
+
+<ion-content padding [ngStyle]="{'background-color': '' + note.bg + ''}">
+	
+    <ion-textarea autosize [(ngModel)]="note.memo" placeholder="{{'module.notes.f_label' | translate}}"></ion-textarea>
+
+	<ion-list>
+		  
+	      <!-- <ion-item (click)="openCalendar($event)" transparent>
+	      	  <ion-icon name="ios-alarm-outline" item-start></ion-icon>
+			  <p>{{'module.notes.f_rappel' | translate}}</p>
+			  
+			  <ion-input type="datetime"></ion-input>
+		  </ion-item> -->
+		  <div class="tag" *ngIf="is_modif">
+				<div *ngFor="let tag of tags; let i = index">
+					<span >{{tag?.me.name.me}}</span>
+					<ion-icon name="close" (click)="removeTag(tag, i)"></ion-icon>
+				</div>
+				<div class="add-tag" (click)="addTag($event)">{{'pop.tag' | translate}}
+					<ion-icon name="add"></ion-icon>
+				</div>
+		  </div>
+		  <ion-item *ngIf="is_modif" text-wrap text-center last-updated transparent>
+		  	{{'module.notes.f_lastupdate' | translate}} {{note.create_date | date:'medium'}}
+		  </ion-item>
+		   
+	    </ion-list>
+
+		<p text-center padding>
+			<button *ngIf="!is_modif" round ion-button color="secondary" (click)="saveItem()">{{'btns.save_note' | translate}}</button> 
+			<button *ngIf="is_modif" round ion-button color="secondary" (click)="saveItem()">{{'btns.update_note' | translate}}</button> 
+		</p>
+	</ion-content>

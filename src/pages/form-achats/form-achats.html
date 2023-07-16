@@ -1,0 +1,124 @@
+<!--
+  Generated template for the FormAchatsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="is_modif">{{achat.name}}</ion-title>
+    <ion-title *ngIf="!is_modif">{{'module.achats.txt_add' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar >
+    <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="info">
+          {{'module.achats.info' | translate}}
+      </ion-segment-button>
+      <ion-segment-button value="line">
+          {{'module.achats.lines' | translate}}
+      </ion-segment-button>
+  </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div [ngSwitch]="segment">
+    <div *ngSwitchCase="'info'">
+        <ion-item class="country" (click)="selectPartner('client')">
+            <p color="primary">{{'module.achats.f_customer' | translate}}</p>
+            <h3>{{achat.partner_id.name}}</h3>
+            <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+          </ion-item>
+          <ion-item transparent>
+            <ion-label stacked>{{'module.achats.planned_date' | translate}}</ion-label>
+            <ion-input min="{{current_date}}" type="datetime-local" [(ngModel)]="achat.date_planned"></ion-input>
+          </ion-item>
+    </div>
+    <div *ngSwitchCase="'line'">
+        <div >
+            <ion-item class="country" (click)="selectPartner('produit')">
+                <p color="primary">{{'module.achats.f_product' | translate}}</p>
+                <h3>{{achat.product_id.name}}</h3>
+                <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+              </ion-item>
+        <ion-item transparent>
+            <ion-label stacked>{{'module.achats.desc' | translate}}</ion-label>
+            <ion-input [(ngModel)]="line.name" type="text"></ion-input>
+          </ion-item> 
+          
+             
+         <ion-item transparent>
+          <ion-label stacked>{{'module.achats.invoice_date' | translate}}</ion-label>
+          <ion-input min="{{current_date}}" type="datetime-local" [(ngModel)]="line.date_planned"></ion-input>
+        </ion-item>
+         <ion-grid>
+           <ion-row>
+             <ion-col col-8>
+              <ion-item transparent> 
+                <ion-label stacked>{{'module.achats.unit_measure' | translate}}</ion-label>
+                <ion-select [(ngModel)]="line.product_uom.id"  (ionChange)="changeValue($event,'account')" required>
+                  <ion-option *ngFor="let u of listUnits" value="{{u.me.id.me}}">
+                    {{u.me.name.me}} 
+                  </ion-option>
+                </ion-select>
+           </ion-item>
+             </ion-col>
+             <ion-col col-4>
+               <ion-item transparent>
+                  <ion-label stacked>{{'module.facture.quantite' | translate}}</ion-label>
+                  <ion-input [(ngModel)]="line.product_qty" type="number"></ion-input>
+                </ion-item>
+             </ion-col>
+           </ion-row>
+         </ion-grid>
+         <ion-item transparent>
+          <ion-label stacked>{{'module.achats.price_unit' | translate}}</ion-label>
+          <ion-input [(ngModel)]="line.price_unit" type="number"></ion-input>
+        </ion-item>
+          
+         <div class="tax-bloc">
+
+           <h4>{{'module.facture.tax' | translate}}</h4>
+           <div class="tag reminders">
+             <div *ngFor="let obj of taxes; let i = index">
+               <span>{{obj?.me.name.me}}</span>
+               <ion-icon name="close" (click)="removeTag(obj, i, 'tax')"></ion-icon>
+              </div>
+              <div class="add-tag" (click)="addObjetFromPop($event,'tax')">{{'module.facture.add_tax' | translate}}
+                <ion-icon name="add"></ion-icon>
+              </div>
+            </div>
+          </div>
+            <!-- <button id="line_btn" ion-button block color="secondary" (click)="addALine()">Ajouter</button>   -->
+
+        </div>
+
+         <!--  
+          <ion-grid *ngIf="lignes.length > 0" class="bloc-lines">
+            <ion-row class="top">
+              <ion-col text-left>{{'module.achats.meslignes' | translate}}</ion-col>
+              <ion-col></ion-col>
+            </ion-row>
+            <ion-row *ngFor="let obj of lignes; let i = index" (click)="addLine(obj)">
+              <ion-col text-left>{{obj.name}}</ion-col>
+              <ion-col><ion-icon name="ios-trash-outline" (click)="removeObj(obj, i)"></ion-icon></ion-col>
+            </ion-row>
+          </ion-grid> -->
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer>
+    <div bloc-btn>
+      <button *ngIf="is_modif" ion-button outline clear (click)="saveItem()">{{'btns.txt_update' | translate}}</button>
+      <button *ngIf="!is_modif" ion-button outline clear (click)="saveItem()">{{'btns.save' | translate}}</button>  
+    </div>
+  </ion-footer>

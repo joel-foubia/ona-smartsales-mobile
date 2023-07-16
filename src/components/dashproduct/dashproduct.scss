@@ -1,0 +1,54 @@
+dashproduct {
+    #sold{
+        color: color($colors, danger) !important;
+        // font-size: 1.6em !important
+    }
+    #stock{
+        color: color($colors, plants) !important;
+        // font-size: 1.8em !important
+    }
+    #dates_block{
+        color: color($colors, secondary) !important;
+        font-style: italic !important;
+        margin-top: 10px !important
+    }
+    #desc{
+        text-align: left !important;
+        margin-top: 15px !important;
+        // margin-left: 10px !important
+    }
+    #category{
+        color: color($colors, gris) !important;
+        font-size: 1.3rem !important;
+    }
+    #ref{
+        font-size: 1.3rem !important;
+    }
+    h3{
+        color: color($colors, dark);
+        text-transform: uppercase !important;
+        font-size: 1.6rem !important;
+        white-space: nowrap !important;
+         overflow: hidden !important;
+         text-overflow: ellipsis !important;
+         width: 140px !important;
+        i{
+            color: color($colors, gris) !important;
+            font-size: 1.4rem !important
+        }
+    }
+    .stock-bloc{
+        text-align: center;
+        #stock{
+            color: color($colors, primary) !important;
+            font-size: 5rem !important;
+            span{
+                font-size: 1.2rem !important;
+            }
+        }
+        #stock_text{
+            font-size: 1.1rem !important;
+            margin-top: -18px
+        }
+    }
+}

@@ -1,0 +1,163 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'module.agenda.title' | translate}}
+      <p *ngIf="client" class="subtitle">{{customer?.name}}</p>
+    </ion-title>
+    <ion-buttons end>
+      <!-- <button ion-button icon-only (click)="synchronizing()"><ion-icon name="ios-person-add-outline"></ion-icon></button> -->
+      <button ion-button icon-only (click)="onAddPartner()"><ion-icon name="ios-person-add-outline"></ion-icon></button>
+      <button ion-button icon-only (click)="onFilter($event)"><ion-icon name="md-funnel"></ion-icon></button>
+      <button ion-button icon-only (click)="openLeftMenu()"> <ion-icon name="more"></ion-icon> </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-navbar class="header-calendar">
+  	<ion-title>{{viewTitle}} </ion-title> 
+    <ion-buttons end>
+        <button ion-button icon-only (click)="synchronizing()">
+            <ion-icon *ngIf="!objLoader" name="ios-refresh"></ion-icon>
+            <ion-spinner *ngIf="objLoader" name="bubbles"></ion-spinner>
+          </button>
+        <button ion-button [disabled]="isToday" (click)="today()">{{'module.agenda.jourj' | translate}}</button>
+        <button ion-button icon-only (click)="openMode($event)"> <ion-icon name="ios-calendar-outline"></ion-icon> </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+ 
+<ion-content [ngClass]="{'list-view': view_mode == 'list' && customer != undefined && eventSource.length == 0}">
+	<div *ngIf="view_mode == 'other'">
+
+    <ng-template #template let-showEventDetail="showEventDetail" let-selectedDate="selectedDate" let-noEventsLabel="noEventsLabel">
+      <ion-list class="event-detail-container mois" has-bouncing="false" *ngIf="showEventDetail" overflow-scroll="false" padding>
+        <button class="animated fadeIn" ion-item *ngFor="let event of selectedDate?.events" (click)="eventSelected($event, event)" [ngStyle]="{'background-color': '' + event.agenda.bg + ''}">
+                <h3>{{event.title}}</h3>
+                <p>
+                  <span *ngIf="!event.allDay" class="monthview-eventdetail">
+                    <i class="icon icon-clock"></i>  
+                    {{event.startTime|date: 'HH:mm':'':current_lang}} - {{event.endTime|date: 'HH:mm':'':current_lang}}
+                  </span>
+                  <span *ngIf="event.allDay" class="monthview-eventdetail">
+                    {{txtAllDay}}
+                  </span>
+                  <span *ngIf="event.agenda.partner_ids.length!=0" class="person"> 
+                    | <i class="icon icon-account-multiple-outline"></i> {{event.agenda.partner_ids.length}} {{'module.agenda.attendee' | translate}}
+                  </span>
+                </p>
+                <img *ngIf="event.agenda.id == 0" src="assets/svg/refreshing.svg" id="off" alt="">
+                <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>
+              </button>
+              <ion-item *ngIf="selectedDate?.events.length==0">
+                <div class="no-events-label">{{noEventsLabel}}</div>
+              </ion-item>
+            </ion-list>
+          </ng-template>
+          <!-- end template month -->
+          
+          <ng-template #alldayweek let-displayEvent="displayEvent">
+            <div class="calendar-event-inner weekAllday" (click)="eventSelected($event, displayEvent.event)" [ngStyle]="{'border-top': '3px solid ' + displayEvent.event.agenda.bg + ''}">
+          <h4>{{displayEvent.event.title}}</h4>
+          <span *ngIf="displayEvent.event.agenda.partner_ids.length!=0" class="person"> 
+            <i class="icon icon-account-multiple-outline"></i> 
+            {{displayEvent.event.agenda.partner_ids.length}} {{'module.agenda.attendee' | translate}}
+          </span>
+        </div>
+      </ng-template>
+    <!-- end template weekview all day -->
+    
+    <ng-template #weekviewevent let-displayEvent="displayEvent">
+      <div class="calendar-event-inner jrStandart" (click)="eventSelected($event, displayEvent.event)" [ngStyle]="{'border-top': '3px solid ' + displayEvent.event.agenda.bg + ''}">
+          <h4>{{displayEvent.event.title}}</h4>
+          <span *ngIf="displayEvent.event.agenda.partner_ids.length!=0" class="person"> 
+            <i class="icon icon-account-multiple-outline"></i> 
+            {{displayEvent.event.agenda.partner_ids.length}} {{'module.agenda.attendee' | translate}}
+          </span>
+        </div>
+      </ng-template>
+	<!-- end template weekview normal event -->
+
+  <ng-template #dayAlldayEvent let-displayEvent="displayEvent">
+    <div class="calendar-event-inner jrAllday" (click)="eventSelected($event, displayEvent.event)" [ngStyle]="{'border-top': '3px solid ' + displayEvent.event.agenda.bg + ''}">
+      <h4>{{displayEvent.event.title}}</h4>
+      <span *ngIf="displayEvent.event.agenda.partner_ids.length!=0" class="person"> 
+              <i class="icon icon-account-multiple-outline"></i> 
+              {{displayEvent.event.agenda.partner_ids.length}} {{'module.agenda.attendee' | translate}}
+            </span>
+          </div>
+        </ng-template>
+        <!-- end template dayallevent event -->
+        
+        <ng-template #dayView let-displayEvent="displayEvent">
+          <div class="calendar-event-inner jrStandart" (click)="eventSelected($event, displayEvent.event)" [ngStyle]="{'border-top': '3px solid ' + displayEvent.event.agenda.bg + ''}">
+            <h4>{{displayEvent.event.title}}</h4>
+            <span *ngIf="displayEvent.event.agenda.partner_ids.length!=0" class="person"> 
+              <i class="icon icon-account-multiple-outline"></i> 
+              {{displayEvent.event.agenda.partner_ids.length}} {{'module.agenda.attendee' | translate}}
+            </span>
+          </div> 
+        </ng-template>
+    <!-- end template day normal event -->
+    
+    
+    <!-- end of section week -->
+    
+    <calendar 
+			  [eventSource]="eventSource"
+        [noEventsLabel]="txtNoEvents"
+        [allDayLabel]="txtAllDay"
+        [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate"
+        [locale]="calendar.locale"
+        (onEventSelected)="onEventSelected($event)"
+        (onTitleChanged)="onViewTitleChanged($event)"
+        (onTimeSelected)="onTimeSelected($event)"
+        [monthviewEventDetailTemplate]="template"
+        [weekviewAllDayEventTemplate]="alldayweek"
+        [weekviewNormalEventTemplate]="weekviewevent"
+        [dayviewAllDayEventTemplate]="dayAlldayEvent"
+        [dayviewNormalEventTemplate]="dayView"
+        [weekviewAllDayEventSectionTemplate]="sectionweekallday"
+        [weekviewNormalEventSectionTemplate]="sectionweek"
+        step="30"
+        class="calendar">
+      </calendar>
+    </div>
+      <div class="list-container" *ngIf="view_mode == 'list'">
+        <ion-grid no-padding>
+          <ion-row no-padding>
+            <ion-col no-padding *ngFor="let item of eventSource | slice:0:max" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
+              <events [meeting]="item" [eventsBinding]="eventsBinding" [current_lang]="current_lang" ></events>
+            </ion-col>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div bloc-empty *ngIf="eventSource.length==0 && view_mode == 'list' && customer != undefined">
+        <div>
+            <img src="assets/images/empty/calendar.png">
+        </div>
+        <h4>{{'module.agenda.sync_txt' | translate:customer}}</h4>        
+       <!--  <button ion-button outline (click)="synchronizing()" color="primary" icon-left>    
+          {{'btns.sync' | translate}} <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+      </button> -->
+        <p *ngIf="display" style="text-align: center;">{{'message.txt_sync' | translate}}</p>
+    </div>
+</ion-content>
+    <ion-footer *ngIf="collabos.length!=0" class="custom-footer">
+      
+      <ul [dragula]='"bag-one"' [dragulaModel]='collabos' [dragulaOptions]="dgOpt" class="collabos">
+      <li *ngFor="let avocat of collabos" (click)="helpMe()" class="animated fadeIn">
+        <!-- <img [lazyLoad]="avocat.me.image_url.me"> -->
+        <op-lazy-img [source]="avocat.image_url" [defaultImage]="defaultImg"></op-lazy-img>
+      </li>
+    </ul>
+  
+</ion-footer>
+<ion-fab #fab bottom right>
+  <button button-ion-fab ion-fab (click)="onAdd($event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab> 

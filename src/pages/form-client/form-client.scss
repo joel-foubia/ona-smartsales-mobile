@@ -1,0 +1,136 @@
+page-form-client {
+	.scroll-content{
+		background-color: color($colors, lightest) !important;
+		color: color($colors, dark) !important
+	}
+	
+	ion-label{
+		color: color($colors, dark) !important
+
+	}
+
+	ion-item .label{
+		color:color($colors, dark) !important
+	}
+	ion-title{
+		color: color($colors, lightest) !important;
+	}
+	
+	.picture{
+		margin:auto;
+		margin-top: 20px;
+		text-align: center;
+		padding-bottom: 10px;
+		border-bottom: 2px solid color($colors, dark);
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+	}
+	
+	.picture img{
+		object-fit: cover;
+		width: 100%;
+		border-radius: 50%;
+		
+	}
+
+	img{
+		opacity: 1 !important;
+	}
+	#other{
+		ion-input{
+			background-color: color($colors, light);
+			// text-transform: uppercase;
+		}
+	}
+	#other_title{
+		ion-select{
+			background-color: color($colors, light);
+		}
+	}
+	
+	#other2{
+		ion-select{
+			background-color: color($colors, light);
+			// text-transform: uppercase;
+		}
+	}
+	.country h3{
+		color: color($colors, primary);
+		text-transform: uppercase;
+	}
+	.city{
+		ion-input{
+			background-color: color($colors, light);
+			text-transform: uppercase;
+		}
+	}
+	.zip{
+		ion-input{
+			background-color: color($colors, light);
+			text-transform: uppercase;
+		}
+	}
+	.address{
+		ion-input{
+			background-color: color($colors, light);
+			text-transform: uppercase;
+		}
+	}
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, secondary);
+
+      [ion-button]{
+		  color:color($colors, light);
+		  
+      	
+      }
+	}
+	
+	.forms-examples-segment{
+			padding: 14px 0px;
+			background-color: color($colors, lightest);
+			.segment-button{
+				text-transform: uppercase;
+				color: color($colors, dark) !important;
+				border-bottom-color: color($colors, lightest) !important;
+				font-weight: bold !important
+			}
+			
+			.segment-button.segment-activated {
+				// opacity: 1 !important;
+				border-bottom-color: color($colors, secondary) !important;
+			}
+	}
+
+	.form-section{
+
+		ion-input{
+			height: 45px;
+			padding: 5px;
+            background-color: color($colors, light) !important;
+            border-radius: 0.45em;
+			// border:1px solid rgba($color: #666666, $alpha: 0.8);
+        }
+
+		ion-item .item-inner{
+			border-bottom: none !important;
+		}
+
+		  .radio .radio-checked{
+			border-color: color($colors, light);
+			
+		  }
+
+		  .radio-inner{
+			  background-color: color($colors, secondary);
+		  }
+	}
+
+	#name{
+		margin-bottom: 5px;
+	}
+
+}

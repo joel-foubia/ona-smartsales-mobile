@@ -1,0 +1,30 @@
+
+<ion-item (click)="onEvent('onClick', facture)" [ngClass]="{'ldraft': facture.state == 'draft', 'lopen': facture.state == 'open', 'lpaid': facture.state == 'paid'}">
+    <ion-grid no-padding>
+        <img *ngIf="facture.id == 0" src="assets/svg/refreshing.svg" id="off" alt="not synchronized">
+        <ion-row no-padding>
+            <ion-col col-7 no-padding>
+                <h5>{{facture.number}}</h5>
+                <h4 text-wrap text-uppercase>{{facture.partner_id.name}}</h4>
+            </ion-col>
+            <ion-col col-5 no-padding>
+                <h4 class="amount" text-right text-wrap>{{facture.amount_total | currency:facture.currency_id.name:'symbol':'1.0-0':current_lang}}</h4>
+                <h6 *ngIf="facture.residual>0 && ((facture.residual/facture.amount_total)*100)<50" class="residual_red" text-right text-wrap>
+                    <ion-icon name="arrow-dropdown"></ion-icon>
+                    {{facture.residual | currency:facture.currency_id.name:'symbol':'1.0-0':current_lang}}
+                </h6>
+                <h6 *ngIf="facture.residual>0 && ((facture.residual/facture.amount_total)*100)>=50" class="residual_green" text-right text-wrap>
+                    <ion-icon name="arrow-dropup"></ion-icon>
+                    {{facture.residual | currency:facture.currency_id.name:'symbol':'1.0-0':current_lang}}
+                </h6>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <span *ngIf="facture.state == 'draft'" class="draft">{{'module.facture.to_valid' | translate}}</span>
+            <span *ngIf="facture.state == 'open'" class="open">{{'module.facture.open' | translate}}</span>
+            <span *ngIf="facture.state == 'paid'" class="paid">{{'module.facture.paid' | translate}}</span>
+             <span date id="date">{{facture.date_due | date:'mediumDate':'':current_lang}}</span>
+        </ion-row>
+    </ion-grid>
+    
+</ion-item>

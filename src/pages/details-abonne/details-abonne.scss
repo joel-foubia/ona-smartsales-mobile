@@ -1,0 +1,43 @@
+page-details-abonne {
+    .scroll-content {
+        background-color: color($colors, grislight);
+    }
+    ion-item {
+        h4 {
+            color: color($colors, primary);
+        }
+        p {
+            color: color($colors, secondary) !important;
+        }
+    }
+
+    .segment{
+        box-shadow: inset 2px 7px 9px -7px rgba(0,0,0,0.4) !important;
+        background-color:color($colors, grislight);
+        // border-top:4px solid color($colors, primary);
+        // border-bottom:2px solid color($colors, grislight);
+        // padding-bottom: 10px;
+    }
+
+	.segment-button{
+        // font-weight:bold !important;
+        padding-bottom: 10px !important;
+        color: color($colors, gris) !important;
+        
+	}
+	
+	.segment-activated{
+		border-color: color($colors, gris) !important;
+		color: color($colors, primary) !important; 
+    }
+    
+    .footer{
+        text-align: center;
+        background-color: color($colors, grislight);    
+    }
+
+	.footer::before{
+
+		background: none !important;
+	}
+}

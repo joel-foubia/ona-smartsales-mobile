@@ -1,0 +1,14 @@
+page-setting {
+
+    .scroll-content{
+        background-color: color($colors, grislight);
+    }
+
+    ion-card ion-item ion-icon{
+        color: green;
+    }
+
+    ion-item h3{
+        padding: 3px;
+    }
+}

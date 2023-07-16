@@ -1,0 +1,112 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'module.calls.title'| translate}}</ion-title>
+    <ion-buttons end>
+      <button class="count_btn" ion-button *ngIf="phoneCalls.length<=999" icon-only>{{phoneCalls?.length}}</button>
+      <button class="count_btn" ion-button *ngIf="phoneCalls.length>999" icon-only>999+</button>
+      <button [ngClass]="{'searchOn': display_search}" ion-button icon-only (click)="searchItems()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="openLeftMenu()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+
+      <!-- <button ion-button icon-only (click)="onInfo($event)">
+        <ion-icon name="information-circle"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="onFilter($event)">
+        <ion-icon name="md-funnel"></ion-icon>
+      </button> -->
+      <!-- <button ion-button>{{phoneCalls?.length}}</button> -->
+    </ion-buttons>
+  </ion-navbar>
+  <ion-navbar *ngIf="display_search" custom-segment class="animated fadeIn">
+    <!-- <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}" animated="true"></ion-searchbar> -->
+
+    <ion-item class="search-bloc" transparent no-lines no-padding>
+      <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}" animated="true"></ion-searchbar>
+      <ion-icon (click)="onSetClick()" color="{{colorFilterBtn}}" name="md-funnel" item-end></ion-icon>
+    </ion-item>
+    <ion-list class="animated fadeIn" text-center no-lines [hidden]="showQuickFilter == false">
+      <!-- liste des filtres -->
+      <ion-scroll *ngIf="filtres.length > 0" class="horizontal-scroll" scrollX="true">
+        <span *ngFor="let item of filtres;let i = index" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true}"
+          (click)="onQuickFilter(item, i)">
+          {{item.nom}}
+        </span>
+        <!-- équipes de ventes -->
+      </ion-scroll>
+      <ion-scroll *ngIf="filtres.length > 0" class="horizontal-scroll" scrollX="true">
+        <span *ngFor="let item of teamList;let i = index" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true}"
+          (click)="filterTeam(item,'team')">
+          {{item.name}}
+        </span>
+      </ion-scroll>
+      <ion-scroll *ngIf="filter_years.length > 0" class="horizontal-scroll" scrollX="true">
+        <span *ngFor="let int of filter_years" class="filter-item" [ngClass]="{'subCatSelected':int.selected == true}"
+          (click)="filterbyObjets(int,'year')">
+          {{int.text}}
+        </span>
+      </ion-scroll>
+    </ion-list>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <p *ngIf="objLoader" obj-loader>
+    <ion-spinner name="dots"></ion-spinner>
+  </p>
+
+  <ion-grid no-padding *ngIf="!objLoader" class="schedule-list">
+    <ion-list>
+
+      <ion-row *ngIf="phoneCalls?.length!=0">
+        <ion-col col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4 no-padding *ngFor="let item of phoneCalls | slice:0:max"
+          class="custom-card">
+          <call [call]="item" [events]="callEvents"></call>
+        </ion-col>
+        <!--  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+                </ion-infinite-scroll> -->
+      </ion-row>
+    </ion-list>
+
+    <ion-row *ngIf="phoneCalls.length==0 && objLoader == false">
+      <ion-col col-12>
+        <div bloc-empty class="img_sync">
+          <div><img src="assets/images/empty/phone-call.svg"></div>
+          <!-- <img src="assets/images/lawyer.png"> -->
+          <h4 *ngIf="!notCalled && phoneCalls?.length == 0">{{'module.calls.empty'| translate}}</h4>
+          <h4 *ngIf="notCalled && phoneCalls?.length == 0">
+            {{'module.calls.no'| translate}}
+            <span *ngFor="let item of notCalled">
+              <strong>{{item.name}}</strong>.
+            </span>
+            {{'module.calls.empty_2'| translate}}
+          </h4>
+          <h4 *ngIf="txtFiltre?.length!=0">{{'module.calls.no'| translate}} <br><span *ngFor="let item of txtFiltre">-
+              {{item.name}} </span> </h4>
+          <button ion-button color="light" outline (click)="synchronizing()" *ngIf="!notCalled && phoneCalls?.length == 0">
+            {{'module.calls.sync'| translate}}
+            <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+          </button>
+          <p *ngIf="display" style="text-align: center;">{{'module.calls.sync_process'| translate}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{'module.leads.load_more_data' | translate}}"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-fab #fab bottom right>
+  <button button-ion-fab ion-fab (click)="onAdd($event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

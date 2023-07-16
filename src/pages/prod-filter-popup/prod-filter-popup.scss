@@ -1,0 +1,43 @@
+page-prod-filter-popup {
+    .content {
+        background-color: color($colors, grislight);
+    }
+    .radio-group {
+        // padding-left: 15px;
+        background-color: white;
+        /* @include element-shadow();
+
+        @include radio-item-styles($white-d, $white-a, $theme-color-1); */
+    }
+    ion-item-divider.item.item-divider {
+        background-color: transparent !important;
+    }
+    #filter_btn {
+        // width: 200px;
+    }
+    @include radio-tags-styles(white, color($colors, secondary), white);
+    .radio-tags {
+        flex-wrap: nowrap;
+        padding: 15px;
+        .radio-tag {
+            border-radius: 8px;
+            .item-inner {
+                padding: 0px 8px;
+                ion-label {
+                    margin: 8px 0px;
+                    // height: 10px;
+                }
+            }
+        }
+    }
+    .range-md.range-has-pin {
+        padding-top: 0px !important
+    }
+    .checkbox-md .checkbox-icon {
+        background-color: color($colors, secondary);
+        border-color: color($colors, grislight);
+    }
+    .checkbox-tags{
+        margin: 30px !important;
+    }
+}

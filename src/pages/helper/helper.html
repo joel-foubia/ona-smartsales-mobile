@@ -1,0 +1,42 @@
+<ion-header no-border>
+  <ion-toolbar transparent>
+    <ion-title></ion-title> 
+      <ion-buttons end>
+        <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+    </ion-toolbar>
+
+</ion-header>
+<ion-content padding>
+	<h3>{{'pop.folder' | translate}}
+    <strong *ngIf="type_partner=='client'">{{'menu.client' | translate}}</strong>
+    <!-- <strong *ngIf="type_partner=='client_contact'">{{'menu.contact' | translate}}</strong> -->
+    <strong *ngIf="type_partner=='contact' || type_partner=='client_contact'">{{'menu.contact' | translate}}</strong>
+    <strong *ngIf="type_partner=='country'">{{'form.country' | translate}}</strong>
+    <strong *ngIf="type_partner=='leads'">{{'pop.opportunity' | translate}}</strong>
+    <strong *ngIf="type_partner=='state'">{{'pop.state_file' | translate}}</strong>
+    <strong *ngIf="type_partner=='produit'">{{'pop.catalogue' | translate}}</strong>
+    <strong *ngIf="supplier && type_partner == 'client'">{{'pop.supplier' | translate}}</strong>
+  </h3>
+
+	<ion-searchbar showCancelButton="true" (ionInput)="getItems($event)" (ionCancel)="clearItems($event)" [(ngModel)]="currentName" placeholder="{{'message.search' | translate}}"></ion-searchbar>
+	<ion-spinner *ngIf="objLoader" text-center name="dots"></ion-spinner>
+    <ion-list>
+        <ion-item *ngFor="let item of partners" (click)="selectedItem(item)" transparent>
+          <h2 text-uppercase *ngIf="type_partner=='client' || type_partner=='contact' || type_partner=='client_contact'" text-wrap>{{item.display_name}} </h2>
+          <h2 text-uppercase *ngIf="type_partner=='leads' || type_partner == 'produit'" text-wrap>{{item.name}} </h2>
+          <h2 text-uppercase *ngIf="type_partner!='client' && type_partner!='contact' && type_partner!='client_contact' && type_partner!='leads' && type_partner!='produit'">{{item.me.name.me}}</h2>
+        </ion-item>
+        <ion-item *ngIf="partners.length==0" transparent>
+          <h2> <strong>{{currentName}}</strong> {{'pop.folder_fail' | translate}} </h2>
+          <!-- <button ion-button icon-left item-end (click)="addPartner()" >
+			  <ion-icon name="person-add"></ion-icon> Créer
+			</button> -->
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-fab *ngIf="type_partner=='client'" #fab bottom right>
+  <button button-ion-fab ion-fab (click)="addPartner()">
+  <ion-icon name="add"></ion-icon>
+</button>
+</ion-fab>

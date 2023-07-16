@@ -1,0 +1,52 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'mail.title' | translate}}</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content formAffaire>
+
+  <div class="block-form">
+      
+        <!-- <div>
+          <ion-item transparent>
+            <ion-input type="text" value="{{info.partner_id.name}}" name="recipients">{{info.company_id.name}}</ion-input>
+          </ion-item>
+        </div> -->
+        <ion-item>{{'mail.recipients' | translate}}</ion-item>
+        <div class="tag attendees">
+          <div *ngFor="let obj of attendees; let i = index">
+            <span>{{obj?.name}}</span>
+            <!-- <ion-icon name="close" (click)="removeObj(obj, i, 'user')"></ion-icon> -->
+          </div>
+          <div class="add-tag" (click)="selectPartner()">{{'mail.f_add' | translate}}
+            <ion-icon name="add"></ion-icon>
+          </div>
+        </div>
+        
+          <ion-item transparent>
+            <ion-label stacked>{{'mail.subject' | translate}}</ion-label>
+            <ion-input type="text" [(ngModel)]="objMail.subject"></ion-input>
+          </ion-item>
+          
+          <ion-item transparent>
+              <ion-label stacked>{{'mail.message' | translate}}</ion-label>
+              <ion-textarea class="signe" autosize [(ngModel)]="objMail.body" name="body" rows="9" cols="33" placeholder="{{'mail.placeHolder' | translate}}"></ion-textarea>
+            </ion-item>
+      
+  </div>
+
+</ion-content>
+
+<ion-footer color="lightest" text-center no-border>
+  
+    <button ion-button color="secondary" (click)="send()">{{'btns.send' | translate}}</button>
+  
+</ion-footer>

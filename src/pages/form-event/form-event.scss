@@ -1,0 +1,79 @@
+page-form-event {
+
+    .scroll-content{
+		background-color: color($colors, primary);
+	}
+
+	ion-item .label{
+		color:rgba(255, 255, 255, 0.7) !important;
+	}
+	
+	.picture{
+		margin:auto;
+		margin-top: 10px;
+		text-align: center;
+		padding-bottom: 10px;
+		border-bottom: 2px solid color($colors, light);
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+	}
+	
+	.picture img{
+		object-fit: cover;
+		width: 70px;
+	}
+
+	img{
+		opacity: 1 !important;
+	}
+
+	.country h3{
+		color: color($colors, primary);
+		text-transform: uppercase;
+	}
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, primary);
+
+      [ion-button]{
+      	color:color($colors, light);
+      	
+      }
+	}
+	
+	.forms-examples-segment{
+			padding: 14px 0px;
+			background-color: color($colors, light);
+			
+			.segment-button.segment-activated {
+				// opacity: 1 !important;
+				border-bottom-color: color($colors, secondary) !important;
+			}
+	}
+
+	.form-section{
+
+        ion-input{
+			height: 45px;
+			padding: 5px;
+            background-color: #0d2a3e;
+            border-radius: 0.45em;
+			// border:1px solid rgba($color: #666666, $alpha: 0.8);
+        }
+
+		ion-item .item-inner{
+			border-bottom: none !important;
+		}
+
+		  .radio .radio-checked{
+			border-color: color($colors, light);
+			
+		  }
+
+		  .radio-inner{
+			  background-color: color($colors, secondary);
+		  }
+	}
+}

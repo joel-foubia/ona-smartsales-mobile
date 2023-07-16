@@ -1,0 +1,278 @@
+<ion-header no-border color="secondary">
+
+		<ion-navbar>
+		  <ion-title></ion-title>
+		  <ion-buttons end>
+			<button ion-button icon-only *ngIf="client.active && is_manager" (click)="archiveClient('a')">
+			  <ion-icon name="ios-archive-outline"></ion-icon>
+			</button>
+			<button ion-button icon-only *ngIf="!client.active && is_manager" (click)="archiveClient('f')">
+			  <ion-icon name="ios-remove-circle-outline"></ion-icon>
+			</button>	
+			<!-- <button ion-button icon-only (click)="copyClient()">
+			  <ion-icon name="ios-copy-outline"></ion-icon>
+			</button>	 -->
+			
+			<button ion-button icon-only (click)="editClient()">
+			  <ion-icon name="ios-create-outline"></ion-icon>
+			</button>
+			<button ion-button icon-only (click)="openLeftMenu()"> <ion-icon name="more"></ion-icon> </button>
+		  </ion-buttons>
+		</ion-navbar>
+	  
+	  </ion-header>
+	  
+	  <ion-content>
+		  <ion-grid no-padding>
+			  <ion-row>
+					  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 no-padding>
+						  <!-- Description du header -->
+						  <div class="header">
+								  <ion-item transparent class="photo" text-wrap>
+									  <ion-avatar item-start>
+										  <div class="rounded">
+											  <!-- <img [lazyLoad]="client.image_url" [defaultImage]="defaultImg" /> -->
+											  <op-lazy-img [source]="client.image_url" [defaultImage]="defaultImg"></op-lazy-img>
+										  </div>
+									  </ion-avatar>
+									  <h2 class="titre"> {{client.name}} {{client.middle_name}} {{client.last_name}} </h2>
+									  <ion-grid no-padding>
+										  <ion-row (click)="showMore('leads')">
+											  <ion-col col-10><h4><ion-icon name="ios-star-outline"></ion-icon> {{'pop.opportunity' | translate}}</h4></ion-col>
+											  <ion-col col-2>{{client.opportunity_ids.length}}</ion-col>
+										  </ion-row>
+										  <ion-row (click)="showMore('meeting')">
+											  <ion-col col-10><h4><ion-icon name="ios-calendar-outline"></ion-icon> {{'pop.meeting' | translate}}</h4></ion-col>
+											  <ion-col col-2>{{client.meeting_ids.length}}</ion-col>
+										  </ion-row>
+										  <ion-row (click)="showMore('devis')">
+											  <ion-col col-10><h4><ion-icon name="ios-cash-outline"></ion-icon> {{'menu.devis' | translate}}</h4></ion-col>
+											  <ion-col col-2>{{client.sale_order_ids.length}}</ion-col>
+										  </ion-row>
+										  <ion-row (click)="showMore('sub')">
+											  <ion-col col-10><h4><ion-icon><i class="icon icon-book-variant"></i> </ion-icon> {{'menu.subscription' | translate}}</h4></ion-col>
+											  <ion-col col-2>0</ion-col>
+										  </ion-row>
+										  <ion-row (click)="showMore('invoice')">
+											  <ion-col col-10><h4><ion-icon><i class="icon icon-clock"></i> </ion-icon> {{'pop.expired_bill' | translate}}</h4></ion-col>
+											  <ion-col col-2>0</ion-col>
+										  </ion-row>
+										  <ion-row (click)="showMore('email')">
+											  <ion-col col-10><h4><ion-icon><i class="icon icon-email-outline"></i> </ion-icon> {{'pop.email' | translate}}</h4></ion-col>
+											  <ion-col col-2>0</ion-col>
+										  </ion-row>
+										  <!-- <ion-row>
+											  <ion-col col-10><h4><ion-icon><i class="icon icon-alert"></i></ion-icon> {{'pop.incident' | translate}}</h4></ion-col>
+											  <ion-col col-2>0</ion-col>
+										  </ion-row> -->
+										  <ion-row>
+											  <ion-col text-left col-5><h4> {{'pop.ca' | translate}}</h4></ion-col>
+											  <ion-col text-right col-7>{{client.total_invoiced | currency:client.currency_id.name:'symbol':'':current_lang}}</ion-col>
+										  </ion-row>
+									  </ion-grid>
+									  
+								  </ion-item>
+	  
+							  </div>
+							  <!-- Fin Description du header -->
+					  </ion-col>
+					  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding>
+						  <!-- Description bloc contact -->
+						  <div class="bloc-footer">
+							  <ion-grid class="bloc-action">
+								  <ion-row>
+									  <ion-col col-4 (click)="appeler(client.mobile)">
+										  <ion-icon><i class="icon icon-phone"></i></ion-icon>
+										  <br> {{'pop.call' | translate}}
+									  </ion-col>
+									  <ion-col col-4 (click)="sendEmail(client.email)">
+										  <ion-icon><i class="icon icon-email"></i></ion-icon>
+										  <br> {{'pop.email' | translate}}
+									  </ion-col>
+									  <ion-col col-4 (click)="defineRdv()">
+										  <ion-icon><i class="icon icon-calendar"></i></ion-icon>
+										  <br> {{'pop.meeting' | translate}}
+									  </ion-col>
+								  </ion-row>
+							  </ion-grid>
+							  <ion-grid>
+								  
+								  <ion-list  *ngIf="lines && client.company_type == 'company'" class="grid-contact">
+										
+									  <ion-item-divider>{{'menu.ent_contacts' | translate}} ({{lines.length}})
+										  <button *ngIf="lines.length>4" ion-button clear color="secondary" (click)="showMore('contacts')" item-end>{{'pop.plus' | translate}}</button>
+									  </ion-item-divider>
+										<h6 *ngIf="lines.length <= 0">Aucun Contact enregistré</h6>
+										<ion-scroll *ngIf="lines.length > 0" class="horizontal-scroll" scrollX="true">
+											
+											<div class="contact-container"  *ngFor="let item of lines | slice:0:4">
+		
+												<div id="contact_item" (click)="viewContact(item)" class="animated fadeIn" >
+													<ion-thumbnail>
+														<op-lazy-img [source]="item.image_url" [defaultImage]="defaultImg"></op-lazy-img>
+													</ion-thumbnail>
+													<h3 text-wrap class="item-title">{{ item?.name }} <span *ngIf="item.function">({{ item?.function }})</span></h3>
+													<!-- <p *ngIf="item.email != undefined && item.email != ''">{{item?.email}}</p>
+													<p *ngIf="item.mobile != undefined && item.mobile != ''">{{item?.mobile}}</p> -->
+													<!-- <p *ngIf="item.mobile == undefined && item.mobile == ''">Numéro mobile pas disponible</p>
+													<p *ngIf="item.email == undefined || item.email == ''">Email pas disponible</p> -->
+													<button color="secondary" *ngIf="item.email != ''" (click)="sendEmail(item.email)" ion-button clear icon-only>
+														<ion-icon><i class="icon icon-email"></i></ion-icon>
+													</button>
+													<button color="secondary" *ngIf="item.mobile != '' || item.phone != ''" (click)="makeCall(item)" ion-button clear icon-only>
+														<ion-icon><i class="icon icon-phone"></i></ion-icon>
+													</button>
+												</div>
+											</div>
+									</ion-scroll>
+									
+					  <button ion-button id ="btn" color="secondary" *ngIf="client.company_type == 'company'" (click)="addContact()" item-start>
+						<!-- <ion-icon name="add"> -->{{'pop.plus_contact' | translate}}
+						<!-- </ion-icon> -->
+					  </button>
+								  </ion-list>
+							  </ion-grid>
+	  
+							  <ion-grid no-padding>
+								  <ion-row>
+									  <ion-col class="bloc-activiy" col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4>
+											<ion-list>
+												<ion-item-divider text-uppercase>{{'module.detail_lead_opport.flux_act' | translate}} ({{activities.length}})
+														<button *ngIf="activities.length>4" ion-button clear item-end color="light" (click)="showMore('activities')" >{{'pop.more' | translate}}</button>
+												</ion-item-divider>
+
+												<div padding class="activities-section animated fadeIn" *ngFor="let item of activities | slice:0:4">
+													<actaction [action]="item" [current_lang]="current_lang" ></actaction>
+												</div>
+
+												<h6 *ngIf="this.activities.length <= 0">Aucune activite</h6>									
+												<button ion-button id ="btn" color="secondary" (click)="addActivity()" item-start>
+												<!-- <ion-icon name="add"></ion-icon> -->{{'pop.activity' | translate}}
+												</button>		
+											</ion-list>
+									  </ion-col>
+									  <ion-col class="bloc-order" col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4>
+						<ion-list>
+	  
+						  <ion-item-divider text-uppercase>{{'menu.saleorder' | translate}} ({{commands.length}})
+							<button *ngIf="commands.length>4" ion-button clear item-end color="light" (click)="showMore('commands')" >{{'pop.more' | translate}}</button>
+							
+							
+						  </ion-item-divider>
+						  <h6 *ngIf="commands.length <= 0">Aucune commande</h6>
+						  <ion-grid class="bloc-invoice">
+							<ion-row>
+							  <ion-col class="animated fadeIn" col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let devis of commands | slice:0:4">
+								<devis [fact]="devis" [events]="devisEventsBinding" ></devis>
+							  </ion-col>
+							</ion-row>
+						  </ion-grid>
+						  <button ion-button id="btn" color="secondary" (click)="addSaleOrder()" item-start>
+							<!-- <ion-icon name="add"></ion-icon> --> {{'pop.bon_commande' | translate}}
+						  </button>		
+						</ion-list>
+									  </ion-col>
+									  <ion-col class="bloc-order" col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4>
+											  <ion-item-divider text-uppercase>{{'menu.won_opport' | translate}}
+												  </ion-item-divider>
+			  
+												  <canvas id="barchart-canvas-large" #barCanvasLarge></canvas>
+									  </ion-col>
+									  <ion-col class="bloc-order" col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4>
+											  <ion-list>
+	  
+						  <ion-item-divider text-uppercase>{{'module.partner.prospect' | translate}} ({{leads.length}})
+							<button *ngIf="leads.length>4" ion-button clear item-end color="light" (click)="showMore('leads')" >{{'pop.more' | translate}}</button>
+							
+						  </ion-item-divider>
+											  <h6 *ngIf="leads.length <= 0">Aucun prospect</h6>
+						  
+											  <div class="animated fadeIn" *ngFor="let item of leads | slice:0:4">
+							
+							<lead [opport]="item" [events]="eventsBinding" [stage]="false"></lead>
+						  </div>
+						  <button ion-button id="btn" color="secondary" (click)="addLead()" item-start>
+							<!-- <ion-icon name="add"></ion-icon> --> {{'pop.prospect' | translate}}
+						  </button>		
+						</ion-list>
+									  </ion-col>
+									  <ion-col class="bloc-quotation" col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4>
+						<ion-list>
+	  
+						  <ion-item-divider text-uppercase>{{'menu.devis_only' | translate}} ({{ventes.length}})
+							<button *ngIf="ventes.length>4" ion-button clear item-end color="light" (click)="showMore('devis')" >{{'pop.more' | translate}}</button>
+											  </ion-item-divider>
+						  <h6 *ngIf="ventes.length <= 0">Aucun devis</h6>
+											  <ion-grid class="bloc-invoice">
+							<ion-row>
+							  <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 class="animated fadeIn" *ngFor="let devis of ventes | slice:0:4">
+								<devis [fact]="devis" [events]="devisEventsBinding" ></devis>
+													  </ion-col>
+												  </ion-row>
+											  </ion-grid>
+						  <button ion-button id="btn" color="secondary" (click)="addDevis()" item-start>
+							<!-- <ion-icon name="add"></ion-icon> -->{{'pop.plus_devis' | translate}}
+						  </button>	
+						</ion-list>
+						</ion-col>
+								  </ion-row>
+							  </ion-grid>
+							  
+	  
+							  <!-- Bloc Contact -->
+							  <ion-card class="address">
+								  <ion-card-header>{{'pop.infos' | translate}}</ion-card-header>
+								  <div padding>
+									  <p>{{client.country_id.name}} - {{client.street}}, {{client.city}} <strong *ngIf="client.zip">{{'module.partner.zip' | translate}} : {{client.zip}}</strong></p>
+								  </div>
+								  <ion-list>
+										  <ion-item (click)="openWeb(client.website)">
+											  <ion-icon item-start><i class="icon icon-cloud-circle"></i></ion-icon>
+											  <!-- <p>{{'form.website' | translate}}</p> -->
+											  <h3>{{client.website}}</h3>
+											  <h3 *ngIf="client.website == undefined || client.website == ''">----------------</h3>
+										  </ion-item>
+									  <ion-item>
+										  <ion-icon item-start><i class="icon icon-email"></i></ion-icon>
+										  <!-- <p>{{'form.email' | translate}}</p> -->
+										  <h3>{{client.email}}</h3>
+										  <h3 *ngIf="client.email == undefined || client.email == ''">----------------</h3>
+									  </ion-item>
+									  <ion-item>
+										  <ion-icon item-start><i class="icon icon-phone"></i></ion-icon>
+										  <!-- <p>{{'form.phone' | translate}}</p> -->
+										  <h3>{{client.phone}}</h3>
+										  <h3 *ngIf="client.phone == undefined || client.phone == ''">----------------</h3>
+	  
+									  </ion-item>
+									  <ion-item>
+										  <ion-icon item-start><i class="icon icon-cellphone"></i></ion-icon>
+										  <!-- <p>{{'form.mobile' | translate}}</p> -->
+										  <h3>{{client.mobile}}</h3>
+										  <h3 *ngIf="client.mobile == undefined || client.mobile == ''">----------------</h3>
+									  </ion-item>
+									  <ion-item>
+										  <ion-icon item-start><i class="icon icon-briefcase"></i></ion-icon>
+										  <!-- <p>{{'form.function' | translate}}</p> -->
+										  <h3>{{client.function}}</h3>
+										  <h3 *ngIf="client.function == undefined || client.function == ''">----------------</h3>
+									  </ion-item>
+									  
+								  </ion-list>
+							  </ion-card>
+							  <!-- End Contact bloc -->
+								  
+						  </div>
+						  <!-- Fin Description du footer -->
+					  </ion-col>
+			  </ion-row>
+			  
+			  <ion-card *ngIf="client.category_id.length!=0" class="bloc-tag">
+				  <ion-card-header>{{'pop.tags' | translate}}</ion-card-header>
+				  
+				  <span *ngFor="let tag of listCategories">{{tag?.me.name.me}}</span>
+					  
+			  </ion-card>
+		  </ion-grid>
+	  </ion-content>
+	  

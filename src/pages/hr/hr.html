@@ -1,0 +1,160 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'menu.team' | translate}}</ion-title>
+
+    <ion-buttons end>
+      <!-- <button ion-button icon-only (click)="onFilter($event)"><ion-icon name="ios-arrow-down-outline"></ion-icon></button> -->
+      <!-- <button ion-button icon-only (click)="onGroup($event)"><ion-icon name="ios-crop"></ion-icon></button> -->
+        <!-- <button ion-button>{{employes.length}}</button> -->
+        <button ion-button icon-only (click)="openLeftMenu()">
+          <ion-icon name="md-more"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+  <!-- <ion-navbar *ngIf="!objSpinner" class="filter"> 
+    <ion-title *ngIf="txtFiltre.length!=0"> <span *ngFor="let obj of txtFiltre">{{obj.nom}} - </span> </ion-title>
+    <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="{{'btns.search' | translate}}" animated="true"></ion-searchbar>
+  </ion-navbar> -->
+  
+</ion-header>
+
+<ion-content>
+  
+  <p *ngIf="objLoader" obj-loader><ion-spinner name="dots"></ion-spinner></p>
+  <div class="bloc-team" *ngIf="!objLoader && teams.length!=0">
+    <ion-slides #teamSlide pager="true" (ionSlideDidChange)="changeMembers()">
+        <ion-slide *ngFor="let team of teams"> 
+          <h4 text-uppercase>{{team.name}}</h4>
+          <h5 *ngIf="team.user_id.id!=0"><ion-icon name="person"></ion-icon> {{'module.hr.leader' | translate}} : {{team.user_id.name}}</h5>
+          <p *ngIf="team.member_ids.length!=0"><ion-icon name="people"></ion-icon> {{team.member_ids.length}} {{'module.hr.saler' | translate}}</p>
+          <p *ngIf="team.member_ids.length==0">{{'module.hr.no_saler' | translate}}</p>
+          <ion-grid *ngIf="vendeurs.length!=0">
+            <ion-row padding>
+              <ion-col>
+                <button ion-button block color="primary" (click)="seeTeamOnTheGround(team)">
+                    {{'module.hr.map' | translate}}
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button block color="secondary" (click)="seePipeline(team)">
+                    {{'module.hr.leads' | translate}}
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-slide>
+    </ion-slides>
+      <button *ngIf="teams.length!=0" ion-button icon-only class="btn-left" (click)="onPrevTeam()">
+        <ion-icon name="ios-arrow-back-outline"></ion-icon>
+      </button>
+      <button *ngIf="teams.length!=0" ion-button icon-only class="btn-right" (click)="onNextTeam()">
+        <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+      </button>
+  </div>
+
+  <ion-grid no-padding>
+    <!-- Won Opportunities -->
+    <ion-item-divider text-uppercase>{{'module.hr.opportunity' | translate}}</ion-item-divider>
+    <p>{{'module.hr.resume_opport' | translate}}</p>
+    <ion-row>
+      <ion-col col-12>
+          <canvas id="bar-canvas" #barCanvasLarge></canvas>
+      </ion-col>
+    </ion-row>
+    
+    <!-- Sale orders -->
+    <ion-item-divider text-uppercase>{{'module.hr.saleorder' | translate}}</ion-item-divider>
+    <p>{{'module.hr.resume_saleorder' | translate}}, {{txtLastMonths}} </p>
+    <ion-row>
+      <ion-col col-12>
+          <canvas id="pie-canvas" #pieCanvasLarge></canvas>
+      </ion-col>
+    </ion-row>
+
+    <ion-item-divider text-uppercase>{{'module.hr.saler' | translate}} 
+      <span item-end>{{teamSelected.length}}</span>
+    </ion-item-divider>
+    <!-- <div *ngIf="vendor.length">
+      <ion-scroll scrollX="true" id="scroll-row">
+          <ion-card>
+              <ion-thumbnail>
+                  <op-lazy-img [source]="item.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+              </ion-thumbnail>
+            </ion-card>
+      </ion-scroll>
+    </div> -->
+    <ion-row *ngIf="!objLoader && teamSelected.length!=0">
+      <ion-col class="custom-card">
+        <div class ="details-affaire">
+          <ion-scroll scrollX="true" id="scroll-row">
+            <ion-card *ngFor="let item of teamSelected">
+              <ion-icon ios="ios-more" md="md-more" (click)="presentPopover($event)"></ion-icon>
+              <ion-thumbnail item-left>
+                  <op-lazy-img [source]="item.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+              </ion-thumbnail>
+              <!-- <h3 *ngFor="let currency of chiffre">{{currency.amount_total | currency:currency.currency_id.name:'symbol':'':''}}</h3> -->
+              <h3>{{item.name}}</h3>
+              <!-- <h3 *ngFor="let date of filter_period">{{date.text}}</h3> -->
+            </ion-card>
+          </ion-scroll>        
+        </div>
+      </ion-col>      
+    </ion-row>
+
+    <!-- <ion-row *ngIf="!objLoader && vendeurs.length!=0">
+        <ion-col class="custom-card" col-6 col-sm-6 col-md-6 col-lg-4 col-xl-3 *ngFor="let item of vendeurs" (click)="showVendeur(item, $event)" transparent>
+          
+          <ion-thumbnail>
+            <op-lazy-img [source]="item.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+          </ion-thumbnail>
+          <h3>{{item.name}}</h3>
+          <h4>{{item.login}}</h4>
+            
+        </ion-col>
+    </ion-row> -->
+    <!-- end of saler -->
+
+    <!-- Aucun employe enregistré -->
+  
+    <div *ngIf="!objLoader && vendeurs.length==0" bloc-empty>
+      <div><img src="assets/images/lawyer.png"></div>
+      <h4 *ngIf="txtFiltre">{{'module.hr.empty' | translate}}</h4>
+      <h4 *ngIf="!txtFiltre">{{'module.hr.no_saler' | translate}}</h4>
+      <button ion-button outline (click)="synchronizing()">
+        {{'btns.sync' | translate}} <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+      </button>
+      <p *ngIf="display" style="text-align: center;">{{'message.txt_sync' | translate}}</p>
+    </div>
+
+  </ion-grid>  
+  
+  
+  <!-- <ion-grid no-padding *ngIf="!objLoader">
+    <ion-row *ngIf="employes.length!=0">
+      <ion-col col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4 *ngFor="let item of employes | slice:0:max">
+        <ion-item *ngIf="isArchived || item.active" class="custom-card" (click)="onTapItem( item, $event)" no-lines>
+          <ion-thumbnail item-start>
+          	<img [lazyLoad]="item.image_url" />
+          </ion-thumbnail>
+          <h2 item-title> {{item.name}}</h2>
+          <h3 reference>{{item.job_id.name}}</h3>
+          <p class="location"><ion-icon name="ios-pin-outline"></ion-icon> {{item.work_location}}</p>
+          <p class="email"><ion-icon name="ios-mail-outline"></ion-icon> {{item.work_email}}</p>
+          <h4 *ngIf="the_partner=='employe'">
+             {{item.doc_count}}
+          </h4>
+        </ion-item>
+      </ion-col>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" ></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-row>
+    
+  </ion-grid>  -->
+</ion-content>
+
+<!-- <ion-fab #fab bottom right>
+  <button button-ion-fab ion-fab (click)="onAdd($event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab> -->

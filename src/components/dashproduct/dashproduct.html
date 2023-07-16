@@ -1,0 +1,53 @@
+<!-- Generated template for the DashproductComponent component -->
+<!-- <ion-card (click)="onEvent('onClick', produit)">
+  <ion-item no-lines>
+    <ion-thumbnail item-start>
+      <op-lazy-img *ngIf="produit.image_url" [source]="produit.image_url"></op-lazy-img>
+    </ion-thumbnail>
+    <h2>{{produit.name}}</h2>
+    <p>{{produit.list_price | currency:produit?.currency_id?.name:'symbol':'':'fr-BE'}}</p>
+    <button id="sold" ion-button clear item-end>{{produit.sales_count}} {{produit.uom_id.name}}</button>
+    <button id="stock" ion-button clear item-end>{{produit.qty_available}} {{produit.uom_id.name}}</button>
+  </ion-item>
+</ion-card> -->
+
+<!-- New Component starts -->
+<ion-card (click)="onEvent('onClick', produit)">
+      
+  <ion-row>
+      <ion-col col-3>
+          <ion-thumbnail >
+              <op-lazy-img *ngIf="produit.image_url" [source]="produit.image_url"></op-lazy-img>
+            </ion-thumbnail>
+      </ion-col>
+      <ion-col col-6 id="desc">
+          <h3> {{produit?.name}}</h3>
+          <i> {{produit?.default_code}} </i>
+          <!-- <h4 id="ref"> {{produit?.default_code}}</h4> -->
+          <h5 *ngIf="produit.pos_categ_id.id != 0" id="category">{{produit?.pos_categ_id?.name}}</h5>
+          <h5 *ngIf="produit.pos_categ_id.id == 0" id="category">{{'module.catalogue.not_classified' | translate}}</h5>
+          <div id="dates_block">
+            {{produit.list_price | currency:produit?.currency_id?.name:'symbol':'':'fr-BE'}}                        
+          </div>
+      </ion-col>
+      <ion-col class="stock-bloc" col-3>
+        <p id="stock">{{produit?.qty_available}}</p>
+        <p id="stock_text">{{'module.catalogue.in_stock' | translate}}</p>
+      </ion-col>
+  </ion-row>
+
+  <!-- <ion-row class="bottom">
+      <ion-col col-6 text-left>
+        <button ion-button icon-left clear color="plants" ><ion-icon name="home">{{'module.catalogue.in_stock' | translate}}: {{produit?.qty_available}} {{produit.uom_id.name}}</ion-icon>
+        </button>
+      </ion-col>
+      <ion-col col-6 text-right>
+        <button ion-button icon-left clear color="danger">
+          <ion-icon name="arrow-up">
+          {{produit?.outgoing_qty}} {{produit.uom_id.name}}</ion-icon>
+        </button>
+      </ion-col>
+  </ion-row> -->
+
+</ion-card>
+<!-- New component Ends -->

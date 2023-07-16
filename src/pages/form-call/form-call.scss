@@ -1,0 +1,117 @@
+page-form-call {
+    .scroll-content{
+		background-color: color($colors, lightest);
+	}
+
+	.scroll-content{
+		background-color: color($colors, lightest);
+	}
+
+	ion-item .label{
+		color:rgba(255, 255, 255, 0.7) !important;
+	}
+	.item {
+		background-color: color($colors, lightest) !important;
+	  }
+	  ion-item{
+		  background-color: color($colors, light) !important;
+		ion-select{
+			background-color: color($colors, light) !important;
+		}
+		ion-input{
+			background-color: color($colors, light) !important;
+			padding-left : 10px;
+		}
+		p{
+			padding-left: 10px;
+		}
+	  }
+	.picture{
+		margin:auto;
+		margin-top: 10px;
+		text-align: center;
+		padding-bottom: 10px;
+		border-bottom: 2px solid color($colors, light);
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+	}
+	
+	.picture img{
+		object-fit: cover;
+		width: 70px;
+	}
+
+	img{
+		opacity: 1 !important;
+	}
+
+	.country h3{
+		color: color($colors, primary);
+		text-transform: uppercase;
+	}
+	.item-md.item-block .item-inner{
+		padding-left: 0px !important; 
+		margin-top: 10ox !important;
+		padding-right: 0px !important; 
+	}
+	.country{
+		background-color: color($colors, light) !important;
+		// height: 20px !important;
+	}
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, secondary);
+
+      [ion-button]{
+      	color:color($colors, light);
+      	
+      }
+	}
+	
+	.forms-examples-segment{
+			padding: 14px 0px;
+            background-color: color($colors, light);
+            color: color($colors, light);
+			
+			.segment-button.segment-activated {
+				// opacity: 1 !important;
+				border-bottom-color: color($colors, secondary) !important;
+			}
+	}
+
+
+	.form-section{
+
+		h2{
+			text-align: center;
+			color: color($colors, dark);
+			font-size: 1.0em;
+		}
+
+		ion-item .item-inner{
+			border-bottom: none !important;
+		}
+
+		ion-item{
+			padding-left: 0px !important;
+		}
+
+		  .radio .radio-checked{
+			border-color: color($colors, light);
+			
+		  }
+
+		  .radio-inner{
+			  background-color: color($colors, secondary);
+		  }
+	}
+	.post-example-view{
+		
+		ion-item{
+			padding-left: 0px !important;
+		}
+	}
+
+}

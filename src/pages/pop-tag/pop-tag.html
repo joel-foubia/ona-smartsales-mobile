@@ -1,0 +1,20 @@
+<ion-content padding>
+	<ion-spinner *ngIf="objSpinner" name="dots" obj-spinner></ion-spinner>
+	
+	<ion-list>
+	  <ion-item-divider>{{message}}</ion-item-divider>
+	  <ion-item *ngFor="let tag of list_tags; let i = index">
+	    <ion-label>{{tag.me.name.me}}</ion-label>
+	    <ion-checkbox (ionChange)="onChange(tag, $event.checked)" value="tag.me.id.me"></ion-checkbox>
+	  </ion-item>
+	  
+	  <ion-item *ngIf="!remind">
+	  	<ion-input [(ngModel)]="new_tag" type="text" placeholder="{{'module.agenda.f_txt_tag' | translate }}"></ion-input>
+	  	<button ion-button icon-only clear item-end (click)="onAddTag()">
+	  		<ion-icon name="add"></ion-icon>
+	  	</button>
+		</ion-item>
+			
+		<button ion-button block outlined (click)="onFinish()"> {{'btns.finish' | translate}} </button>
+	</ion-list>
+</ion-content>

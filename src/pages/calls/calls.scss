@@ -1,0 +1,19 @@
+page-calls {
+    ion-content.has-refresher>.scroll-content {
+        background-color: color($colors, lightest);
+    }
+    ion-content.has-refresher>.scroll-content .content {
+        background-color: transparent !important;
+    }
+    .scroll-content {
+        // background-color: color($colors, primary);
+        // padding-top: 10px;
+    }
+    .img_sync{
+        button{
+            color: color($colors, dark) !important;
+            border: 1px solid color($colors, dark) !important;
+        }
+    }
+
+}

@@ -1,0 +1,43 @@
+
+<div text-center>
+    <div padding *ngIf="!objUser.visible" class="animated fadeIn bloc-hide" (click)="onEvent('onClick', objUser)">
+      <img *ngIf="objUser.id == 0" src="assets/svg/refreshing.svg" id="off" alt="">
+      <!-- <span class="qty"><ion-icon><i class="icon icon-cash"></i></ion-icon> {{objUser?.sale_order_ids.length}}</span> -->
+      
+      <!-- <div class="qty-indicator"> </div> -->
+      <op-lazy-img [source]="objUser.image_url" [defaultImage]="defaultImg"></op-lazy-img>
+  
+      <h6 class="prodcutName"><strong>{{objUser?.display_name}}</strong></h6>
+  
+      <div class="price-qty">
+  
+        <span>{{objUser?.sale_team_id.name}}</span>
+        <div class="vl"></div>
+        <span class="rdv"><ion-icon><i class="icon icon-calendar"></i></ion-icon> {{objUser?.meeting_ids.length}} </span>
+          
+      </div>
+      <p *ngIf="objUser.login_date != ''" class="cat"> {{objUser?.login_date | date:'mediumDate':'':current_lang}}</p>
+      <p *ngIf="objUser.login_date == ''" class="empty">{{'message.not_connected' | translate}}</p>
+    </div>
+
+    <div padding class="animated flip bloc-visible" *ngIf="objUser.visible">
+        
+        <ion-icon class="qty closed" (click)="onEvent('onClose', objUser)" name="close"></ion-icon>
+        <!-- <div class="qty-indicator"> </div> -->
+        <op-lazy-img [source]="objUser.image_url" [defaultImage]="defaultImg"></op-lazy-img>
+    
+        <ion-grid class="bloc-action">
+          <ion-row>
+            <ion-col (click)="onEvent('onCall', objUser)" ><ion-icon><i class="icon icon-phone"></i></ion-icon></ion-col>
+            <ion-col (click)="onEvent('onView', objUser)" ><ion-icon><i class="icon icon-file-document"></i></ion-icon></ion-col>
+          </ion-row>
+        </ion-grid>
+    
+        <div class="bloc_price">
+          <p><strong>{{'pop.txt_won' | translate}}:</strong> {{objUser?.opports}}</p>
+          <p><strong>{{'pop.txt_order' | translate}}:</strong> {{objUser?.total_orders | currency:objUser.currency_id.name:'symbol':'1.0-0':current_lang}}</p>    
+        </div>
+        
+    </div>
+
+</div>

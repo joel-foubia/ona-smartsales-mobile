@@ -1,0 +1,62 @@
+page-form-sale {
+
+    .scroll-content{
+		background-color: color($colors, lightest);
+	}
+
+	.country h3{
+		color: color($colors, accent);
+		text-transform: uppercase;
+		background-color: color($colors, lightest)
+	}
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, primary);
+
+      [ion-button]{
+      	color:color($colors, lightest);
+      }
+	}
+	
+	.item {
+		background-color: color($colors, lightest) !important;
+	  }
+	.bloc-lines{
+		ion-row{
+			border-bottom: 1px solid color($colors, primary);
+		}
+		.col{
+			text-align: right;
+			font-size: 1.0em;
+			color: color($colors, light);
+		}
+		.top{
+			background-color:color($colors, secondary);
+		}
+		.top .col{
+			color:color($colors, lightest);
+		}
+	}
+	#btn{
+		background-color: color($colors, secondary) !important;
+		color: color($colors, light) !important;
+		height: 30px !important;
+		font-size: 0.7em !important;
+	}
+	#fab_btn{
+		top: 129px !important;
+    right: 50px !important;
+	}
+	ion-item{
+		ion-select{
+			background-color: color($colors, light) !important;
+		}
+		ion-input{
+			background-color: color($colors, light) !important;
+		}
+	}
+	.country{
+		background-color: color($colors, light) !important;
+	}
+}

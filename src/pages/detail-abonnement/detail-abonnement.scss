@@ -1,0 +1,75 @@
+page-detail-abonnement {
+    .content {
+        background-color: color($colors, primary);
+        font-weight: 100 !important;
+        color: white !important;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+        font-weight: 100 !important;
+        color: color($colors, dark) !important;
+    }
+    #vl {
+        height: 35px;
+        margin-top: 5px;
+        border-left: 1px solid color($colors, grislight) !important
+    }
+    ion-grid {
+        margin-top: 20px !important;
+        color: color($colors, dark) !important;
+    }
+    #code {
+        font-size: 2rem !important;
+        color: color($colors, dark) !important;
+    }
+    ion-col {}
+    #col1 {
+        color: color($colors, dark) !important;
+
+    }
+    #col2 {
+        color: color($colors, dark) !important;
+
+    }
+    #time_left {
+        font-size: 2.2rem !important
+    }
+    #time {
+        margin-top: 10px !important;
+        background-color: white !important;
+        color: black !important;
+        padding-top: 10px !important;
+        padding-bottom: 90px !important;
+        ion-card {
+            text-align: left !important;
+            background-color: rgba(21, 67, 96, 0.424);
+        }
+    }
+    #cust {
+        text-align: left !important;
+        font-size: 1.8rem !important;
+        color: color($colors, dark) !important;
+
+    }
+    svg {
+        height: 120px !important;
+    }
+    .forms-examples-segment {
+        padding: 14px 0px;
+        background-color: color($colors, light);
+        .segment-button.segment-activated {
+            border-bottom-color: color($colors, secondary) !important;
+        }
+    }
+    .post-example-view {
+        p {
+            color: black !important;
+        }
+        ion-card {}
+    }
+}

@@ -1,0 +1,31 @@
+
+<ion-content>
+
+	<ion-list> 
+		<ion-item-divider text-wrap text-uppercase>{{message}}</ion-item-divider>
+		<div *ngFor="let obj of users">
+
+			<ion-item *ngIf="obj.sale_team_id.id != 0 " (click)="selectLogin(obj)" >
+				<ion-avatar item-start>
+					<op-lazy-img [source]="obj.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+					<!-- <img img-cache img-cache-src="{{obj.image_url}}" /> -->
+		    </ion-avatar>
+		    {{obj.display_name}}
+			</ion-item>
+		</div>
+	</ion-list>
+	
+	<!-- <ion-list *ngIf="type"> 
+		<ion-item-divider text-wrap text-uppercase>{{message}}</ion-item-divider>
+		<ion-item *ngFor="let obj of users; let i = index" (click)="selectLogin(obj)" >
+			<ion-avatar item-start>
+				<op-lazy-img [source]="obj.image_url" [defaultImage]="defaultImg"></op-lazy-img>
+		    </ion-avatar>
+			<ion-label>{{obj.display_name}}</ion-label>
+	    	<ion-checkbox item-end (ionChange)="onChange(obj, $event.checked)" [value]="obj.id"></ion-checkbox>
+		</ion-item>
+		<p text-center>
+			<button ion-button margin (click)="onFinish()"> {{'btns.follower' | translate}} </button>
+		</p>
+	</ion-list> -->
+</ion-content>

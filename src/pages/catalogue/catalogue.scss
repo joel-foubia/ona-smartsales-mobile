@@ -1,0 +1,164 @@
+page-catalogue {
+
+
+    ion-list{
+        span{
+            height: 30px !important;
+        }
+    }
+    /*     ion-header {
+	}
+
+	.list-big-content
+	{
+		background-color: rgb(255, 255, 255);
+
+		.list-big
+		{
+
+			ion-list {
+				.list-item
+				{
+					
+					.content-row
+					{
+						align-items: center;
+					}
+
+					.item-content
+					{
+						align-content: stretch;
+					  display: flex;
+					  flex-wrap: wrap;
+					  align-self: stretch;
+
+						.item-title
+						{
+							margin-bottom: 8px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+						}
+
+						.item-description
+						{
+						}
+					}
+				}
+			}
+		}
+    }
+    ion-col.item-content.col{
+        margin-left: 30px !important;
+    }
+    ion-icon.icon.icon-md.ion-md-arrow-forward{
+        margin-left: 60px !important
+    } */
+    /* ion-col{
+        width: 50px;
+        height: 150px;
+        background-color: rgb(230, 230, 230);
+        border-radius: 3px;
+        margin: 5px !important
+    }
+    #prod_img{
+        width: 138px !important
+    }
+    span{
+        display: block !important;
+    }
+    strong{
+        color: #69BB7B;
+    }
+    #prod_cat{
+        font-style: italic !important
+	} */
+    .scroll-content {
+        // background-color: color($colors, primary);
+    }
+    ion-content.has-refresher>.scroll-content {
+        // background-color: color($colors, primary);
+    }
+    .horizontal-scroll{
+        height: 3em !important;
+    }
+   
+    .stars p {
+        color: color($colors, secondary);
+    }
+  
+  .subCatSelected {
+    background-color: color($colors, primary) !important
+}
+    #empty_basket {
+        width: 100% !important;
+        position: relative !important;
+        display: block;
+    }
+    .filter .toolbar-background {
+        background-color: color($colors, primary) !important;
+        box-shadow: none;
+    }
+    .filter .toolbar-title {
+        font-size: 0.9em;
+    }
+    .filter {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: color($colors, light);
+        font-size: 1.0em;
+        padding: 5px;
+    }
+    .filter span {
+        text-transform: capitalize;
+    }
+    .goDown {
+        margin-top: 50px !important;
+    }
+    ion-fab {
+        right: 25px !important;
+        bottom: 20px !important;
+    }
+    h4 {
+        color: color($colors, dark) !important
+    }
+    ion-refresher.refresher-active {
+        background-color: color($colors, primary) !important
+    }
+    .refresher-pulling-text,
+    .refresher-refreshing-text,
+    ion-spinner {
+        color: color($colors, dark) !important;
+    }
+
+    .prod-list{
+        padding: 0px !important;
+    }
+    .button-outline-md-light{
+        color: color($colors, dark) !important;
+        border: 1px solid color($colors, dark)!important;
+    }
+    .prod-bloc{
+        border: 1px solid color($colors, lightest) !important;
+        padding: 10px !important
+    }
+    .searchOn {
+        background-color: color($colors, secondary);
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 2em !important;
+        color: color($colors, light) !important
+    }
+    .plus{
+        background-color : color($colors, primary) !important;
+    }
+    .img_sync{
+        img{
+            color: color($colors, dark) !important;
+        }
+    }
+    // li{
+    //     text-decoration: none !important;
+    //     list-style: none !important;
+    //     margin-left: -50px !important;
+    // }
+}

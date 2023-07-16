@@ -1,0 +1,47 @@
+<!-- <ion-card (click)="onEvent('onClick', fact)" class="animated fadeIn" no-margin>
+    <img *ngIf="fact.id == 0" src="assets/svg/refreshing.svg" id="off" alt="">
+    <ion-row>
+        <ion-col col-7>
+            <h5>{{fact.name}}</h5>
+            <h4 text-wrap text-uppercase>{{fact.partner_id.name}}</h4>
+            <h4 class="opport" text-wrap *ngIf="fact.opportunity_id.id!=0">{{fact.opportunity_id.name}}</h4>
+            <h6 id="no" text-wrap *ngIf="fact.invoice_status == 'no'"> Statut: <span> Rien à facturer</span></h6>
+            <h6 id="invoice" text-wrap *ngIf="fact.invoice_status == 'to invoice'"> Statut Invoice: <span> A facture</span></h6>
+            <h6 id="invoiced" text-wrap *ngIf="fact.invoice_status == 'invoiced'"> Statut: <span> Facturée</span></h6>
+            <h6 class="state" text-wrap > Statut: <span>{{fact.state}}</span></h6>
+        </ion-col>
+        <ion-col col-5 class="{{fact.state}}">
+            <h4 class="amount" text-right>{{fact.amount_total | currency:fact.currency_id.name:'symbol':'':current_lang}}</h4>
+            <p class="image"><img src="assets/images/icon-small/rich.png"> </p>
+            <p date text-right>{{fact.date_order | date:'longDate':'':current_lang}}</p>
+        </ion-col>
+    </ion-row>
+</ion-card> -->
+
+<ion-item (click)="onEvent('onClick', fact)" [ngClass]="{'to_invoice': fact.invoice_status == 'to invoice', 'invoiced': fact.invoice_status == 'invoiced'}">
+    <img *ngIf="fact.id == 0" src="assets/svg/refreshing.svg" id="off" alt="not synchronized">
+    <ion-grid no-padding>
+        <ion-row no-padding>
+            <ion-col col-7 no-padding>
+                <h5>{{fact.name}}</h5>
+                <h4 text-wrap text-uppercase>{{fact.partner_id.name}}</h4>
+                <h4 class="opport" text-wrap *ngIf="fact.opportunity_id.id!=0">{{fact.opportunity_id.name}}</h4>
+                <h4 class="no_lead" text-wrap *ngIf="fact.opportunity_id.id==0">{{'module.sales.no_lead' | translate}}</h4>
+                <!-- <h6 class="state" text-wrap > Statut: <span>{{fact.state}}</span></h6> -->
+            </ion-col>
+            <ion-col col-5 no-padding>
+                <h4 class="amount" text-right>{{fact.amount_total | currency:fact.currency_id.name:'symbol':'':current_lang}}</h4>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <span class="no" text-wrap *ngIf="fact.invoice_status == 'no'"> {{'module.sales.no_invoice' | translate}}</span>
+            <span class="invoice" text-wrap *ngIf="fact.invoice_status == 'to invoice'"> {{'module.sales.to_invoice' | translate}}</span>
+            <span class="invoiced" text-wrap *ngIf="fact.invoice_status == 'invoiced'"> {{'module.sales.invoiced' | translate}}</span>
+            <!-- <span *ngIf="facture.state == 'draft'" class="draft">Facture non confirmé</span>
+            <span *ngIf="facture.state == 'open'" class="open">En attente de paiement</span>
+            <span *ngIf="facture.state == 'paid'" class="paid">Facture payée</span> -->
+             <span date id="date">{{fact.date_order | date:'mediumDate':'':current_lang}}</span>
+        </ion-row>
+    </ion-grid>
+    
+</ion-item>

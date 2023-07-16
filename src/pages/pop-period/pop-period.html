@@ -1,0 +1,11 @@
+<ion-content>
+  <div>
+    <ion-item *ngIf="list.length > 0">
+      <ion-label>Period</ion-label>
+      <ion-select [(ngModel)]="period.period" (ionChange)="changeValue($event)">
+        <ion-option *ngFor="let int of list" [value]=int.text>{{int.text}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+</ion-content>

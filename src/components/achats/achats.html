@@ -1,0 +1,22 @@
+
+<ion-item (click)="onEvent('onClick', achat)" [ngClass]="{'ldraft': achat.state == 'draft', 'lopen': achat.state == 'purchase', 'lpaid': achat.state == 'paid'}">
+  <ion-grid no-padding>
+      <img *ngIf="achat.id == 0" src="assets/svg/refreshing.svg" id="off" alt="not synchronized">
+      <ion-row no-padding>
+          <ion-col col-7 no-padding>
+              <h5>{{achat.name}}</h5>
+              <h4 text-wrap text-uppercase>{{achat.partner_id.name}}</h4>
+          </ion-col>
+          <ion-col col-5 no-padding>
+              <h4 class="amount" text-right text-wrap>{{achat.amount_total | currency:'EUR':'symbol':'1.0-0':current_lang}}</h4>
+          </ion-col>
+      </ion-row>
+      <ion-row no-padding>
+          <span *ngIf="achat.state == 'draft'" class="draft">{{'module.achats.to_valid' | translate}}</span>
+          <span *ngIf="achat.state == 'open'" class="purchase">{{'module.achats.open' | translate}}</span>
+          <span *ngIf="achat.state == 'paid'" class="paid">{{'module.achats.paid' | translate}}</span>
+           <span date id="date">{{achat.date_planned | date:'mediumDate':'':current_lang}}</span>
+      </ion-row>
+  </ion-grid>
+  
+</ion-item>

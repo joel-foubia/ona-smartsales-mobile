@@ -1,0 +1,87 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'parameters.subscription' | translate}}</ion-title>
+        <ion-buttons end>
+            <!-- <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button> -->
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-grid no-padding bloc-resume>
+        <ion-row>
+            <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3>
+
+                <ion-item no-lines>
+                    <ion-thumbnail item-start>
+                        <img [lazyLoad]="objLogo">
+                        <!-- <img cache="{{objLogo}}" imageCache> -->
+                    </ion-thumbnail>
+                    <h2>{{objSetting.customer}}</h2>
+                    <p>{{objSetting.email}}</p>
+                </ion-item>
+
+            </ion-col>
+
+            <!-- <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3>
+				<button ion-button block (click)="changeAbonnement()">{{'login.changed' | translate}}</button>
+			</ion-col> -->
+        </ion-row>
+    </ion-grid>
+    <ion-segment mode="md" [(ngModel)]="section">
+        <ion-segment-button value="details">
+            {{'login.details' | translate}}
+        </ion-segment-button>
+        <ion-segment-button value="options">
+            {{'login.options' | translate}}
+        </ion-segment-button>
+
+    </ion-segment>
+    <div [ngSwitch]="section">
+        <div *ngSwitchCase="'details'">
+            <ion-grid bloc-resume>
+                <ion-row>
+                    <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3>
+                        <ion-item no-lines transparent>
+                            <p>{{'login.clientnumber' | translate}}</p>
+                            <h4>{{objSetting.abonneNumber}}</h4>
+                        </ion-item>
+                        <ion-item no-lines transparent>
+                            <p>{{'login.subnumber' | translate}}</p>
+                            <h4>{{objSetting.subNumber}}</h4>
+                        </ion-item>
+                        <ion-item no-lines transparent>
+                            <p>{{'login.pack' | translate}}</p>
+                            <h4>{{objSetting.type}}</h4>
+                        </ion-item>
+                        <ion-item no-lines transparent>
+                            <p>{{'login.subscription' | translate}} </p>
+                            <h4>{{objSetting.startDate}}</h4>
+                        </ion-item>
+                        <ion-item no-lines transparent>
+                            <p>{{'login.expired' | translate}}</p>
+                            <h4>{{objSetting.endDate}}</h4>
+                        </ion-item>
+                        <ion-item no-lines transparent>
+                            <p>{{'login.url' | translate}}</p>
+                            <h4>{{objSetting.website}}</h4>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <div *ngSwitchCase="'options'">
+            <h5 text-center>{{'parameters.display_sub' | translate}} </h5>
+            <ion-item *ngFor="let item of modules" transparent>
+                <ion-label text-wrap>{{item.title}}</ion-label>
+                <ion-toggle [(ngModel)]="item.active" (ionChange)="update(item)"></ion-toggle>
+            </ion-item>
+        </div>
+    </div>
+</ion-content>
+<ion-footer *ngIf="!is_current" text-center>
+        <button ion-button round (click)="changeAbonnement()">{{'parameters.changed' | translate}}</button>
+</ion-footer>

@@ -1,0 +1,74 @@
+ONA SMART SALES
+----------------
+Module Evenements 
+- Vue détaillée d'un participant
+	Les fonctionnalités Présent et Annuler
+	
+Module Pipeline
+- comment reconnaitre qu'une opportunité est marqué comme gagné ou perdu. Car sur la plateforme web, lorsque l'opportunité est marqué comme gagné, le stage n'est pas mis à jour.
+- Opportunité gagné (lorsque le stage de l'opportunité migre à gagné)
+- les stages des opportunités est relatif à chaque équipe de vente
+- 
+
+
+
+- Gestion des utilisateurs
+	Gestion des mots de passe utilisateurs en interne
+	Gestion de la connexion des utilisateurs
+
+- Tableau de bord	
+	L'information sur le dernier mois 
+	Montants facturé => doit etre similaire aux tableau de performance des opportunités
+	
+- Gestion des documents
+	modèle utilisée : ir.attachment
+		les champs res.model => modèle des données auxquels liées la pièce jointe 
+					res.id => identifiant du modèle de la pièce jointe
+					
+	Récupérer les fichiers url => adr serveur + adr relative + extension
+	Liste de tous les documents (avec la possibilité de filtrer )
+	Ajouter un onglet (Documents) dans la vue Détails d'un produit
+
+- Gestion des abonnements
+	* Les abonnements sont générés via des produits d'abonnements, prospect des produits d'abonnements
+	* Ajouter un filtre d'abonnements (tous les articles ayant des abonnements récurents) (produits d'abonnements) => Catalogue
+	* Implémentation des filtres
+	* Trouver le lien sur les factures liées à un abonnement
+	* lien entre catalogue et abonnement => ona_subscription_line (via le champ produit d'abonnement) 
+	modèle : sale.subscription
+	
+	
+- Gestion des sondages
+	Plannifier un meeting pour le module Sondages (cette semaine)
+	Le module Messages => vérifier que la notification sont ( plannifier un meeting pour Emails, reprendre la boite de reception)
+	
+- Planning de Travail	
+	Semaine du 20 - 25 Aout travail ensemble (nbe de places 2)
+
+- La sécurité sur ONA Smart Sales 	
+Les droits d'accès (plannifier un meeting pour ona smart sales)
+		1er niveau => gpe utilisateur
+		2e niveau => droits d'accès sur un enregistrement
+		3e niveau => règle sur les enregistrements 
+	
+
+Tableau de bord 
+	Sur le tableau des performance, en cliquant les opportunités gagnés => va ouvrir la vue Pipeline présentant les opportunités gagnés du mois en cours 
+	
+
+Module Calls (Joel)
+	- Proposer une vue Calendrier pour le module Calls
+	- Vue Liste des appels : Amélioration du Design (notamment les dates qui se situent à gauche)
+	- Implémenter lorsqu'un appel a été effectué
+	
+	
+Module Sales Team
+	- sur la carte, notamment quand on clique sur l'utilisateur
+	- Rajouter l'adresse ou le commercial se trouve
+	- Amélioration de la vue Sales Team 
+	
+Module Evenements
+	- Fonctionnalité d'envoi d'Emails à partir de l'application mobile (api)
+
+	
+Première publication sur le Play Store (Vendredi 10/08/2018)

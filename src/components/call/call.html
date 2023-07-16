@@ -1,0 +1,34 @@
+<!-- <ion-card>
+  <ion-row>
+    <ion-col [ngClass]="{'red': show(call) == 'passed', 'green': show(call) == 'done', 'orange': show(call) == 'open'}" col-3 text-wrap text-center color='gris'>
+      <h2 class="date">{{call?.date | date:'mediumDate':'':current_lang}} </h2>
+      <span>{{call?.date | date:'HH:mm':'':current_lang}}</span>
+    </ion-col>
+    <ion-col col-9 class="schedule-data" text-wrap>
+      <div class="data-item">
+        <ion-item>
+          <div class="item-content" (click)="onEvent('onTest', call, $event)">
+            <h2 class="schedule-day"><b>{{call?.partner_id.name}}</b></h2>
+            <h3 class="schedule-month">{{call?.name}}</h3>
+            <h4 text-right color="secondary" class="schedule-time">{{call?.team_id.name}}</h4>
+          </div>
+          <ion-icon (click)="onEvent('onClick', call, $event)" name="call" class="imageIcon" item-end></ion-icon>
+          <img *ngIf="call.id == 0" src="assets/svg/refreshing.svg" id="off" alt="">
+        </ion-item>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-card> -->
+<ion-item (click)="onEvent('onTest', call, $event)"> 
+  <ion-avatar item-left>
+    <img src="assets/images/person.jpg">
+  </ion-avatar>
+  <h2>{{call?.partner_id.name}}</h2>
+  <p>{{call?.name}}</p>
+  <img id="image" *ngIf="call.state == 'done'" src="assets/phone/phone-call_done.svg" alt="done">
+  <img id="image" *ngIf="call.state == 'cancel'" src="assets/phone/phone-call_cancel.svg" alt="cancel">
+  <img id="image" *ngIf="call.state == 'open'" src="assets/phone/phone-call_open.svg" alt="open">
+  <span>{{call?.team_id.name}}</span>
+  <p [ngClass]="{'red' : show(call) == 'passed', 'danger' : show(call) == 'done', 'green' : show(call) == 'open'}">{{call?.date | date:'mediumDate':'':current_lang}}, {{call?.date | date:'HH:mm':'':current_lang}}</p>
+  <!-- <p class="time" *ngIf="call.state == 'open'">{{call?.date | date:'mediumDate':'':current_lang}}, {{call?.date | date:'HH:mm':'':current_lang}}</p> -->
+</ion-item>

@@ -1,0 +1,41 @@
+page-form-line {
+
+    .scroll-content{
+		background-color: color($colors, lightest);
+    }
+    
+    .footer{
+        text-align: center;
+        background-color: color($colors, secondary);
+  
+        [ion-button]{
+            color:color($colors, light);
+            // border: 1px solid color($colors, light);
+        }
+      }
+
+    h4{
+        text-align: center;
+        color:color($colors, gris);
+	}
+  
+      .tag{
+          padding: 10px;
+          text-align: left;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+          div{
+              display: inline-block;
+              border-radius: 0.20em;
+              color:color($colors, light);
+              background-color: color($colors, secondary);
+              padding:3px;
+              margin: 3px;
+          }
+  
+          .add-tag{
+              background-color: transparent;
+              border:1px solid color($colors, gris);
+              color: color($colors, gris);
+          }
+      }
+}

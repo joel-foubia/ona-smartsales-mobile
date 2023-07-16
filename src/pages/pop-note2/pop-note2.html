@@ -1,0 +1,21 @@
+<ion-list *ngIf="!agenda && !pipeline">
+	
+	<ion-item *ngFor="let current of actions| slice:0:maxItems" (click)="onAction(current)" >
+		<ion-icon name="{{current.icon}}" item-start></ion-icon>
+		<span *ngIf="current.slug=='more' && !mask">{{current.nom}}</span>
+		<span *ngIf="current.slug!='more'">{{current.nom}}</span>
+	</ion-item>
+</ion-list>
+
+<ion-list *ngIf="agenda">
+	<ion-item *ngFor="let current of actions" (click)="onSelect(current)">
+		{{current.nom}}
+	</ion-item>
+</ion-list>
+
+<ion-list *ngIf="pipeline" padding>
+	<h5 text-center>Veuillez sélectionner la raison de l'échec</h5>
+	<ion-item *ngFor="let current of actions" (click)="onSelect(current)" text-wrap>
+		{{current.me.name.me}}
+	</ion-item>
+</ion-list>

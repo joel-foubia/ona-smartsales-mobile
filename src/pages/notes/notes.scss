@@ -1,0 +1,129 @@
+page-notes {
+    
+    ion-content.has-refresher>.scroll-content {
+        background-color: color($colors, lightest);
+    }
+    // ion-content.has-refresher > .scroll-content{
+    //     background-color: color($colors, primary);
+    // }
+    ion-content.has-refresher>.scroll-content .content {
+        background-color: transparent !important;
+    }
+    .addtop {
+        margin-top: 68px !important;
+    }
+    .select-text,
+    ion-select ion-label,
+    .select-icon .select-icon-inner {
+        color: color($colors, light) !important;
+    }
+    #off {
+        width: 13px !important;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+    }
+    ion-col {
+        transition: all .25s ease-in-out !important;
+    }
+    ion-card {
+        border-radius: 0.50em;
+        animation: fadeIn 550ms;
+        ion-item {
+            background-color: transparent !important;
+            ion-icon {
+                color: color($colors, primary);
+            }
+        }
+    }
+    [sub-contenu] {
+        font-style: italic;
+        font-size: 0.9em;
+        span {
+            color: color($colors, primary) !important;
+        }
+        .item-inner {
+            border-bottom: none !important;
+        }
+        ion-icon {
+            font-size: 25px;
+        }
+    }
+    [titre] {
+        color: color($colors, dark);
+    }
+    
+    [obj-loader] {
+        text-align: center;
+    }
+    ion-item-divider {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+    }
+
+    .segment-button {
+        color: color($colors, light) !important;
+        opacity: 0.5 !important;
+        border-bottom: none !important;
+        ion-badge {
+            color: color($colors, light);
+            font-weight: normal;
+            // border-radius: 50%;
+        }
+    }
+
+    .segment-button.segment-activated {
+        opacity: 1 !important;
+        // background-color: color($colors, plants) !important;
+        border-bottom: 2px solid color($colors, light) !important;
+        // border-bottom: none !important;
+    }
+
+    ion-segment {
+        display: block;
+        white-space: nowrap;
+        font-size: 0;
+        overflow: auto;
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+            display: none;
+        }
+        ion-segment-button.segment-button {
+            display: inline-block;
+            min-width: 125px;
+            width: auto;
+        }
+    }
+
+    .color-filter-item{
+        height: 50px !important;
+        width: 50px !important;
+        border-radius: 50% !important;
+        display: inline-block !important;
+        margin-bottom: 5px !important;
+        margin-right: 10px !important;
+    }
+    .color-horizontal-scroll{
+        white-space: nowrap;
+        height: 52px;
+        background-color: transparent !important;
+        margin-top: 15px !important;
+        .scroll-content {
+            background-color: transparent !important;
+        }
+        span{
+            ion-icon{
+                position: absolute !important;
+                top: 8px !important;
+                margin-left: 8px !important;
+                font-size: 1.8em !important;
+                display: block !important
+            }
+        }
+    }
+    .segment-toolbar{
+        margin-top: -1px !important
+    }
+
+}

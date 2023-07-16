@@ -1,0 +1,144 @@
+sale {
+    .addtop {
+        margin-top: 70px !important;
+    }
+
+    #off {
+        width: 13px !important;
+        position: absolute;
+        top: 5px;
+        right: 10px;
+    }
+    ion-content.has-refresher>.scroll-content {
+        background-color: color($colors, lightest);
+    }
+    ion-content.has-refresher>.scroll-content .content {
+        background-color: transparent !important;
+    }
+    .filter .toolbar-background {
+        // background-color: color($colors, primary) !important;
+        box-shadow: none;
+    }
+    .filter .searchbar-input {
+        background-color: color($colors, plants);
+    }
+
+    .filter .searchbar-input{
+        box-shadow: none !important;
+        border-radius: 1.50em !important;
+    }
+
+    .filter .toolbar-title {
+        font-size: 0.9em;
+    }
+
+    .sub-menu{
+        .toolbar-background{
+            background-color: color($colors, primary) !important;
+        }
+    }
+
+    .bloc-invoice {
+        .card {
+            width: 100%;
+            border-radius: 0.45em;
+            ion-col {
+                padding: 10px;
+            }
+
+            h5 {
+                color: color($colors, secondary);
+                margin-bottom: 7px;
+            }
+
+            [col-5]{
+                background-color: color($colors, lightest); 
+                box-shadow: inset 5px 0 6px -5px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        [date] {
+            color: color($colors, gris);
+        }
+
+        .amount,
+        .draft,
+        .sale,
+        .paid {
+            text-align: right;
+        }
+
+        .amount {
+            font-size: 1.35em;
+            font-weight: normal;
+            color: color($colors, dark);
+        }
+
+        .opport {
+            color: color($colors, primary);
+        }
+        .draft,
+        .sale,
+        .paid {
+            padding: 6px;
+        }
+        .draft span,
+        .sale span,
+        .paid span {
+            padding: 6px;
+            color: color($colors, light);
+        }
+        .draft {
+            // background-color: #e6413a;
+            // box-shadow: inset 5px 0 27px -5px rgba($color: #e6413a, $alpha: 0.6) !important;
+            h4{
+                color: #e6413a;
+            }
+        }
+        .sale {
+            // background-color: color($colors, orange);
+            // box-shadow: inset 5px 0 27px -5px rgba($color: #f6b338, $alpha: 0.6) !important;
+            h4{
+                color: color($colors, orange);
+            }
+        }
+
+        .paid {
+            // background-color: color($colors, vert);
+            // box-shadow: inset 5px 0 87px -5px rgba($color: #e6413a, $alpha: 0.6);
+            h4{
+                color: color($colors, vert);
+            }
+        }
+        .image {
+            color: color($colors, primary);
+            font-weight: bold;
+            img {
+                width: 35px;
+                opacity: 1 !important;
+            }
+        }
+        .payment {
+            text-align: right;
+            font-size: 0.8em;
+            color: green;
+            margin-top: 10px;
+        }
+    }
+    .segment-button {
+        color: color($colors, light) !important;
+        opacity: 0.5 !important;
+        border-bottom: none !important;
+        
+    }
+    .segment-button.segment-activated {
+        opacity: 1 !important;
+        border-bottom: 2px solid color($colors, secondary) !important;
+    }
+
+    [bloc-empty]{
+        h4, p, button{
+            color: color($colors, dark);
+        }
+    }
+}

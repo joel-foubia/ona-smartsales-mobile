@@ -1,0 +1,114 @@
+page-chat {
+    .scroll-content{
+        // background-color: color($colors, grislight);
+        margin-bottom: 75px !important;
+    } 
+
+    ion-footer {
+        background: color($colors, light);
+        ion-icon {
+          padding: 10px;
+          font-size: 30px;
+          color: color($colors, primary);
+        }
+      }
+
+      .chat-message {
+        width: 95%;
+        min-height: 40px;
+        .right-bubble {
+          
+          position: relative;
+          text-align: right;
+          background: color($colors, bleulight);
+          border-top-left-radius: .5em;
+          border-bottom-left-radius: .5em;
+          border-bottom-right-radius: .5em;
+          padding: 5px 10px 10px;
+          right: 5%;
+          span.msg-name {
+            font-size: 0.90em;
+            font-weight: bold;
+            color: color($colors, secondary);
+          }
+          span.msg-date {
+            font-size: 0.7em;
+            color: color($colors, primary);
+            // font-weight: bold;
+          }
+        }
+    
+        .right-bubble:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 0;
+            height: 0;
+            border: 27px solid transparent;
+            border-left-color: color($colors, bleulight);
+            border-right: 0;
+            border-top: 0;
+            margin-top: -13.5px;
+            margin-right: -27px;
+        }
+
+        .left-bubble {
+          position: relative;
+          text-align: left;
+          background: color($colors, light);
+          border-top-right-radius: .5em;
+          border-bottom-left-radius: .5em;
+          border-bottom-right-radius: .5em;
+          padding: 5px 10px 10px;
+          left: 5%;
+          span.msg-name {
+            font-size: 0.90em;
+            font-weight: bold;
+            color:color($colors, secondary);
+          }
+          span.msg-date {
+            font-size: 0.7em;
+            color:color($colors, primary);
+            // font-weight: bold;
+          }
+        }
+    
+        .left-bubble:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 0;
+            border: 27px solid transparent;
+            border-right-color: color($colors, light);
+            border-left: 0;
+            border-top: 0;
+            margin-top: -13.5px;
+            margin-left: -27px;
+        }
+
+        p{
+            color:color($colors, dark);
+            line-height: 25px;
+            font-size: 0.9em;
+            margin-top:5px;
+            font-family: 'Roboto-Light';
+        }
+      }
+
+    .select-text, ion-label, .select-icon .select-icon-inner{
+        color: color($colors, light) !important;
+    }
+
+    .interest .toolbar-background{
+      background-color: color($colors, primary) !important;
+    }
+
+    .record_name{
+      font-weight: bold;
+      color:color($colors, secondary) !important;
+      font-size: 0.85em !important;
+    }
+}

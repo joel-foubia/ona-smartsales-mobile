@@ -1,0 +1,67 @@
+<ion-item (click)="onEvent('onClick', meeting)" [ngClass]="{'green': meeting.allDay == true, 'yellow': meeting.allDay == false}">
+  <!-- <ion-item> -->
+  <div id="start_item" item-start>
+    <div *ngIf="meeting.allDay == true">
+      <h3>{{meeting.startTime | date:'dd':'':current_lang}}</h3>
+      <h6>{{meeting.startTime | date:'LLL':'':current_lang}}</h6>
+    </div>
+    <div id="start_item" *ngIf="meeting.allDay == false">
+      <ion-grid no-padding>
+        <ion-row no-padding>
+          <ion-col no-padding col-7>
+            <h3>{{meeting.startTime | date:'dd':'':current_lang}}</h3>
+            <h6>{{meeting.startTime | date:'LLL':'':current_lang}}</h6>
+          </ion-col>
+          <ion-col id="col_end" no-padding col-5>
+            <h3>{{meeting.endTime | date:'dd':'':current_lang}}</h3>
+            <h6>{{meeting.endTime | date:'LLL':'':current_lang}}</h6>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+  <h1 id="title" text-wrap>{{meeting.title}}</h1>
+  <p id="date" text-wrap *ngIf="meeting.allDay == true">
+    <ion-grid no-padding>
+      <ion-row no-padding>
+        <ion-col col-2 no-padding>
+          <ion-icon name="ios-clock-outline"></ion-icon>
+        </ion-col>
+        <ion-col col-10 no-padding>
+          <span> {{meeting.startTime | date:'medium':'':current_lang}} - {{meeting.endTime |
+            date:'medium':'':current_lang}} </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </p>
+  <p id="date" text-wrap *ngIf="meeting.allDay == false">
+    <ion-grid no-padding>
+      <ion-row no-padding>
+        <ion-col col-2 no-padding>
+          <ion-icon name="ios-clock-outline"></ion-icon>
+        </ion-col>
+        <ion-col col-10 no-padding>
+          <span> {{meeting.startTime | date:'shortTime':'':current_lang}} - {{meeting.endTime |
+            date:'shortTime':'':current_lang}} </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </p>
+  <p id="location" *ngIf="meeting.agenda.location != ''" text-wrap>
+    <ion-grid no-padding>
+      <ion-row no-padding>
+        <ion-col col-2 no-padding>
+          <ion-icon name="ios-pin-outline"></ion-icon>
+        </ion-col>
+        <ion-col col-10 no-padding>
+          <span>
+            {{meeting.agenda.location}}
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </p>
+
+  <p id="description" text-wrap><i>{{meeting.agenda.description | slice:0:40}} <span *ngIf="meeting.agenda.description.length > 40">...</span>
+    </i></p>
+</ion-item>

@@ -1,0 +1,110 @@
+<!--
+  Generated template for the ProdFilterPopupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'prod_filter.title' | translate}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content text-center>
+    <ion-item-divider>{{'prod_filter.type' | translate}}</ion-item-divider>
+
+    <span *ngIf="subscription != undefined">
+          <ion-list no-lines class="checkbox-tags">
+              <ion-item *ngFor="let item of states" class="checkbox-tag">
+                <ion-label>{{item?.text}}</ion-label>
+                <ion-checkbox [(ngModel)]="item.state"></ion-checkbox>
+              </ion-item>
+            </ion-list>
+    </span>
+    <span *ngIf="subscription == undefined">
+
+      <!-- <form [formGroup]="radioForm">
+        <ion-list no-lines class="radio-group" [(ngModel)]="type" (ionChange)="typeSelected()" radio-group formControlName="selected_option">
+          <ion-item class="radio-item">
+            <ion-label>Consommable</ion-label>
+            <ion-radio item-left value="consu"></ion-radio>
+          </ion-item>
+          <ion-item class="radio-item">
+            <ion-label>Services</ion-label>
+            <ion-radio item-left value="service"></ion-radio>
+          </ion-item>
+          <ion-item class="radio-item">
+            <ion-label>Produits Stockable</ion-label>
+            <ion-radio item-left value="product"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </form> -->
+
+
+      <form [formGroup]="radioForm">
+        <ion-list class="radio-tags"  [(ngModel)]="type" (ionChange)="typeSelected()" radio-group formControlName="selected_option">
+          <ion-item class="radio-tag">
+            <ion-label> <ion-icon name="ios-basket-outline"></ion-icon> <br> {{'prod_filter.consommable' | translate}}</ion-label>
+            <ion-radio value="consu"></ion-radio>
+          </ion-item>
+          <ion-item class="radio-tag">
+            <ion-label>
+              <span> <ion-icon name="ios-body-outline"></ion-icon> <br>{{'prod_filter.services' | translate}}</span>
+    </ion-label>
+    <ion-radio value="serice"></ion-radio>
+    </ion-item>
+    <ion-item class="radio-tag">
+        <ion-label>
+            <span> <ion-icon name="ios-cube-outline"></ion-icon> <br>{{'prod_filter.stockable' | translate}}</span>
+        </ion-label>
+        <ion-radio value="product"></ion-radio>
+    </ion-item>
+    </ion-list>
+    </form>
+
+    <form [formGroup]="rangeForm">
+        <ion-list class="range-list">
+            <ion-item class="range-item">
+                <ion-label>
+                    <h2 text-center class="range-label">{{'prod_filter.prix' | translate}} :</h2>
+                    <h5 *ngIf="slided == true">{{'prod_filter.prix' | translate}} {{'prod_filter.entre' | translate}} : {{price?.lower | currency:currency:'symbol':'':'fr-BE'}} --- {{price?.upper | currency:currency:'symbol':'':'fr-BE'}}</h5>
+                </ion-label>
+                <ion-range color="secondary" [(ngModel)]="price" dualKnobs="true" formControlName="dual" (ionChange)="rangeChange($event)" min="0" max="{{upperRange}}" step="100" pin="true">
+                    <ion-label range-left>{{0 | currency:currency:'symbol':'':'fr-BE'}}</ion-label>
+                    <ion-label range-right>{{upperRange | currency:currency:'symbol':'':'fr-BE'}}</ion-label>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+    </form>
+
+    <ion-item-divider>{{'prod_filter.other_filter' | translate}} :</ion-item-divider>
+    <ion-list no-lines class="checkbox-tags">
+        <ion-item class="checkbox-tag">
+            <ion-label>{{'prod_filter.sale_ok' | translate}}</ion-label>
+            <ion-checkbox (ionChange)="to_saleSelecetd()" [(ngModel)]="to_sale"></ion-checkbox>
+        </ion-item>
+        <ion-item class="checkbox-tag">
+            <ion-label>{{'prod_filter.archive' | translate}}</ion-label>
+            <ion-checkbox (ionChange)="archivedSelecetd()" [(ngModel)]="archived"></ion-checkbox>
+        </ion-item>
+        <ion-item class="checkbox-tag">
+            <ion-label>{{'prod_filter.articles_dispo' | translate}}</ion-label>
+            <ion-checkbox (ionChange)="qty_Selecetd()" [(ngModel)]="qty_available"></ion-checkbox>
+        </ion-item>
+        <!-- <ion-item class="checkbox-tag">
+          <ion-label>Plus Vendu</ion-label>
+          <ion-checkbox (ionChange)="sales_countSelecetd()" [(ngModel)]="sales_count"></ion-checkbox>
+        </ion-item> -->
+    </ion-list>
+    </span>
+
+    <button (click)="filter()" color="secondary" block ion-button id="filter_btn">{{'prod_filter.filtrer' | translate}}</button>
+</ion-content>

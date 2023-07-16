@@ -1,0 +1,12 @@
+page-report {
+
+    .scroll-content{
+        background-color: color($colors, lightest);
+    }
+    ion-item{
+
+        ion-label{
+            color: color($colors, secondary) !important;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+
+<ion-content padding obj-login>
+	<!-- <img src="{{image}}" > -->
+	<op-lazy-img [source]="user.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+	<!-- <img img-cache img-cache-src="{{user.image_url}}" /> -->
+	<h3>{{user.display_name}}</h3>
+	<p><span>{{user.login}}</span></p>
+	
+	<ion-item> 
+	    <ion-label floating>{{'login.pwd' | translate}}</ion-label>
+	    <ion-input #PassWord type="password" [(ngModel)]="mot_passe"></ion-input>
+	</ion-item>
+	<p text-center>
+		<button round ion-button text-uppercase color="primary" (click)="login()">{{'login.btn_login' | translate}}</button>
+	</p>
+
+</ion-content>

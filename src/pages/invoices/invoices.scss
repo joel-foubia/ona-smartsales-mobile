@@ -1,0 +1,27 @@
+page-invoices {
+    
+    .scroll-content {
+        background-color: color($colors, lightest);
+    }
+
+    ion-content.has-refresher>.scroll-content {
+        background-color: color($colors, lightest);
+    }
+
+    ion-content.has-refresher>.scroll-content .content {
+        background-color: transparent !important;
+    }
+
+    .segment-button {
+        color: color($colors, light) !important;
+        opacity: 0.5 !important;
+        border-bottom: none !important;
+        
+    }
+    .segment-button.segment-activated {
+        opacity: 1 !important;
+        border-bottom: 2px solid color($colors, light) !important;
+    }
+
+    
+}

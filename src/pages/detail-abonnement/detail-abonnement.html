@@ -1,0 +1,66 @@
+
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'module.detail_subscription.detail_sub' | translate}}</ion-title>
+        <ion-buttons end>
+
+            <button ion-button icon-only (click)="openLeftMenu()">
+                <ion-icon name="md-more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content text-center>
+    <h1>{{subscription?.name}}</h1>
+    <span id="code">{{subscription?.code}}</span> <br>
+    <span id="cust" *ngIf="subscription?.partner_id?.name != ''">{{'module.detail_subscription.customer' | translate}} : {{subscription?.partner_id?.name}}</span>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col id="col1">
+                <span>{{'module.detail_subscription.starting' | translate}} : {{subscription?.date_start}}</span> <br>
+                <span>{{'module.detail_subscription.ending' | translate}} : {{subscription?.recurring_next_date}}</span>
+            </ion-col>
+            <div id="vl"></div>
+            <ion-col id="col2">
+                <span>{{'module.detail_subscription.type' | translate}} : {{subscription?.recurring_rule_type}}</span> <br>
+                <span *ngIf="subscription?.currency_id?.name != ''">{{'module.detail_subscription.total' | translate}} : {{subscription?.recurring_total | currency:subscription?.currency_id?.name:'symbol':'':'fr-BE'}}</span>
+                <span *ngIf="subscription?.currency_id?.name == ''">{{'module.detail_subscription.total' | translate}} : {{subscription?.recurring_total}}</span>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div id="time">
+        <span *ngIf="subscription?.time_left > 0">{{'module.detail_subscription.days_remaining' | translate}} <br> <span id="time_left">{{subscription?.time_left}} days</span></span> <br>
+        <span *ngIf="subscription?.time_left <= 0">{{'module.detail_subscription.days_remaining' | translate}}  <br> <span id="time_left"> 0 days</span></span> <br>
+        <circle-progress [showSubtitle]="false" [titleFontSize]="40" [unitsFontSize]="30" [toFixed]="1" [percent]="subscription?.time_used" [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8" [outerStrokeColor]="'#9ec470'" [innerStrokeColor]="'#bfd69c'"
+            [animation]="true" [animationDuration]="700"></circle-progress>
+        <button *ngIf="subscription?.time_left <= 0" ion-button clear> {{'module.detail_subscription.resubscribe' | translate}}</button>
+        <ion-segment class="forms-examples-segment" [(ngModel)]="section" (ionChange)="onSegmentChanged($event)">
+            <ion-segment-button value="sub_lines">
+                {{'module.detail_subscription.sub_lines' | translate}}
+            </ion-segment-button>
+        </ion-segment>
+        <div [ngSwitch]="section" class="forms-wrapper">
+            <div *ngSwitchCase="'sub_lines'" class="post-example-view">
+                <p *ngIf="lines_list?.length == 0 || lines_list == undefined">
+                    {{'module.detail_subscription.no_sub_lines' | translate}}
+                </p>
+                <ion-card *ngFor="let item of lines_list">
+                    <ion-card-header>
+                        <strong>{{item?.name}}</strong>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <span>{{'module.detail_subscription.analytic_account' | translate}} : {{item?.analytic_account_id?.name}}</span> <br>
+                        <span>{{'module.detail_subscription.qty' | translate}} : {{item?.quantity}} {{item?.uom_id?.name}}</span> <br>
+                        <span *ngIf="subscription?.currency_id?.name != ''">{{'module.detail_subscription.unit_price' | translate}} : {{item?.price_unit | currency:subscription?.currency_id?.name:'symbol':'':'fr-BE'}}</span>
+                        <span *ngIf="subscription?.currency_id?.name == ''">{{'module.detail_subscription.unit_price' | translate}} : {{item?.price_unit}}</span>
+                    </ion-card-content>
+                </ion-card>
+            </div>
+        </div>
+    </div>
+</ion-content>

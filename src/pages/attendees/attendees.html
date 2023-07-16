@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>{{'module.events.part' | translate}}</ion-title>
+  
+      <ion-buttons end>
+        <!-- <button ion-button icon-only (click)="onFilter($event)">
+          <ion-icon name="md-funnel"></ion-icon>
+        </button> -->
+        <button ion-button>{{participants.length}}</button>
+        <button ion-button icon-only (click)="openLeftMenu()">
+          <ion-icon name="md-more"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+    <ion-navbar *ngIf="!objSpinner" class="filter">
+      <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}" animated="true"></ion-searchbar>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <p *ngIf="objLoader" obj-loader>
+      <ion-spinner name="dots"></ion-spinner>
+    </p>
+  
+    <ion-grid no-padding *ngIf="!objLoader">
+      <h5 class="titre">{{'module.events.lblevent' | translate:evenement}} </h5>
+      <ion-row *ngIf="participants.length!=0">
+        <ion-col col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4 no-padding *ngFor="let item of participants | slice:0:max" class="custom-card" (click)="onTapItem(item)">
+            <ion-card>
+                <ion-item text-wrap>
+                  <h3>{{item.name}}</h3>
+                  <h5>{{item.email}}</h5>
+                  <p class="txtStatut" text-right *ngIf="item.state=='open'">{{'module.events.confirmed' | translate}}</p>
+                  <p class="txtStatut" text-right *ngIf="item.state=='done'">{{'module.events.present' | translate}}</p>
+                  <p class="txtStatut" text-right *ngIf="item.state=='cancel'">{{'module.events.cancel' | translate}}</p>
+                  <p class='txtNote' text-right><span>{{'module.events.ticket_type' | translate}}</span> {{item.event_ticket_id.name}}</p>
+                </ion-item>
+                <p class="bloc-btn">
+                  <button ion-button clear (click)="present(item)" color="gris"> {{'module.events.btn_present' | translate}} </button>
+                  <button ion-button clear (click)="annuler(item)" color="danger"> {{'module.events.btn_cancel' | translate}} </button>
+                </p>
+            </ion-card>
+        </ion-col>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ion-row>
+  
+      <!-- Aucun client enregistré -->
+      <ion-row *ngIf="participants.length==0">
+        <ion-col col-12>
+          <div bloc-empty>
+            <div><img src="assets/images/empty/customer.png" alt="attendees" /></div>
+            <h4 *ngIf="txtFiltre.length==0">{{titre}} {{'module.events.empty_attendees' | translate:evenement}}</h4>
+            <!-- <h4 *ngIf="txtFiltre.length!=0">No {{titre}} found on this search</h4> -->
+            <button ion-button color="light" outline (click)="synchronizing()">
+              {{'btns.sync' | translate}}
+              <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+            </button>
+            <p *ngIf="display" style="text-align: center;">{{'message.txt_sync' | translate}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- fin vide -->
+    </ion-grid>
+  </ion-content>
+  
+  <ion-fab #fab bottom right *ngIf="(evenement.seats_availability=='limited' && residual!=0) || evenement.seats_availability!='limited'">
+    <button button-ion-fab ion-fab (click)="onAdd($event)">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  

@@ -1,0 +1,16 @@
+page-aide {
+
+    .scroll-content{
+        background-color: color($colors, grislight);
+    }
+
+    [ion-item]{
+        ion-icon{
+            color: color($colors, primary);
+        }
+    }
+
+    ion-card{
+        border-radius: 0.50em;
+    }
+}

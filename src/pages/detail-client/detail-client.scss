@@ -1,0 +1,225 @@
+page-detail-client {
+	.toolbar .toolbar-background {
+		background-color: color($colors, secondary) !important;
+	}
+
+	.header {
+		background-color: color($colors, primary);
+		text-align: center;
+		color: color($colors, light);
+
+		.address {
+			padding-bottom: 10px;
+
+			h3,
+			h4 {
+				font-size: 0.95em;
+			}
+		}
+	}
+
+	.photo {
+		padding-top: 5px;
+		.item-inner {
+			border-bottom: none !important;
+		}
+
+		.rounded {
+			border-radius: 5px;
+			width: 100px;
+			height: 100px;
+			background-color: color($colors, primary);
+			text-align: right;
+		}
+
+		img {
+			// border-radius: 50%;
+			width: 100px;
+			height: 100px;
+			object-fit: cover;
+			// border:3px solid color($colors, secondary);
+		}
+
+		h2 {
+			color: color($colors, light);
+			font-size: 1.4em;
+			font-weight: normal;
+		}
+
+		h4 {
+			font-size: 0.9em;
+			color: color($colors, light);
+			ion-icon {
+				color: color($colors, secondary);
+			}
+		}
+
+		ion-row {
+			border-bottom: 1px solid rgba($color: color($colors, light), $alpha: 0.2);
+		}
+
+		ion-row ion-col:last-child {
+			background-color: color($colors, secondary);
+			color: color($colors, light);
+			text-align: center;
+			padding-top: 4px !important;
+		}
+
+		ion-row:last-child {
+			background-color: color($colors, jaune);
+			ion-col:last-child {
+				background-color: color($colors, jaune);
+				padding-right: 5px !important;
+			}
+
+			ion-col {
+				h4 {
+					padding: 5px;
+				}
+			}
+		}
+	}
+
+	.bloc-footer {
+		ion-item img {
+			opacity: 1 !important;
+			// width: 30px;
+		}
+
+		.bloc-action {
+			margin: 5px;
+			background-color: color($colors, light);
+			ion-col {
+				text-align: center;
+				ion-icon {
+					font-size: 2.0em;
+					color: color($colors, secondary);
+				}
+			}
+		}
+	}
+
+	.bloc-tag {
+		//background-color: color($colors, primary);
+		padding: 10px;
+		span {
+			// display: inline-block;
+			border-radius: 0.20em;
+			color: color($colors, light);
+			background-color: color($colors, secondary);
+			padding: 3px;
+			margin-right: 3px;
+			font-size: 0.85em;
+		}
+	}
+
+	.address {
+		ion-item ion-icon {
+			color: color($colors, secondary);
+		}
+	}
+
+	ion-card-header {
+		color: color($colors, primary) !important;
+	}
+
+	ion-item-divider {
+		background-color: color($colors, primary) !important;
+		color: color($colors, light) !important;
+		font-family: "Roboto-Bold";
+		text-transform: uppercase !important
+	}
+
+	.grid-contact {
+		margin: 0px !important;
+		ion-item-divider {
+			border-bottom: none !important;
+			color: color($colors, primary);
+		}
+
+		p {
+			color: color($colors, gris);
+		}
+	}
+	.grid {
+		padding: 0px !important;
+	}
+
+	h6 {
+		padding-left: 5px !important;
+	}
+
+	.horizontal-scroll {
+        white-space: nowrap;
+        height: 160px;
+        background-color: transparent !important;
+        margin-top: 15px !important;
+        .contact-container {
+			padding: 7px;
+			text-align: center;
+            // border: 1px solid color($colors, vert);
+            // border-radius: 30px !important;
+            display: inline-block !important;
+            border-radius: 5px;
+            margin-bottom: 5px !important;
+			margin-right: 5px !important;
+			h3,p{
+				font-size: 0.75em;
+				margin:0;
+			}
+			
+			p{
+				color: color($colors, gris) !important;
+			}
+
+            ion-icon {
+                // margin-left: 5px !important;
+			}
+			
+			img {
+				transition: opacity 1s;
+				opacity: 0;
+				border-radius: 5px;
+				width: 65px;
+				height: 65px;
+				margin:auto;
+				object-fit: cover;
+				// border: 3px solid color($colors, primary);
+			}
+			img.ng-lazyloaded {
+				opacity: 1;
+			}
+        }
+        
+        .scroll-content {
+            background-color: transparent !important;
+        }
+    }
+
+	#contact_item {
+		
+	}
+
+	#barchart-canvas-large {
+		// float: right !important;
+		display: inline-block !important;
+		// position: absolute !important;
+		// left: 0px !important;
+		width: 100% !important;
+		height: 82% !important;
+		margin-bottom: 8px !important;
+	}
+	#btn {
+		margin-left: 10px !important;
+		height: 30px !important;
+		font-size: 0.7em !important;
+	}
+	.activities-section,
+	.contact-container {
+		padding: 10px !important;
+	}
+	ion-thumbnail {
+		min-width: 66px !important;
+		min-height: 66px !important;
+	}
+}

@@ -1,0 +1,36 @@
+page-sales {
+    .scroll-content {
+        background-color: color($colors, lightest);
+    }
+
+    ion-content.has-refresher>.scroll-content {
+        background-color: color($colors, lightest);
+    }
+    ion-content.has-refresher>.scroll-content .content {
+        background-color: transparent !important;
+    }
+
+    // .sub-menu{
+    //     .toolbar-background{
+    //         background-color: color($colors, primary) !important;
+    //     }
+    // }
+
+    .segment-button {
+        color: color($colors, light) !important;
+        opacity: 0.5 !important;
+        border-bottom: none !important;
+        
+    }
+    .segment-button.segment-activated {
+        opacity: 1 !important;
+        border-bottom: 2px solid color($colors, light) !important;
+    }
+
+
+    .empty_commands{
+        margin-top: 10px !important
+    }
+
+   
+}

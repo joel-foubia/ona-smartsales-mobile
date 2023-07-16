@@ -1,0 +1,87 @@
+page-details-agenda {
+
+	.scroll-content{
+		background-color: color($colors, grislight);
+	}
+
+    p, span, h3{
+    	font-size: 1.05em;
+	}
+	#user_name{
+		font-size: 0.9em !important;
+
+	}
+
+	.bloc-image{
+		
+		padding:10px;
+		background-image: url('../assets/images/background/bg_agenda.jpg');
+	    background-size: cover;
+		padding-bottom: 40px;
+
+		ion-card{
+			position:relative;
+			border-radius: 0.50em;
+			top:100px;
+			
+			h3{
+				font-size: 1.3em;
+			}
+			
+			h3, span, p{
+				text-align: center;
+			}
+
+			.address{
+				color: color($colors, primary);
+			}
+		}
+	}
+
+	.bloc-person{
+		border-top:1px solid rgba(255, 255, 255, 0.2);
+		margin-bottom: 30px;
+		.myUser img{
+			width: 60px;
+			height: 60px;
+			transition: opacity 1s;
+            //opacity: 0;
+			border-radius: 50%;
+			border:2px solid color($colors, noir);
+		}
+
+		.myUser{
+			display: inline-block;
+			width: 65px;
+			height: 65px;
+			text-align: center;
+			vertical-align: top;
+		}
+
+		span img.ng-lazyloaded {
+            opacity: 1;
+        }
+	}
+
+	.details{
+		margin-top: 60px;
+		padding: 10px;
+		text-align: center;
+		font-size: 1.1em;
+	}
+
+	.tag{
+		padding: 10px;
+		//background-color: color($colors, primary);
+		div{
+			display: inline-block;
+			border-radius: 0.20em;
+			color:#fff;
+			background-color: color($colors, secondary);
+			padding:3px;
+			margin: 3px;
+			font-size: 0.85em;
+		}
+
+	}
+}

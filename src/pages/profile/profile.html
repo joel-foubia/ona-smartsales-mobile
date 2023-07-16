@@ -1,0 +1,123 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{user?.name}}</ion-title>
+        <ion-buttons end>
+            <button *ngIf="!modif" ion-button icon-only (click)="edit()"> <ion-icon><i class="icon icon-pencil-box-outline"></i></ion-icon> </button>
+            <button ion-button icon-only (click)="openLeftMenu()"> <ion-icon name="more"></ion-icon> </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <!-- Description du header -->
+    <div class="bloc-header">
+        <ion-item text-wrap>
+            <ion-thumbnail item-start>
+                <op-lazy-img [source]="user.image_url"></op-lazy-img>
+            </ion-thumbnail>
+            <h3>{{user.display_name}}</h3>
+            <p>{{user.email}}</p>
+            <div class="bloc-company">
+                <p><strong>{{'module.detail_lead_opport.company' | translate}}</strong>: <span>{{user.company_id.name}}</span></p>
+                <p><strong>{{'module.detail_lead_opport.team' | translate}}</strong>: <span>{{user.sale_team_id.name}}</span></p>
+            </div>
+        </ion-item>
+            
+    </div>
+    <!-- Fin Description du header -->
+
+    <!-- Slider -->
+    <div class="details-affaire" *ngIf="blocs.length!=0">
+        <ion-scroll scrollX="true" id="scroll-row">
+            <ion-card *ngFor="let item of blocs">
+                
+                <ion-icon><i class="icon {{item.icon}}"></i></ion-icon>
+                <h5 text-right *ngIf="item.state=='meetings'">{{item.total_meetings}}</h5>
+                <h5 text-right *ngIf="item.state=='opportunity'"><span [ngClass]="{'rouge': item.rapport_opports<50, 'plants': item.rapport_opports>50}">{{item.total_won_opports}}</span>/ {{item.total_opports}}</h5>
+                <h5 text-right *ngIf="item.state=='saleorder'">{{item.total_saleorders | currency:user.currency_id.name:'symbol':'1.0-0':current_lang}}</h5>
+                <h5 text-right *ngIf="item.state=='invoices'">{{item.total_invoices | currency:user.currency_id.name:'symbol':'1.0-0':current_lang}}</h5>
+                <h6 text-right *ngIf="item.state=='invoices'"><span [ngClass]="{'rouge': item.total_paid<item.total_unpaid, 'plants': item.total_paid>=item.total_paid}">{{item.total_paid | currency:user.currency_id.name:'symbol':'1.0-0':current_lang}} <i>{{'module.facture.paid' | translate}}</i></span> / {{item.total_unpaid | currency:user.currency_id.name:'symbol':'1.0-0':current_lang}} </h6>
+                <h5 text-right *ngIf="item.state=='call'">{{item.total_calls}}</h5>
+                <h6 text-right *ngIf="item.state=='call'">
+                    <span class="rouge">{{item.total_past }} <i>passés</i></span> | 
+                    <span class="orange">{{item.total_todo }} <i>{{'pop.todo' | translate}}</i></span> | 
+                    <span class="plants">{{item.total_done }} <i>{{'pop.done' | translate}}</i></span> 
+                </h6>
+                <p class="sub_title" text-right><span>{{item.label}}</span></p>
+                
+            </ion-card>
+        </ion-scroll>
+    </div>
+    <!-- end slider -->
+    
+    <!-- Description du footer -->
+    
+    <ion-item-divider text-uppercase>{{'form.preference' | translate}}</ion-item-divider>
+    <ion-list no-lines class="preference">
+        <ion-item transparent>
+            <p>{{'form.timezone' | translate}}</p>
+            <h5>{{user.tz.titre}}</h5>
+        </ion-item>
+        <ion-item transparent>
+            <p>{{'form.sign' | translate}}</p>
+            <h5>{{user.signature}}</h5>
+        </ion-item>
+        <p class="sous_titre">{{'form.description_sign' | translate}}</p>
+
+        <!-- <p class="sous_titre">{{'form.maj' | translate}}</p> -->
+        <ion-item transparent>
+            <ion-label text-wrap>{{'form.maj' | translate}}</ion-label>
+            <ion-toggle [(ngModel)]="update" (ionChange)="notify()" ></ion-toggle>
+        </ion-item>
+        <p class="sous_titre">{{'form.indice' | translate}}</p>
+
+        <ion-item transparent>
+            <ion-label text-wrap>{{'form.notif' | translate}}</ion-label>
+            <ion-toggle [(ngModel)]="objPref.notification" ></ion-toggle>
+        </ion-item>
+        <p class="sous_titre">{{'form.notif_text' | translate}}</p>
+
+        <ion-item transparent>
+            <p text-wrap>{{'form.email_notif' | translate}}</p>
+            <h5>{{user.notify_email.titre}}</h5>
+        </ion-item>
+        <p class="sous_titre">{{'form.collect' | translate}}</p>
+
+        <ion-item transparent>
+            <ion-label text-wrap>{{'form.rgdp' | translate}}</ion-label>
+            <ion-toggle [(ngModel)]="objPref.rgpd" ></ion-toggle>
+        </ion-item>
+        <p class="sous_titre">{{'form.txt_rgdp' | translate}}</p>
+
+        <ion-item transparent>
+            <ion-label stacked>{{'form.lang' | translate}}</ion-label>
+            <ion-select [(ngModel)]="user.lang.id" (ionChange)="changeValue($event,'lang')">
+                <ion-option *ngFor="let obj of langues" value="{{obj.id}}">{{obj.text}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <p class="sous_titre">{{'form.lang_text' | translate}}</p>
+
+        <ion-item transparent>
+            <ion-label stacked>{{'form.top_distance' | translate}}</ion-label>
+            <ion-select [(ngModel)]="objPref.distance" (ionChange)="changeValue($event,'dist')">
+                <ion-option value="5">5 (Km)</ion-option>
+                <ion-option value="10">10 (Km)</ion-option>
+                <ion-option value="15">15 (Km)</ion-option>
+                <ion-option value="20">20 (Km)</ion-option>
+                <ion-option value="25">25 (Km)</ion-option>
+            </ion-select>
+        </ion-item>
+        <p class="sous_titre">{{'form.txt_distance' | translate}}</p>
+
+        <ion-item transparent>
+            <ion-label stacked>{{'form.top_price' | translate}}</ion-label>
+            <ion-input [(ngModel)]="objPref.price_filter" (input)="priceAdded()" type="text"></ion-input>
+        </ion-item>
+        <p class="sous_titre">{{'form.txt_price' | translate}}</p>
+    </ion-list>
+    
+    <!-- Fin Description du footer -->
+
+</ion-content>

@@ -1,0 +1,43 @@
+page-form-attendee {
+
+    .scroll-content{
+		background-color: color($colors, primary);
+    }
+    
+    .txt-form { color: color($colors, light);}
+
+	ion-item .label{
+		color:rgba(255, 255, 255, 0.7) !important;
+	}
+	
+	.country h3{
+		color: color($colors, primary);
+		text-transform: uppercase;
+	}
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, primary);
+
+      [ion-button]{
+      	color:color($colors, light);
+      	
+      }
+	}
+	
+
+	.form-section{
+
+		ion-item .item-inner{
+			border-bottom: none !important;
+        }
+        
+        ion-input{
+			height: 45px;
+			padding: 5px;
+            background-color: #0d2a3e;
+            border-radius: 0.45em;
+			// border:1px solid rgba($color: #666666, $alpha: 0.8);
+        }
+	}
+}

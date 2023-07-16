@@ -1,0 +1,75 @@
+<ion-card [ngClass]="{'animated flip': opport.won == true || opport.lost == true}" class="custom-case" id={{opport.id}} [ngStyle]="{'background-color': '' + opport.bg + ''}">
+    <!-- won -->
+    <div id="won_div" text-center *ngIf="opport.won == true">
+        
+        <h2 item-title text-wrap>{{opport.name}} </h2>
+        <p>{{'module.pipeline.opport_won' | translate}}</p>
+        <span id="won_span">
+            <img src="assets/svg/money.svg" id="won_img">
+        </span>
+        <button ion-button round>{{'module.pipeline.gen_devis' | translate}}</button>
+
+    </div>
+
+    <!-- lost -->
+    <div id="lost_div" text-center *ngIf="opport.lost == true">
+        
+        <h2 color="dark" item-title text-wrap>{{opport.name}} </h2>
+        <p>{{'module.pipeline.opport_loss' | translate}}</p>
+        <span id="lost_span">
+            <img class="animated pulse infinite" src="assets/svg/angry.svg" id="lost_img">
+        </span>
+        
+    </div>
+
+    <!-- current -->
+    <div *ngIf="!opport.won && !opport.lost">
+        <button *ngIf="stage" class="btn-options" ion-button clear color="gris" (click)="onEvent('onStage', opport, $event)">
+            <ion-icon><i class="icon icon-dots-horizontal"></i></ion-icon>
+        </button>
+        <button *ngIf="stage" class="btn-quotation" ion-button clear color="gris" (click)="onEvent('onQuotation', opport, $event)">
+            <ion-icon><i class="icon icon-playlist-plus"></i></ion-icon>
+        </button>
+        <ion-item text-wrap (click)="onEvent('onTap', opport, $event)">
+            <img *ngIf="opport.id == 0" src="assets/svg/refreshing.svg" id="off" alt="">
+            
+            <h2 item-title text-wrap>{{opport.name}} </h2>
+            <div class="stars">
+                <rating [(ngModel)]="opport.priority" [readOnly]="true" max="3" emptyStarIconName="star-outline" class="ratings"></rating>
+            </div>
+            <ion-grid no-padding class="bloc-contenu">
+                <ion-row>
+                    <ion-col col-3>{{'pop.client' | translate}}</ion-col>
+                    <ion-col text-right col-7>{{opport.partner_id.name}}</ion-col>
+                </ion-row>
+                <ion-row class="revenue">
+                    <ion-col col-3>{{'pop.devis' | translate}}</ion-col>
+                    <ion-col text-right col-7><span>{{opport.planned_revenue | currency:opport.company_currency.name:'symbol':'':current_lang}}</span></ion-col>
+                </ion-row>
+                <ion-row class="activity">
+                    <ion-col col-5 *ngIf="opport.next_activity_id.id!=0"> {{opport.next_activity_id.name}}</ion-col>
+                    <ion-col text-right col-5 *ngIf="opport.next_activity_id.id!=0 && opport.date_deadline!=''">{{opport.date_deadline | date:'shortDate':'':current_lang}}</ion-col>
+                    <ion-col col-10 *ngIf="opport.next_activity_id.id==0">{{'module.pipeline.no_activity' | translate}}</ion-col>
+                </ion-row>
+                <ion-row justify-content-center align-items-center class="team">
+                    <ion-col col-9>
+                        {{opport.user_id.name}} 
+                        <span *ngIf="opport.team_id.id!=0">{{'module.pipeline.txt_team' | translate:opport.team_id}}</span> 
+                        <span class="no_team" *ngIf="opport.team_id.id==0">{{'module.pipeline.no_team' | translate}}</span> 
+                        <div class="bloc-lead">
+                            <span *ngIf="opport.type=='opportunity'" > {{opport.stage_id.name}}</span><br *ngIf="opport.type=='opportunity'" />
+                            <span *ngIf="opport.type!='opportunity'" > {{'module.pipeline.lead' | translate}}</span>
+                        </div>
+                    </ion-col>
+                    <ion-col col-3>
+                        <circle-progress [showSubtitle]="false" [titleFontSize]="40" [unitsFontSize]="30" [toFixed]="1" [percent]="opport?.probability" [radius]="100" [outerStrokeWidth]="12" [innerStrokeWidth]="8" [outerStrokeColor]="'#9ec470'" [innerStrokeColor]="'#bfd69c'"
+                        [animation]="true" [animationDuration]="700"></circle-progress>
+                    </ion-col>
+                </ion-row>
+              
+            </ion-grid>   
+            
+        </ion-item>
+        
+    </div>
+</ion-card>

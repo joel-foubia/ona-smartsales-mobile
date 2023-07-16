@@ -1,0 +1,29 @@
+<!-- Generated template for the AbbonementComponent component -->
+<ion-card  [ngClass]="{'timeOver': subscription.time_used >= 100, 'almostOver': subscription.time_used > 70 && subscription.time_used < 100, 'gotTime': subscription.time_used < 70}">
+      
+  <ion-row>
+      <ion-col col-3>
+          <circle-progress [showBackground]="false" [responsive]="true" [maxPercent]="100" [showSubtitle]="false" [titleFontSize]="40" [unitsFontSize]="30" [toFixed]="1" [percent]="subscription?.time_used" [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8" [outerStrokeColor]="'#9ec470'" [innerStrokeColor]="'#bfd69c'"
+          [animation]="true" [animationDuration]="700"></circle-progress>
+      </ion-col>
+      <ion-col col-9>
+          <h4> {{subscription?.code}} </h4>
+          <h3>{{subscription?.name}}</h3> 
+          <p>{{subscription?.partner_id.name}}</p> 
+          <div id="dates_block">
+              <ion-icon name="ios-alarm"></ion-icon> [ {{subscription?.date_start | date:'mediumDate':'':current_lang}} - {{subscription?.recurring_next_date | date:'mediumDate':'':current_lang}} ]                         
+          </div>
+      </ion-col>
+  </ion-row>
+
+  <ion-row class="bottom">
+      <ion-col col-8 text-left>
+          <button *ngIf="subscription?.time_used < 100" ion-button clear> <ion-icon [ngStyle]="{color: subscription?.time_used > 70 ? '#a83636' : '#154360'}" name="{{subscription?.time_state}}"></ion-icon> {{subscription?.time_left}} {{'module.subscription.days_left' | translate}}</button>
+          <button class="renew_sub" *ngIf="subscription?.time_used >= 100" (click)="onEvent('onResubscribe', subscription)" ion-button clear> <ion-icon [ngStyle]="{color: subscription?.time_used > 70 ? '#a83636' : '#154360'}" name="{{subscription?.time_state}}"></ion-icon> {{'module.subscription.resubscribe' | translate}}</button>
+      </ion-col>
+      <ion-col col-4 text-right>
+          <button id="details_btn" (click)="onEvent('onView', subscription)" ion-button clear> <ion-icon name="ios-document-outline"></ion-icon> {{'module.subscription.details' | translate}}</button>
+      </ion-col>
+  </ion-row>
+
+</ion-card>

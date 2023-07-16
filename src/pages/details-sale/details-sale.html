@@ -1,0 +1,90 @@
+<ion-header color="secondary">
+
+  <ion-navbar>
+    <ion-title></ion-title>
+    <ion-buttons end>
+
+      <button ion-button icon-only (click)="editVente()">
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="openLeftMenu()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <div class="header-invoice">
+        <ion-row>
+          <ion-col col-12>
+            <ion-row>
+              <ion-col col-9>
+                <h3>{{vente.name}}</h3>
+                <!-- <span>{{facture.state}}</span> -->
+                <span class="no" text-wrap *ngIf="vente.invoice_status == 'no'"> {{'module.sales.no_invoice' | translate}}</span>
+                <span class="invoice" text-wrap *ngIf="vente.invoice_status == 'to invoice'"> {{'module.sales.to_invoice' | translate}}</span>
+                <span class="invoiced" text-wrap *ngIf="vente.invoice_status == 'invoiced'"> {{'module.sales.invoiced' | translate}}</span>
+
+              </ion-col>
+              <ion-col col-3> 
+                <button *ngIf="vente.state=='draft'" ion-button clear color="light" (click)="validate()">{{'module.vente.confirm' | translate}}</button>
+                <!-- <button *ngIf="vente.state=='open'" ion-button clear color="light" (click)="send()">ENVOYER</button> -->
+              </ion-col>
+            </ion-row>
+            <div class="bloc-partner">
+              <h1>{{vente.amount_total | currency:vente.currency_id.name:'symbol':'':current_lang}}</h1>
+              <h5>{{vente.partner_id.name}} </h5>
+              <span class="opport"> {{vente.opportunity_id.name}}</span>
+              <p><strong>{{'module.vente.delivery' | translate}}</strong> {{vente.user_id.name}}</p>
+            </div>
+            
+          </ion-col>
+        </ion-row>
+      
+    </div>
+
+    <ion-row class="bloc-image" padding>
+      <ion-col text-left>
+        <span>{{'module.vente.create_at' | translate}}</span>
+        <h2> {{vente.create_date | date:'mediumDate'}}</h2>
+      </ion-col>
+      <ion-col text-right>
+        <span>{{'module.vente.sale_at' | translate}}</span>
+        <h2> {{vente.date_order | date:'mediumDate'}}</h2>
+      </ion-col>
+    </ion-row>
+
+    <!-- Description du footer -->
+	<div class="footer">
+      <ion-grid *ngIf="lines.length!=0" class="bloc-lines" no-padding>
+          <ion-row class="top">
+            <ion-col text-left>{{'module.vente.file_sales' | translate}}</ion-col>
+            <ion-col>{{'module.facture.amount' | translate}}</ion-col>
+          </ion-row>
+          <ion-row *ngFor="let obj of lines">
+            <ion-col text-left>{{obj.name}} <span *ngIf="obj.product_id!=0">[{{obj.product_id.name}}]</span></ion-col>
+            <!-- <ion-col>{{obj.account_id.name}}</ion-col> -->
+            <ion-col>{{obj.price_subtotal | currency:obj.currency_id.name:'symbol':'':current_lang}}</ion-col>
+          </ion-row>
+      </ion-grid>
+      <ion-grid class="bloc-details">
+        <ion-row>
+          <ion-col> {{'module.facture.untaxed' | translate}}</ion-col>
+          <ion-col> {{vente.amount_untaxed | currency:vente.currency_id.name:'symbol':'':current_lang}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> {{'module.facture.tax' | translate}}</ion-col>
+          <ion-col> {{vente.amount_tax | currency:vente.currency_id.name:'symbol':'':current_lang}}</ion-col>
+        </ion-row>
+        <ion-row class="total">
+          <ion-col> {{'module.facture.total' | translate}}</ion-col>
+          <ion-col> {{vente.amount_total | currency:vente.currency_id.name:'symbol':'':current_lang}}</ion-col>
+        </ion-row>
+        
+      </ion-grid>
+    </div>
+    <!-- Fin Description du footer -->
+
+</ion-content>

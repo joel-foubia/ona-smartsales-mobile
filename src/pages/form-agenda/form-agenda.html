@@ -1,0 +1,123 @@
+<ion-header>
+	
+  <ion-toolbar>
+    <ion-title *ngIf="is_modif"> {{agenda.name}} </ion-title>
+    <ion-title *ngIf="!is_modif">{{'module.agenda.t_agenda' | translate}} </ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+		</ion-buttons>
+		</ion-toolbar>
+		<ion-toolbar class="sections">
+				<ion-segment class="forms-examples-segment" [(ngModel)]="section">
+						<ion-segment-button value="meeting">
+								{{'module.agenda.f_subtitle' | translate}}
+						</ion-segment-button>
+						<ion-segment-button value="details">
+								{{'module.agenda.f_details' | translate}}
+						</ion-segment-button>
+						<ion-segment-button value="description">
+								{{'module.agenda.f_description' | translate}}
+						</ion-segment-button>
+				</ion-segment>
+		</ion-toolbar>
+
+</ion-header> 
+ 
+<ion-content formAffaire>
+	<p obj-loader><ion-spinner *ngIf="objSpinner" name="dots"></ion-spinner></p>
+	<div [ngSwitch]="section" class="forms-wrapper">
+			<div *ngSwitchCase="'meeting'" padding class="post-example-view">
+					<!-- <h3>{{'module.agenda.f_subtitle' | translate}}</h3> -->
+					<ion-item id="bgc" transparent>
+						<ion-label stacked>{{'module.agenda.f_subtitle' | translate}}</ion-label>
+						<ion-input [(ngModel)]="agenda.name" type="text"></ion-input>
+					</ion-item>
+					<ion-item id="bgc" transparent>
+						<ion-label stacked>{{'module.agenda.f_lieu' | translate}}</ion-label>
+						<ion-input [(ngModel)]="agenda.location" type="text"></ion-input>
+					</ion-item>
+					 <ion-grid no-padding *ngIf="!agenda.allday">	 
+						 <ion-row>
+							<ion-col col-7>
+								<ion-item transparent>
+									<ion-label stacked>{{'module.agenda.f_date' | translate}}</ion-label>
+									<ion-input min="{{currentDateTime}}" [(ngModel)]="agenda.start_datetime" type="datetime-local"></ion-input>
+									<!-- <ion-icon name="ios-alarm-outline" item-end></ion-icon> -->
+								</ion-item>
+							</ion-col>
+							<ion-col col-5>
+								<ion-item transparent>
+									<ion-label stacked>{{'module.agenda.f_duree' | translate}}</ion-label>
+									<ion-input [(ngModel)]="agenda.duration" type="number"></ion-input>
+								</ion-item>
+							</ion-col>
+						 </ion-row>
+					 </ion-grid>
+					<div *ngIf="agenda.allday">	 
+							<ion-item id="bgc" transparent>
+									<ion-label stacked>{{'module.agenda.f_debut' | translate}}</ion-label>
+									<ion-input  min="{{currentDate}}" [(ngModel)]="agenda.start_date" type="date"></ion-input>
+									<ion-icon name="ios-alarm-outline" item-end></ion-icon>
+							</ion-item>
+							<ion-item id="bgc" transparent>
+									<ion-label stacked>{{'module.agenda.f_fin' | translate}}</ion-label>
+									<ion-input  min="{{currentDate}}" [(ngModel)]="agenda.stop_date" type="date"></ion-input>
+									<ion-icon name="ios-alarm-outline" item-end></ion-icon>
+							</ion-item>
+						
+						</div>
+						<ion-item id="bgc_check" transparent>
+							<ion-label>{{'module.agenda.allday' | translate}}</ion-label>
+						<ion-checkbox (ionChange)="onChange($event.checked)" value="agenda.allday" item-right></ion-checkbox>
+						</ion-item>
+			</div>
+			<div *ngSwitchCase="'details'" class="post-details">
+					<!-- <h3>{{'module.agenda.f_details' | translate}}</h3> -->
+					<ion-item-divider>{{'module.agenda.attendee' | translate}}</ion-item-divider>
+					<div class="tag attendees">
+						<div *ngFor="let obj of attendees; let i = index">
+							<span (press)="changeObj(obj,'user')">{{obj?.display_name}}</span>
+							<ion-icon name="close" (click)="removeObj(obj, i, 'user')"></ion-icon>
+						</div>
+						<div class="add-tag" (click)="selectPartner()">{{'module.agenda.f_add' | translate}}
+							<ion-icon name="add"></ion-icon>
+						</div>
+					</div>
+					
+					<ion-item-divider>{{'module.agenda.f_rappel' | translate}}</ion-item-divider>
+					<div class="tag reminders">
+						<div *ngFor="let obj of reminders; let i = index">
+							<span (press)="changeObj(obj, 'remind')">{{obj?.me.name.me}}</span>
+							<ion-icon name="close" (click)="removeObj(obj, i, 'remind')"></ion-icon>
+						</div>
+						<div class="add-tag" (click)="addObjetFromPop($event,'remind')">{{'module.agenda.f_add_rappel' | translate}}
+							<ion-icon name="add"></ion-icon>
+						</div>
+					</div>
+					<!-- Zone tag -->
+					<ion-item-divider>{{'module.agenda.f_tag' | translate}}</ion-item-divider>
+					<div class="tag">
+						<div *ngFor="let tag of tags; let i = index">
+							<span (press)="changeObj(tag, 'tag')">{{tag?.me.name.me}}</span>
+							<ion-icon name="close" (click)="removeObj(tag, i, 'tag_agenda')"></ion-icon>
+						</div>
+						<div class="add-tag" (click)="addObjetFromPop($event, 'tag_agenda')">{{'module.agenda.f_add_tag' | translate}}
+							<ion-icon name="add"></ion-icon>
+						</div>
+					</div>
+					<!-- fin tag -->
+			</div>
+			<div *ngSwitchCase="'description'" padding class="post-description">
+					<!-- <h3> {{'module.agenda.f_description' | translate}}</h3> -->
+					<ion-textarea class="signe" autosize [(ngModel)]="agenda.description" placeholder="{{'module.agenda.f_txt_description' | translate}}"></ion-textarea>
+			</div>
+	</div>		
+	
+</ion-content>
+<ion-footer>
+  <div bloc-btn>
+    <button *ngIf="is_modif && action=='update'" ion-button outline clear (click)="saveItem()">{{'btns.txt_update' | translate}}</button>
+    <button *ngIf="is_modif && action=='copy'" ion-button outline clear (click)="saveItem()">{{'btns.copy' | translate}}</button>
+    <button *ngIf="!is_modif" ion-button outline clear (click)="saveItem()">{{'btns.save' | translate}}</button>  
+  </div>
+</ion-footer>

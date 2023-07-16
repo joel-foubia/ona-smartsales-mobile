@@ -1,0 +1,1123 @@
+ONA AVOCAT MOBILE
+-----------------------------
+Application mobile CRM
+
+Installation 
+création du projet Ionic 3
+Plugins
+Templates
+Executer l'application via le navigateur
+
+-------------------------------------
+INSTALLATION ET CONFIGURATION IONIC 3
+-------------------------------------
+Environnement de développement
+L'application sera développé sous le framework Ionic 3.
+version 3.6+
+Cordova platform : cordova-android 6.3.0
+
+Création du projet Ionic
+------------------------
+Saisir la cmd :
+ionic start ona-smartsales sidemenu
+
+-------
+Plugins
+-------
+- Device
+---------
+Il s'agira de savoir quels sont les features du Smartphone 
+qui seront utilisé par l'appareil.
+- Telephone : 
+	ionic cordova plugin add call-number
+	npm install --save @ionic-native/call-number
+
+- Push Notification:
+	ionic cordova plugin add phonegap-plugin-push --variable SENDER_ID=XXXXXXXXX
+	npm install --save @ionic-native/push
+	
+	NB / Il faut créer un compte Firebase Cloud Messaging (il est associé au compte Google)
+	https://firebase.google.com/support/guides/google-android#migrate_your_console_project
+	
+- SMS
+	ionic cordova plugin add cordova-sms-plugin
+	npm install --save @ionic-native/sms
+
+- Social Network
+	ionic cordova plugin add cordova-plugin-x-socialsharing
+	npm install --save @ionic-native/social-sharing
+
+- Email
+	ionic cordova plugin add cordova-plugin-email-composer
+	npm install --save @ionic-native/email-composer
+
+- Firebase (video tutorial https://www.youtube.com/watch?v=Q7BNG5EnXCs)
+	$ npm install angularfire2@4.0.0-rc0 firebase@3.6.6 --save
+	
+- Lazy loader pour les images
+	$ npm install ng-lazyload-image --save
+
+- Ajout du plugin Angular Google Map
+   $ npm install angular2-google-maps  --save (ancienne - deprecated)
+   $ npm install @agm/core (recommendé)
+   NB : Obtenir une API Key => https://developers.google.com/maps/documentation/embed/get-api-key
+
+- Ajour SweetAlert
+	$ npm install sweetalert --save
+	inclure : import swal from 'sweetalert';
+	Exemple: swal("Good job!", "You clicked the button!", "success");
+
+- Plugin Input Tags
+	$ npm install ionic-tags-input --save (manuelle)
+	$ npm install angular2-tag-input --save (recommendé)
+
+- Plugin SOcial sharing
+	$ ionic cordova plugin add cordova-plugin-x-socialsharing
+	$ npm install --save @ionic-native/social-sharing
+
+- Plugin Speech Recognition
+	$ ionic cordova plugin add cordova-plugin-speechrecognition
+	$ npm install --save @ionic-native/speech-recognition
+
+- Plugin QR Code
+	$ ionic cordova plugin add phonegap-plugin-barcodescanner
+	$ npm install --save @ionic-native/barcode-scanner
+	
+- Plugin INTL
+	$ npm install ionic2-calendar moment intl --save
+	
+- Plugin Image Picker
+	$ ionic cordova plugin add cordova-plugin-telerik-imagepicker --variable PHOTO_LIBRARY_USAGE_DESCRIPTION="your usage message"
+	$ npm install --save @ionic-native/image-picker
+
+- Plugin Crop Image
+	$ ionic cordova plugin add cordova-plugin-crop
+	$ npm install --save @ionic-native/crop
+
+- Plugin Camera
+	$ ionic cordova plugin add cordova-plugin-camera
+	$ npm install --save @ionic-native/camera
+
+- Plugin Ionic Rating
+	$ npm install --save ionic2-rating
+
+- Plugin Ionic Calendar
+	$ ionic cordova plugin add cordova-plugin-calendar
+	$ npm install --save @ionic-native/calendar
+
+- Plugin ng Dragula
+	$ npm install ng2-dragula --save
+	
+- Plugin Network Information
+	$ ionic cordova plugin add cordova-plugin-network-information
+	$ npm install --save @ionic-native/network
+	
+- Plugin Local Notification 
+	$ ionic cordova plugin add cordova-plugin-local-notification
+	$ npm install --save @ionic-native/local-notifications
+	
+- Plugin Angular Firebase Offline
+	$ npm install angularfire2-offline --save
+	
+- Plugin Geolocation
+	$ ionic cordova plugin add cordova-plugin-geolocation --variable GEOLOCATION_USAGE_DESCRIPTION="To locate you"
+	$ npm install --save @ionic-native/geolocation
+	
+--------------------------
+TEMPLATES
+--------------------------
+Le template qui sera utilisé sera basé sur celui de ONA Avocat
+1/ Dupliquer le projet ona avocat (ona smartsales)
+2/ Configuration du projet ona smartsales en fonction de sa structure et de sa charte graphique
+
+PS/ avec cette duplication, les modules comme :
+- Splashscreen
+- Login
+- Accueil
+- Slider (Abonnement)
+- Clients
+- Agenda
+- Abonnement
+- A Propos
+- Menu gauche (avec profil utilisateur)
+
+seront prédéfinis 
+NB: elles vont subir une personnalisation
+
+
+-----------------
+RUNNING
+-----------------
+- Après avoir dupliqué le projet <ona-smartsales>
+Ouvrir l'invite de commande:
+	cd ona-avocat
+	ionic serve (execute sur le browser)
+	ionic serve -l (visualisation Android, iOS)
+	
+	|-------------------------------------|
+	|Pour les tests, procéder avant d'executer
+	|-------------------------------------
+	|Utiliser le naviguateur Chrome
+	|AJouter l'extension "Allow Cross Origin"
+	|
+
+--
+BUILD APPLICATION
+-------------------------------------
+- Création du fichier apk
+  *
+  (le fichier sera stocké à la racine du projet)
+  * Ajout de la plateforme android
+	$ ionic cordova platform add android
+	$ ionic cordova build android --prod --release
+  * Déplacer le fichier apk (créée)==> (voir fichier DEPLOIEMENT APP MOBILE)
+
+--
+GENERATE APK FILE
+-----------------------
+  Signer le fichier apk
+  ---------------------
+  * Créer une clé privée
+  keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
+	- alias = onaitconsulting
+	- mot de passe:onaitconsulting17
+  
+	Mot de passe pour alias onaitconsulting (pwd:onaitconsulting17)
+  
+  * Signer le fichier apk non signé
+  ---------------------------------
+  jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore onaitconsulting.keystore android-release-unsigned.apk onaitconsulting
+  
+  * Optimiser le fichier apk
+  --------------------------
+  C:/Users/Home/AppData/Local/Android/Sdk/build-tools/26.0.2/zipalign -v 4 android-release-unsigned.apk ona-smartsales.apk
+   (zipalign =>android_sdk/build-tools/VERSION/zipalign
+ 
+  *Verify that app is signed
+  --------------------------
+  C:/Users/Home/AppData/Local/Android/Sdk/build-tools/26.0.2/apksigner verify ona-smartsales.apk
+
+
+--------------------
+CHANGELOG
+--------------------
+29/08/2018
+Correction du bugs sur la synchronisation
+1. Désactivation de la synchronisation auto par défaut. Elle serait important de désactiver la synchronisation automatique de l'utilisateur quitte à ce que ce dernier puisse l'activer manuelle si il le souhaite.
+	- ceci va permettre d'économiser en resources data et en battérie (terminal de l'utilisateur)
+	- 
+	
+2. Correction du bugs lors d'un enregistrement qui se faisait à plusieurs reprises. Lorsque l'utilisateur créée un nouvel enregistrement, cette ligne est enregistrée à plusieurs reprises sur le serveur.
+
+Vue Leads (Pistes)
+- Ajout de la barre de recherche afin qu'un commercial puisse rechercher une piste 
+- Intégration du bouton filtre sur la vue Leads.
+	* Définition d'un bouton filtre sur la barre de titre. Ce bouton, va ouvrir une fenetre de filtre. 
+
+
+Vue Pipeline
+- correction des bugs sur la fonctionnalité Filtre sur la vue Pipeline: 
+	
+	
+24/08/2018
+Objectif: Vérification des fonctions du module Abonnements
+
+Vue Liste des abonnements
+- Correction du bugs sur la barre de recherche : la recherche d'un abonnement à partir du nom ou à partir du nom du client lié à l'abonnement
+- Amélioration de la barre de recherche intégrer à la vue.
+- Intégration du mode synchronisation manuelle sur la vue Liste des abonnements
+
+Vue liste des Appels téléphoniques
+- Correction de la fonctionnalité permettant d'effectuer la recherche sur le nom du client ou du libellé de l'appel à passer
+- Amélioration de la barre de recherche sur l'entete de la vue Appels 
+
+
+
+20/08/2018
+objectif: Application des remarques Ernest 25/08/18
+
+1. Lorsqu’on créer une nouvelle opportunité on doit pouvoir avoir un bouton qui nous permet d’entrée les infos sur le client
+
+2.      Au niveau de la page d’accueil il faut pouvoir soulever et rabaisser le menu situé au niveau de la flèche
+
+3.      l’icône d’ONA It consulting n’est pas bien centré
+
+4.      L’enregistrement de la note audio ne fonctionne pas normalement
+
+
+
+17/08/2018 v1.0.2
+Leads et Pipeline
+- Rendre agile le formulaire d'édition d'une piste
+	- nom de la piste
+	- le lieu (Adresse)
+	- nom du contact 
+	- tel ou Email
+	- l'activité suivante
+
+
+16/08/2018 v1.0.1
+Exploration des modules ci-dessous vérification que toutes les fonctionnalités marchent
+- Leads 
+
+
+
+13/08/2018 v1.0.1
+Gestion de la traduction sur les modules 
+- Agenda
+- Notes
+- Clients
+- Contacts
+- Accueil 
+- Login
+
+
+
+11/08/2018 v1.0.0
+abonne: 1234567890
+client: ONACU1700003
+
+
+10/08/2018 v0.9.1
+Tableau de bord 
+	- gestion des Next Actions :
+	l'objectif est de pouvoir récupérer les actions indépademment de la langue et de les afficher à l'utilisateur.
+
+
+
+09/08/2018 v0.9.0
+Module d'Abonnements (suite)
+	Etablissement des relations entre:
+		* les abonnements et les Clients
+		* les abonnements et les produits (produits d'abonnements)
+
+08/08/2018 v0.9.0
+Module Evenement
+1. Formulaire de création/édition d'un Evenement
+	
+
+1. Formulaire de création/édition d'un participant
+	- Mise en forme et implémentation du formulaire d' ajout/édition Edition d'un participant (src/pages/form-attendee/form-attendee.html et form-attendee.scss)
+	- Implémentation des controles et champs de saisies de la vue Formulaire (src/pages/form-attendee/form-attendee.ts)
+	- l'ajout d'un participant à un évènement est possible à partir de la vue détaillée d'un évènement ou à partir de la vue liste des participants
+	
+2. Module Abonnements
+	Le Module Abonnements permet à un commercial de consulter tous les abonnements effectuées par leur client. Les abonnements sont d'autant plus liées à un produit d'abonnement.
+	modèle : sale.subscription.
+	table de la bd interne : _ona_sub
+	Objet : Subscription => src/models/sub.ts
+	
+	Chaque Abonnement, il existe des lignes d'abonnement. 
+	modèle : sale.subscription.line
+	table de la bd interne : _ona_sub_line
+	Objet : LineSub => src/models/sub-line.ts 
+
+
+07/08/2018 v0.8.9
+Module Evenements
+1. Mise en forme de la vue Détaillée (suite)
+	Amélioration des vues imbriqués suivantes:
+	- Tickets : 
+		Mise en forme de la vue Tickets => elle permet de lister les billets qui sont liés à l'évènement
+	- Participants: 
+		Mise en forme de la vue Participants => il s'agit de donner une forme et un style à cette vue. src/pages/details-event/details-event.scss (details-event.html)
+		
+2. Gestion des participants à un évènement
+Objectif: Permettre à l'utilisateur d'ajouter un participant à partir de la vue détaillée d'un évènement. 
+	- Dans la vue Détails d'un évènement, une liste de 10 participants sera affiché dans la section 'Participants'. Si le nombre total des participants est supérieur à 10, un bouton "More Attendees" sera visible. Il va ouvrir une vue Liste des participants pour afficher tous les participants.
+	- Pour ajouter un participant, l'utilisateur va cliquer sur le bouton "Add attendee" se trouvant dans la section 'Participants' de la vue détaillée d'un évènement
+	- Définition et implémentation de la vue Attendees qui va afficher la liste de tous les participants à un évènement
+		* la mise en page a été définie via le fichier src/pages/attendees/attendees.html.
+
+
+3. Création/Edition d'un évènement
+	La création et la modification d'un évènement peuvent etre executer à partir de la vue Liste des évènements et à partir de la vue détaillée d'un évènement.
+	- En cliquant sur le bouton + de la vue Liste des évènements, ceci va ouvrir un formulaire d'édition 
+	- Définition du formulaire d'édition d'un évènement :
+		* Mise en place et mise en forme du formulaire via les fichiers src/pages/form-event/form-event.html et form-event.scss 
+		* Implémentation des controles et champs de saisies sur la vue Formulaire (src/pages/form-event/form-event.ts)
+
+
+06/08/2018 v0.8.9
+Module Evenements
+	1. Définition de la vue Liste des évènements
+	Objectif : Mettre en oeuvre le design de la vue Liste des évènements afin que l'utilisateur puisse consulter les évènements.
+	- Mise en page de la vue Liste des évènements => définition d'une vue qui sera visible par l'utilisateur : (src/pages/events/events)
+	- Mise en forme de la vue Liste des évènements => donner une forme et un style à la vue : (src/pages/events/events.scss)
+	- Définition et implémentation des controles de la vue : src/pages/events/events.ts 
+	
+	2. Définition de la boite à filtre de la vue Evenements
+	Objectif : est de permetre à un commercial de pouvoir filtrer les évènements selon les critères suivants :
+		- A venir => va afficher les évènements qui n'ont pas encore commencé sur la base de la date actuelle
+		- Mes évènements => va afficher les évènements enregistrées par l'utilisateur connecté 
+		- Archivé => va afficher les évènements qui sont archivés 
+		- Evenements fermé => va afficher les évènements ou le nombre maximal de place à été atteind ou que la date de réservation est déjà passé
+		- Evenement ouvert => va afficher les évènements où le nombre maximal de places n'a pas encore été atteind ou qu'il s'agit d'un nombre de place illimité
+		
+	3. Définition du menu contextuel 
+		Lorsque l'utilisateur clique sur un élément de la liste (un évènement) une menu contextuel apparait affichant les actions à executer 
+		- Détails => ouvre la vue détaillée de l'évènement
+		- Editer => permet de modifier un évènement
+		- Participants => va afficher la liste des participants
+		
+	4. Vue Détaillée d'un Evènement
+		En cliquant sur l'action "Détails" du menu contextuel, ceci va ouvrir une page affichant les informations détaillées d'un Evènement 
+		La vue détaillée a été défini via le fichier src/pages/details-event 
+		Sur cette vue, a été défini les informations suivantes :
+			- Le nom de l'événement
+			- le lieu de l'évènement
+			- l'agenda 
+			- les informations générales (Date de début et date de fin)
+			- les billets de l'évènement mise à la disposition
+				* définition de la vue permettant d'afficher la liste des billets 
+				* implémentation de la requete permettant de récupérer la liste des billets liées à l'évènement 
+			- La liste des participants 
+				* Définition de la vue qui va afficher la liste des participants à l'évènement
+				* implémentation d'une fonction qui va récupérer la liste des participants 
+			- Ajout du bouton "Add Attendee" lorsqu'il existe encore des places pour ajouter un nouvel participant	
+		
+	
+
+
+04/08/2018 v0.8.10
+Module Evenements
+	Cette rubrique permet au manager d'organiser  des évènements. Il pourra alors gérer ses évènements sur le terrain ou en ligne.
+	A cet effet, le manager pourra :
+		- Créer/Modifier un évènement
+		- Consulter un évènement
+		- Ajouter des participants à cet évènement.
+			Enregistrer/ Modifier les informations sur le participant
+			Marquer comme Présent => ceci va indiquer le participant viendra au séminaire (sa place sera réservée) : cette fonctionnalité marche uniquement le premier jour de l'évènement.
+			Lorsque le nombre de place est fixé (limité). Il n'est plus possible d'ajouter des participants
+		- Insérer/Modifier les informations sur les billets de ventes 
+		- il peut marquer l'évènement comme terminer
+		
+	Le commercial quant à lui pourra :
+		- consulter les évènements
+		- Ajouter des participants à l'évènement
+	
+	Description
+	-----------
+	1. Les évènements qui seront affichés au commercial seront les évènements à Venir. Les évènements qui sont déjà passé ne seront plus visible.
+	2. Le commercial pourra également filtrer les évènements par :
+		- non confirmé
+		- A Venir
+		- Passés
+		- Terminé
+		
+	3. Modèles de données
+		les modèles de données Odoo utilisés :
+			Evenement = event.event (table qui sera appliqué _ona_event)
+			Ticket (billet) = event.event.ticket (table _ona_ticket)
+			Participant = event.registration (table _ona_participant)
+			Type d'évènement = event.type  (table _ona_type_event)
+			
+		Création des objets sus mentionnés:
+			event.ts (src/models/) => Evenement
+			ticket.ts (src/models/) => objet Ticket
+			participant.ts (src/models/) => Participant
+	
+
+Module Abonnements
+
+
+
+03/08/2018 v0.8.9
+Module Factures (Invoices)
+	Objectif : 
+		Configuration de la page détaillée d'une facture (Mise en forme et la mise en page)
+		Il s'agit d'organiser les informations sur la page et de décrire un style à cette page 
+		Définition des controles de la vue détaillée :
+			- Mise à jour d'une facture à travers le formulaire d'édition 
+				* Configuration du formulaire d'édition d'une facture : mise en place des champs de saisies 
+				* Controles de la saisie des champs par l'utilisateur
+				* Intégration des requetes Odoo pour la Mise à Jour d'une facture 
+			- Création d'une facture
+				La création du formulaire se fait à partir du bouton + qui se trouve sur la vue Liste des Factures. En cliquant dessus, le formulaire de création d'une facture s'ouvrira
+				* défintion de la requete Odoo permettant d'insérer une facture 
+				* Définition du formulaire permettant d'enregistrer une ligne de facture 
+			- Validation d'une facture 
+				Ici, la fonctionnalité est visible sur la vue détaillée d'une facture. Le bouton VALIDER.
+				* En cliquant sur ce bouton la facture quitte de l'état brouillon à l'état Facture ouverte (draft => open)
+				* La mise à jour est alors fait sur le serveur via une requete Odoo.
+				
+		
+
+
+02/08/2018 v0.8.8
+Module Factures (Invoices)
+Ce module va permettre à un commercial (ou manager) de pouvoir :
+	- Consulter les factures des clients (manager et commercial)
+	- Création/Edition d'une facture (Manager)
+	- Consulter la vue détaillée d'une facture.
+	
+Le menu Factures est accessible depuis le menu gauche de l'application ou à partir du menu principal (notamment dans la fentre slide up)
+Les factures sont basées sur le modèle Odoo account.invoice. la table utilisé est '_ona_invoice'.
+
+Configuration de la vue Factures
+- Mise en page de la vue Factures => l'utilisateur aura la liste des factures lié au commercial connecté
+- Mise en forme de la vue Factures => définition du style et de la forme de la vue 
+- Définition des controles sur la vue Factures => implémentation des fonctionnalités 
+
+
+
+20/07/2018 v0.8.7
+Page Menu Principal => Dashboard
+
+
+17/07/2018 v0.8.6
+Configuration des images en mode hors ligne ou en ligne (internet)
+	- Correction des bugs sur les images qui ne sont pas visible sur les vues :
+		* Liste Clients et détails d'un client => les images sont visible sur les 2 vues
+		* Liste Contacts et détails d'un contact 
+		* Liste des utilisateurs sur la page Login => src/pages/pop-user/pop-user
+		* Liste des produits (Menu Catalogue)
+		* Détails page Agenda : affichage des images figurant dans la liste des participants
+		* Vue Agenda 
+		* Vue Profile utilisateur
+
+Synchronisation
+Objectif : permettre aux utilisateur de l'application mobile de pouvoir rafraichir les données lorsque ce dernier se trouve sur une vue précise. 
+Par exemple : sur la vue Clients => l'utilisateur pourra rafraichir les données depuis cette vue 
+- Pour ce faire, il faudra que ce dernier se trouve sur la vue en question. Ensuite, il devra effectuer un mouvement "slide down" en dessous de la barre de titre.
+- Cette fonctionnalité a été implémenté sur les vues 
+	* Clients et Contacts
+	* Catalogue
+	* Vue Liste Notes 
+	* 
+
+
+
+16/07/2018 v0.8.5
+Module Devis et Bons de commande
+- Mise en forme de la vue Détails d'un devis ou bon de commande 
+- Formulaire de création/édition d'un devis 
+	* Analyse sur la mise en forme du formulaire d'édition/création d'un devis 
+
+Module Lead et Pipeline
+- Correction des bugs sur la vue Pipeline lors de la consultation de la liste
+	* Correction des bugs lorsque l'utilisateur souhaite convertir le stage d'un lead à un autre 
+	* travaux effectuer sur src/pages/pipeline/pipeline.ts et src/pages/pop-stage/pop-stage.ts 
+	
+- Légère amélioration de la vue Pipeline notamment sur la liste des stages 
+
+
+
+- Test sur la gestion des images disponible avec ou sans connexion internet
+	L'objectif du test est de vérifier si les images pourront être disponible avec ou sans connexion Internet. Les tests ont été appliqués sur les vues suivantes :
+		* La vue Liste des clients 
+		* la vue liste des contacts 
+		
+
+
+13/07/2018 v0.8.4
+Module Discussions
+	- Correction des bugs lors de l'envoi d'un message depuis l'application
+	- Mise en forme de la vue Messages => src/pages/chat/chat.scss
+	
+Module Devis et Bons de commande 
+	- Création de la vue détaillée d'un bon de commande ou d'un Devis 
+	- Implémentation des controles sur la vue Détails d'un Devis ou bon de commande 
+
+
+
+12/07/2018 v0.8.3
+Modules Devis et Bon de commandes
+
+1. Module Devis 
+Ce module sera utilisé par les commerciaux et/ou le manager. Il donne la possibilité aux utilisateurs de consulter leur devis.
+
+2. Module Bons de commande
+Le module bons de commande quant à lui est réservé au manager. Le manager pourra gérer les bons de commandes. et le commercial pourra uniquement les consulter ceci lui permettra également de savoir si le service au client a bel et bien été livré.
+
+
+3. Les modules Devis et Bons de commandes sont liées aux modèles Odoo suivant :
+	sale.order => libellé commande
+	sale.order.line => lignes de commandes
+	
+	- Les Devis sont des enregistrements sale.order ayant le statut="draft"
+	- les bons de commandes sont des enregistrements sale.order ayant le statut="sale"
+	
+4. Définition de l'objet Vente et VenteLine
+	- le fichier a été créé via src/models/vente.ts => lié au modèle sale.order
+	- le fichier a été défini via src/models/ligne-vente.ts => lié au modèle sale.order
+	
+5. Configuration des requetes Odoo via l'api 
+	les travaux ont été effectués via le fichier src/assets/odoo.js 
+	
+6. Configuration de la synchronisation afin d'inclure les modèles suivants :
+	models						table
+	sale.order    				vente
+	sale.order.line 			lines (
+	account.tax					tax (table des taxes)
+	product.uom					prime (table des unités de mesure)
+	account.analytic.account	analytic (compte analytique liée à un client) => utilisé pour la facturation et bons de commande
+	
+	configuration effectuée dans le fichier src/config.ts
+
+7. Ajout des rubriques Quotations et Purchases Orders dans le menu principal et le menu gauche de l'application	src/pages/main et src/app/app.component.ts
+
+8. Définition de la vue Liste Devis et de la vue Liste des Bons de commande
+	- définition du fichier src/pages/sales/sales.html
+	- définition et implémentation des controles définit sur la vue => src/pages/sales/sales.ts
+	- Mise en forme de la page src/pages/sales/sales.scss
+
+
+11/07/2018 v0.8.2
+Gestion des images avec ou sans la connexion Internet
+Objectif : est de permettre au commercial de consulter les images avec ou sans connexion Internet 
+Pour ce faire :
+	1. Rajout de l'attribut image_url sur les modèles objets (client, contact, produit, user, lead) src/models/
+	2. Configuration du service Odoo js afin qu'il prenne en compte le champ image_url pour les dits modèles (res.partner, crm.lead, res.users, product.template)
+	3. Configuration du plugin global (src/global/)
+		a- Installer les plugins :
+			npm install imgcache.js --save
+			ionic cordova plugin add cordova-plugin-file --save
+			ionic cordova plugin add cordova-plugin-device --save
+			ionic cordova plugin add cordova-plugin-file-transfer --save
+			npm install --save @ionic-native/file
+			
+		b- Configuration du fichier config.xml 
+			Ajout des lignes suivantes dans le fichier config.xml :
+			<access origin="cdvfile://*" />
+			<allow-intent href="cdvfile://*" />
+			<feature name="Device">
+				<param name="ios-package" value="CDVDevice" />
+				<param name="android-package" value="org.apache.cordova.device.Device" />
+			</feature>
+			<feature name="File">
+				<param name="ios-package" value="CDVFile" />
+				<param name="android-package" value="org.apache.cordova.file.FileUtils" />
+			</feature>
+			<feature name="FileTransfer">
+				<param name="ios-package" value="CDVFileTransfer" />
+				<param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+			</feature>
+
+		c- copie du dossier global => dans le répertoire src/
+	
+		d- Importer les modules suivants dans les pages (composants) où sont appliqués le cache des images 
+			On va importer le plugin CacheImgModule dans le ficher app.module.ts. Ce plugin permettra de cache les images depuis le serveur.
+			import { CacheImgModule } from '../global'; => dans le fichier src/app/app.module.ts
+			
+			Cette directive quant à elle sera importer au niveau des childs module des pages qui devront cacher les images stockées sur firebase
+			import { ImageCacheDirective } from '../directives/imagecache/imagecache';
+			
+			
+		e- Initialisation de la procédure de cache des images à partir du lancement de l'application.
+			Lancement du service Image Cache dans le fichier app.component.ts (src/app.component.ts)
+			
+
+Module Discussions (Messages)
+Le module Messages va permettre aux commerciaux, aux utilisateurs et au manager de pouvoir interargir via un espace d'échanges.
+- les utilisateurs pourront interargir à travers des canaux de communication appropriés
+- Lorsqu'un utilisateur va choisir un canal, il consultera la liste des messages relative au canal
+	* Définition de la vue permettant d'afficher les messages entre utilisateur (src/pages/chat/chat.html)
+	* Définition des controles ou actions qui seront utilisées sur la vue => src/pages/chat/chat.ts 
+	
+
+	
+10/07/2018 v0.8.1
+Page Login
+	La page de connexion va présenter les principales fonctionnalités qu'offrent l'application mobile ONA SMART SALES le tout dans un slider.
+	Le bouton connexion va ouvrir la liste des utilisateurs (commerciaux) de l'entreprise X. Une fois l'utilisateur sélectionné, ce dernier est invité à saisir son mot de passe.
+	- Amélioration de la page Login via les fichiers 
+		=> src/pages/login/login.html (login.ts, login.scss)
+		=> src/components/login/layout-1
+		
+Module Discussions à intégrer 
+	Le module Discussions permettra aux commerciaux d'échanger des messages. Cet outil sera beaucoup utiliser par les différents équipes de ventes, l'équipe technique ou la hierarchie. Enfin de répondre au besoin à temps réel. Il serait important d'inclure des notifications à cet effet.
+
+
+09/07/2018 v0.8.0
+Menu gauche 
+	Définition des éléments du menu gauche 
+	1. Intégration de la page Profil utilisateur
+		Le profil de l'utilisateur permet à ce dernier de consulter ses informations personnelles et même profesionelles.
+	2. Abonnements 
+		Intégration du module Abonnements dans le projet => défintion du composant src/pages/setting/ pour afficher l'historique des abonnements
+		Intégration de la vue détaillée d'un abonnement => via la page src/pages/details-abonne/
+	3. Se déconnecter
+		- Le commercial pourra à partir du menu gauche de l'application se déconnecter.
+		- En se déconnectant, il ne pourra plus accéder au contenu ou consulter les rubriques de l'application..
+		- La fonction a été implémentée à partir du fichier src/app/app.component.ts (logOff())
+		
+	4. A Propos
+		- La page "A Propos", permettra à l'utilisateur de consulter les informations relatives à la réalisation de l'application. Par ailleurs, il pourra noter l'application via les différents Apps Store.
+		- Installation du plugin App Rate pour faire usage du service de notation Google Play Store et Apps Store (Apple).
+		https://ionicframework.com/docs/native/app-rate/
+		- Le logo de l'application a été stocké sur firebase 
+		https://console.firebase.google.com/project/ona-smart-sales/storage//files
+		- Tout comme le logo de l'application, les logos des clients seront également stockés sur firebase dans le dossier subscribers
+		
+		
+	5. Aide et Assistance 
+		Les modules Aide et Assistance vont permettre aux clients de pouvoir soumettre des rapports d'erreurs survenu dans l'application et une Assistance si ces derniers le veulent bien.
+		- La page Aide est accessible depuis le menu gauche de l'application => via le composant (src/pages/aide/)
+		
+
+
+06/07/2018 v0.7.9
+Module Agenda
+	Le module agenda permettra au commercila de consulter :
+		- ses rendez-vous,
+		- les rendez-vous de son équipe (chef d'équipe)
+		- tous les rendez-vous (manager)
+		- Créer ou Modifier un nouveau rendez-vous
+		- Ajouter une alerte lorsque le commercial veut recevoir une alerte à l'approche d'un rendez-vous important
+		
+	1. Configuration des requetes Odoo pour récupérer la liste des rendez-vous.
+		Travaux effectués sur le fichier src/assets/odoo.js
+		
+	2. Mise en forme de la vue Agenda en configurant les éléments devant apparaite
+	
+	3. Définition du filtre "Tous les utilisateurs", permet d'afficher les rendez-vous de tous les utilisateurs
+	
+	4. Configuration pour afficher les rendez-vous d'utilisateurs spécifiques 
+	
+	Les menus 3 et 4 ont été implémentés comme suit :
+		* Définition des boutons filtre et utilisateur sur la barre de titre de la vue Agenda => src/pages/agenda/agenda.html
+		* Implémentation des fonctionnalités via le fichier src/pages/agenda/agenda.ts
+	
+	Configuration du mode Jour, Mois et Semaine : permettant au commercial de consulter les rendez-vous sur différents rendu 
+
+
+	5. Création / Edition d'un rendez vous
+	- Ces fonctionnalités permettent de créer ou de modifier un rendez vous dans un Agenda 
+	- Mise en forme du formulaire d'édition d'un rendez - vous (src/pages/form-agenda/form-agenda.html)
+	- Implémentation des controles sur le formulaire via (src/pages/form-agenda/form-agenda.ts)
+	
+
+	6. Configuration de la vue Détaillée d'un Rendez-vous 
+		- Mise en forme de la vue détaillée => src/pages/details-agenda/details-agenda.html
+		
+	
+	
+
+05/07/2018 v0.7.82
+Module Clients & Contacts
+Objectif: Modifier le menu contextuel d'un élément de la liste des clients 
+	1. Configuration des notifications sur le menu Contextuel Liste des clients 
+		
+		- En retard (facture ouverte non payé) => un lettre sera créé pour l'envoyer au client 
+		- Facturé  (facture validé)
+		- Ventes (devis) => sales.order (state = draft, envoyé) :: va ouvrir la vue Devis relative à un client 
+		- Subscriptions => Permet de consulter le nombre d'abonnements liés à un client
+		- Incidents => retour les clients ( A Analyser)
+		
+	2. Ajouter le menu Sales et Subscriptions dans le menu contextuel d'un Client
+		Travaux effectués sur la vue src/pages/clients/clients.ts
+		Mise en forme du menu contextuel via le fichier src/app/app.scss (.custom-action-sheet)
+
+	
+	3. Ajouter les informations sur :
+		le nombre de ventes : sale_order_ids, 
+		le nombre subscription : subscription_count
+		et la facturation => total_invoiced
+		Dans la vue détaillée d'un Client => src/pages/detail-client/detail-client.html
+		
+	
+Menu gauche de l'application
+	Intégration et configuration des rubriques
+	- Profil utilisateur
+	- Abonnements
+	- Paramètres
+	- Déconnexion
+	- Aide et Préférences
+	- A Propos
+	sur le menu gauche de l'application. Le commercial aura accès à ces fonctionnalités lorsqu'il déroulera le menu gauche.
+	Il (menu) est défini depuis le fichier app.component.ts et app.html (src/app/)
+	
+
+Module Agenda
+	
+	
+	
+		
+Module PhoneCalls
+1. Vue Liste des appels 
+	- Récupération de toutes les appels téléphoniques depuis le serveur
+	- Afficher la liste des appels correspondant à l'utilisateur connecté
+		* il existe la table me_avocat => qui représente l'utilisateur connecté
+		* trier la liste des appels récupérées en comparant le champ user_id.id (de la table call) avec le champ id de la table me_avocat
+
+
+2. Définition du filtre des appels
+	Ce filtre va permettre au commercial ou le chef d'équipe de pouvoir consulter les appels téléphoniques.
+	- définir un bouton "filtre" sur la barre de titre de la vue Liste des appels (voir la vue Client) : faire un copier-coller de la méthode qui est appelé lorsque le commercial clique sur le bouton "filtre".
+	- Les filtres qui devront apparaitres :
+		* Mes appels (par défaut) => permet de consulter les appels qui sont liées à l'utilisateur connecté.
+		* A Faire (To Do) => on récupère la liste des appels ayant le statut = open (à faire)
+		* Mon Equipe => je veux récupérer la liste des appels dont le champ team_id (table call) = correspond à celui de l'utilisateur connecté (me_avocat, champ sale_team_id)
+		* Aujourd'hui (Today) => on récupère la liste des appels qui devront etre effectué le jour j : il faudra faire une comparaison sur le champ Date de la table call
+
+
+04/07/2018 v0.7.81
+Module Notes 
+- Gestion des étiquettes (tags) sur une note 
+le modèle Odoo des tags est défini par note.tag
+	* définition des requêtes Odoo permettant de récupérer la liste des tags notes (src/assets/odoo.js)
+	* Mise en page et mise en forme de la zone où l'on peut consulter les étiquettes liées à une note 
+	* Travaux effectués sur le fichier src/pages/form-note/form-note.html, pour la mise en page 
+	* le fichier src/pages/form-note/form-note.ts (pour la gestion des tags : l'ajout, la suppression d'un tag ou plusieurs liées à une note)
+
+
+
+03/07/2018 v0.7.8
+Module Notes
+
+1. Analyse du Module Notes (plateforme web)
+	Les enregistrement sur les notes sont liés au modèle Odoo note.note
+	Dans ce module, il  s'agira de :
+	- Lister les notes par stage 
+	- Enregistrer une note soit par note vocal soit par écrit
+	- Modifier une note existante
+	- Archiver une note 
+	- Partarger la note aux followers afin qu'ils puissent consulter la note
+	
+	- Intégration du composant module Notes (src/pages/notes/) relative à l'application ona avocat
+	
+2. Vue Liste des notes 
+- Le commercial peut accéder à ses notes via le menu "Notes" soit à partir du menu principal ou à partir du menu gauche. 
+- La liste des notes sur le plan programmation est un tableau d'objet de type Note (src/models/note.ts) afin que chaque élément de la liste soit bien formatté
+- Définition des requêtes Odoo de lecture via le fichier src/assets/odoo.js
+	* configuration des attributs du modèle note.note
+
+3. Stage des notes
+	Les stages d'une note sont enregistrés dans le modèle note.stage.
+	Définition de la requete permettant de récupérer la liste des stages et les stocker dans la base de données interne
+
+4. Tag d'une note
+	Les tags sont representés par le modèle note.tag
+	Il s'agissait de récupérer la liste des tags afin que le commerciale puisse les intégrer dans une la note
+
+
+02/07/2018 v0.7.7
+Module Contacts et Clients
+- Définition et implémentation du formulaire d'édition d'un client et d'un contact 
+	Mise en page du fichier formulaire => src/pages/form-client/form-client.html
+- Définition et implémentation des controles sur la vue formulaire => src/pages/form-client/form-client.ts
+- Définition et Implémentation des requetes suivantes :
+	* Nouveau Client ou nouveau contact 
+	* Mise à jour des informations sur la fiche client ou contact
+	* Archivé une fiche contact ou fiche client
+	* Dupliquer un contact ou un client
+	
+	Les travaux ont été effectués sur les fichiers :
+	src/assets/odoo.js => implémentation des requetes Odoo
+	src/pages/detail-client/detail-client.ts => appel des méthodes dupliquer, modification et archiver
+
+
+
+28/06/2018 v0.7.6
+Module Contacts et Clients
+
+Objectif : Ajout d'un bouton filtre sur la barre de titre et définition de la fenêtre des filtres via le composant src/pages/pop-filter
+
+Le vendeur pourra filtre la liste des clients ou contacts selon ses préférences qui figurent parmi les filtes
+
+
+1.Vue liste des Contacts ou Clients
+
+Rendre dynamique les notifications (opportunité, meeting) via les champs ci-dessous (res.partner):
+
+opporunity_ids, => liste des opportunités liées au client
+
+meeting_ids, => liste des meetings liés au client
+
+call_
+
+dans le modèle src/partner.ts et dans la liste des champs Odoo (src/assets/odoo.js)
+
+
+2.Définition du bouton filtre sur la barre de titre de la vue Liste
+
+* Individual => les clients étant des particuliers
+
+* Company => les clients étant des entreprise
+
+* Near me => la liste des clients se trouvant à proximité du vendeur
+
+* Meetings => liste des clients avec qui le commercial a des rendez vous
+
+* Opportunities => la liste des clients liés ayant des opportunités
+
+* Archived => les clients étant archivé
+
+
+
+
+  
+    
+  
+  Vue Détail d'un Contact et Client
+  - Amélioration de la vue Détails d'un client ou contact.
+  - Ajout de la liste des contacts si seulement si le client en question est une entreprise
+  - Mise en forme de la vue détails d'un client et contact 
+
+
+26/06/2018 v0.7.5
+Module Contact et Clients :
+Objectif : 
+- Mise en forme de la vue détaillée Contact et Client
+- Définition et implémentation des fonctionnalités
+	* Mise à jour d'un Contact ou d'un Client
+	* Implémentation de la fonctionnalité d'archivage => elle permet d'archiver un client ou contact
+	* Implémentation de la fonctionnalité duplication => le commercial peut dupliquer un client ou contact et en modifier les informations
+	* travaux effectués sur le fichier
+		src/pages/detail-client/detail-client.html
+		src/pages/detail-client/detail-client.ts
+		src/pages/detail-client/detail-client.scss
+		
+- Implémentation de la section Contacts => cette section permet d'afficher la liste des employés à contacter. Cette section est disponible uniquement pour le client ou contact de type company
+	* Récupération de la liste les contacts (employés) appartenant à une meme companie via le champ child_ids
+
+
+3. Création des requetes d'insertion pour les modèles res.partner, product.template, crm.phonecall
+	Il s'agissait de définir une méthode qui va effectuer les requetes d'insertion, de modification et de duplication pour les modèles sus mentionnés
+	La requete a été implémentée via la fonction setDataClientToUpdate(obj, type, id) => src/assets/odoo.js
+	
+
+
+25/06/2018 v0.7.4
+Module Contact et Clients : 
+
+1. Vue Liste des Clients et Contacts : notifications
+- Pour chaque élément de la liste Clients:
+	* Les notifications :
+		Appels plannifiés => icone téléphone
+		Meetings => Rendez vous avec le client/detail-client
+		Opportunities => les opportunités liées aux clients 
+
+	* Le niveau d'attention : il s'agira d'un élément permettant de d'établir le niveau d'attention d'un client (généralement il sera lié au champ probability ou estimation crm.lead)
+	
+	
+
+2. Menu Contextuel
+- Définition des messages d'erreurs, d'information et de succes:
+	L'application permet au développeur de définir les messages d'erreurs à travers le service OdooProvider: 
+	this.odooServ.showMsgWithButton(
+					Message,
+					'top',
+					'toast-success' //optionel
+					);
+
+3. Vue Détaillée d'un Client ou d'un Contact
+	- Ajout des attributs à l'objet partner.ts (src/models/partner.ts) via modèle Odoo res.partner 
+	- Mise en page des de la vue Détaillée d'un Client ou d'un contact via le fichier src/pages/detail-client/detail-client.html
+	- Récupération des modèles tels que 
+		* res.partner.title => la liste des titre généralement lié au client (Particulier)
+		* res.country => la liste des pays 
+		* res.partner.category => la liste des tags ou étiquettes
+		* res.country.state => ce modèle regroupe la liste des états d'un pays
+
+22/06/2018 v0.7.3
+Module Contact
+Ce Module permet au vendeur de consulter son carnet de contact. En outre il pourra appeler, envoyer un SMS, un Mail au Contact en question.
+	- Création de la vue Contact => src/pages/clients/clients.html
+	- Configuration des controles pour la vue Contact => src/pages/clients/clients.ts
+	- Définition de la vue Détails d'un Contact => src/pages/detail-client/detail-client.html
+	- La Mise en forme de la vue
+	
+Modification de la mise en forme de la vue Clients et Contacts => src/pages/clients/clients.scss
+	
+- Définition du Menu Contextuel => Définition du menu contextuel pour les vues  à faire :
+	* Liste des Clients
+	* Liste des Contacts
+
+
+09/05/2018 v0.7.2
+Vue Pipeline
+	- Afficher le Pipeline en fonction des équipes de ventes
+	- A partir de la vue Sales Team, lorsque l'utilisateur clique sur le bouton "PIPELINE" d'une équipe de vente, il  est redirigé vers la vue Pipeline déroulant le Pipeline de l'équipe de vente
+	
+Vue Pipeline : Menu contextuel
+	- Sur la vue pipeline, lorsque l'utilisateur sélectionne une opportunité un menu contextuel s'affiche permettant d'effectuer les actions suivantes
+		- View = ok
+		- Mark as won
+		- Mark as Lost
+		- delete
+		- Edit = ok
+		- add to calls
+		- quotations
+		- meeting
+		
+	1. Mark as won
+	- L'opportunité est marqué comme étant gagné dans ce cas, les configurations ci-dessous sont implémentés pour la mise en oeuvre
+		l'attribut active = false
+		l'attribut probability = 100
+		le stage de l'opportunité est converti en Won.
+	- Définition de la requete permettant de marquer une opportunité comme gagné
+	- implémentation de la fonction permettant de convertir une opportunité en gagné
+		* travaux effectuer via le fichier src/pages/pipeline/pipeline.ts
+		
+	2. Mark as lost
+	- Lorsque l'utilisateur choisit l'option mark as lost, un fenetre pop up s'ouvre l'invitant à sélectionner la raison pour laquelle l'opportunité est marqué comme perdu. Une fois la raison sélectionner, l'opportunité est marqué comme archivé et n'est plus visible dans le Pipeline
+	- Configuration :
+		* l'attribut active = false
+		* l'opportunité sera archivé
+		* Définition et implémentation de la requête qui va récupérer la liste des raisons de l'échec d'une opportunité => www/odoo.js (via le modèle crm.lost.reason)
+		* Création d'une fenetre Pop up qui va afficher la liste des raisons => src/pages/pop-note2/pop-note2.ts
+
+
+
+04/05/2018 v0.7.1
+Vue Map (GroundPage)
+	- Positionnement des vendeurs sur la carte.
+	Les autres vendeurs seront identifiés sur la carte par des markeurs de couleur bleu => #144360
+	Tandis que la position de l'utilisateur sera identifié par un markeur de couleur vert => #82b149
+	
+	- Définition de la fonction permettant de récupérer les informations (coordonnées géographique latitude et longitude) stockées sur Firebase => l'implémentation a été faites via le fichier src/providers/af/af.ts
+	- Configurer l'affichage des vendeurs sur la carte (Google Map) en fonction de l'équipe de vente: affichage sera configuré en fonction des équipes de ventes
+	- Ajout/ Mise à jour des informations des coordonnées géographique sur firebase: à chaque fois que l'utilisateur (le vendeur) se déplace, ses informations sont automatique Mise à jour.
+		* Définition de la fonction updateGeolocation() => src/providers/af/af.ts
+		
+Vue Menu Principale
+	Mise en forme de la page Menu Principale
+		- Application d'une image en arrière plan
+		- Définition et implémentation de la liste des informations générales qui résume les réalisations de l'utilisateur connecté. => src/pages/main/main.ts
+		- Modification des icones du menu principal
+
+Vue Menu gauche
+	Configuration des éléments du menu gauche
+	- définition des icones à appliquer sur un menu
+	- Mise en forme du menu gauche => src/app/app.scss
+	- définition des éléments dynamique du menu gauche => src/pages/app.component.ts
+
+
+03/05/2018 v0.7.0
+Module Team Sales
+	- Création de la vue Team Sales qui permet à la fois d'afficher la liste des équipes de ventes ainsi que les vendeurs en fonction de l'équipe de vente. La liste des équipes est afficher via un slider l'utilisateur a la possibilité d'effectuer un balayage vers la gauche ou vers la droite.
+	Ainsi la liste des vendeurs sera mise à jour.
+	- Définition des controles qui sont intégrer à la vue src/pages/hr/hr.ts
+	- Mise en forme de la vue => src/pages/hr/hr.scss
+	
+	Implémentation de la fonction permettant d'afficher les vendeurs sur une carte et en suivant le déplacement
+	1/ Les données de tracking seront stockées sur firebase et la structure comportera les informations	
+		UUID : identifiant du téléphone
+		ID : identifiant du vendeur
+		latitude : coordonnées latitude
+		longitude : coordonnées longitude
+		
+	2/ Création de la vue GroundPage : cette vue va afficher la Map (google map)
+	
+	3/ Configuration de l'outil permettant de capturer la position du téléphone de l'utilisateur
+	$ ionic cordova plugin add cordova-plugin-geolocation --variable GEOLOCATION_USAGE_DESCRIPTION="To locate you"
+	$ npm install --save @ionic-native/geolocation
+	
+	4/ Enregistrement / Modification des données latitude, longitude et id du vendeur dans la base de données firebase
+
+
+25/04/2018 v0.6.0
+Module Sales team
+	Ce module permet d'afficher la liste des vendeurs
+	de les regrouper par équipe de ventes
+	de créer/modifier la fiche d'un vendeur 
+	de créer/modifier la fiche d'une équipe
+	
+- Vue Liste des vendeurs
+	Elle permet d'afficher tous les vendeurs via la vue src/pages/hr/hr.html
+	Les différents controls de la vue sont définis via le fichier src/pages/hr/hr.ts
+	La mise en forme de la vue est définit via le fichier src/pages/hr/hr.scss
+	
+Tracking des vendeurs
+ONA Smart Sales pourra géolocaliser
+	les clients : il s'agira du l'adresse de bureau du Client : il s'agira des points immobiles
+	les vendeurs: les commerciaux qui sont sur le terrain : il s'agira des points immobiles
+	Pour rendre le tracking optimal la technologie Firebase sera utilisé pour effectué le tracking des vendeurs car elle propose des fonctionnalités à temps réel.
+	Comment ca marche ?
+	- les vendeurs dès lors qu'ils vont se connecter à l'application, leurs coordonnées de géolocalisation à savoir latitude et longitude seront stockées sur Firebase
+	- A chaque fois que le vendeur se déplacera, ses coordonnées seront capturées et stockées immédiatement sur Firebase: Ceci va entrainée une mise à jour à temps réel des coordonnées du vendeur.
+	- Cette procédure va offrir la possibilité au Manager de suivre ses équipes de ventes à temps réel.
+	Ceci dit, dans la base de données (firebase) une table (tracert) sera réservé pour stocké les informations des vendeurs. Chaque entrée contiendra les informations suivantes :
+		- l'id du vendeur (du modèle res.users)
+		- latitude 
+		- longitude
+
+	Coût
+	Pour l'implémentation, 
+		- Utiliser la formule gratuite de firebase pour les tests soit au maximum 100 personne connecté quelque soit le projet firebase (database);
+		- Utiliser la formule payante Flame Plan soit => $25/month
+		
+		https://firebase.google.com/pricing/
+		
+
+16/03/18 v0.5.0
+Module Pipeline: Afficher le pipeline par équipe de ventes
+- Définir un bouton group by sur la barre de titre de la vue Pipeline => src/pages/pipeline/pipeline.html
+- Définition et implémentation de la liste des groupes dans le fichier => src/pages/group-note/group-note.ts
+- Implémentation de la fonction onGroup(event) => src/pages/pipeline/pipeline.ts, elle permet d'appeler la fenetre qui affichera la liste des groupes
+- Création de l'objet select permettant d'insérer la liste des équipes de ventes => src/pages/pipeline/pipeline.html
+- Implémentation de la fonction Odoo qui permet de grouper les opportunité en fonction des équipes de ventes => src/providerss/odoo/odoo.ts (via la function groupLeadsByTeams())
+- Mise en forme de la barre de titre de la vue Pipeline => src/pages/pipeline/pipeline.scss
+
+
+Définition des filtres sur la vue Pipeline 
+- Définition de la liste des filtres sur la vue Pipeline à appliquer :
+	* Next activity : liste des opportunité ayant une prochaine activité
+	* in call queue: liste des opports ayant des appels programmés
+	* meeting : liste des opports ayant des rendez vous 
+	* Deadline : liste des opportunités dont la date de closure 
+	* Win probability : liste des opportunités don la probabilité de réussite est haute (70%)
+	* Priority: liste des opportunités ayant une haute priorité (à partir de 2 étoiles)
+
+* Définition du filtres dans le fichier => src/pages/pop-filter/pop-filter.ts (via la fonction filtreOpports())
+* Implémentation de la fonction filterListLeads(), permettant d'appliquer les filtres sur la liste des Leads/Opportunité => src/pages/pipeline/pipeline.ts
+
+
+
+15/03/18
+- Intégration du mode Offline de la page About, et de la description des fonctionnalités via le plugin
+AngularFire offline
+- Installation du plugin
+	$ npm install angularfire2-offline --save
+	
+- Edtion (Mise à jour) du formulaire d'une opportunité => src/pages/form-lead/form-lead.html : il s'agira d'adapter le formulaire d'édition sur la base de l'objet Opportunité
+- Implémentation des fonctions de controles du formulaire d'édition => src/pages/form-lead/form-lead.ts
+
+14/03/18
+Module Pipeline : Définition du menu contextuel
+- Edition du fichier => src/pages/pop-over/pop-over.ts
+
+09/03/18
+Page Vue Liste Leads : Menu Contextuel
+- Mise en forme du menu contextuel => src/app.scss (via la variable custom-popover)
+- Mise à jour du fichier => src/pages/pop-over/pop-over.scss
+- Application des mises à jours sur le modèles crm.leads (Insertion / Modification d'un Lead)
+	* Correction des erreurs qui survenait lors de la création et la mise à jour d'un lead 
+	* via l'édition des fichiers => src/pages/form-lead/form-lead.ts, et src/assets/odoo.js
+	* Définition des controles (fonctions) pour récupérer la liste des pays, des états ou encore des title => src/pages/form-lead/form-lead.ts (fonction onSelectObjet() et loadObjetsFromRemote()
+	* Intégration du template Helper (src/pages/helper/) afin d'afficher la liste des pays, des états ou encore celle des clients.
+
+2/ Module Pipeline :
+- Mise en place de la vue Pipeline => src/pages/pipeline/pipeline.html (mise à jour de la vue)
+- Définition des controles disponible de la vue Pipeline => src/pages/pipeline/pipeline.ts
+- Mise en forme de la vue Pipeline => src/pages/pipeline/pipeline.scss
+
+
+08/03/18
+1/ Mise en forme de la vue Leads et définition du menu contextuel pour chaque élément de la vue 
+	- Edition des fichiers => src/pages/leads/leads.scss
+	- Ajout des éléments sur la vue leads => src/pages/leads/leads.html
+	- Définition du menu contextuel => src/pages/pop-over/pop-over.ts
+		Les menus ont été définis dans le fichier src/config.ts (fonction loadOnglets())
+	- Définition de la requête permettant  modifier un lead => www/odoo.js
+		définition de la fonction setDataLeadsToUpdate()
+	
+		
+
+07/03/18
+1/ Création / Edition du formulaire d'enregistrement d'un Lead
+- Mise à jour de l'entité Lead => src/models/lead.ts
+- Création du formulaire d'édition d'un Lead => src/pages/form-lead/form-lead.html
+- Définition des controles qui seront appliqués sur la vue Formulaire => src/pages/form-lead/form-lead.ts
+
+2/ Menu Principale
+- Définition des éléments du menu principal
+	Leads, Your Pipeline, Customer, Agenda, Sales Team
+- Pour ce faire, les fichiers suivants ont été édité => src/pages/main/main.html et src/providers/general/general.ts
+- Définition (1er draft) des couleurs sur l'application ona smart => src/theme/variables.scss
+
+
+21/02/2018
+- Configuration du projet ONA Smart Sales

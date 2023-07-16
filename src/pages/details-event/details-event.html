@@ -1,0 +1,184 @@
+<ion-header no-border color="primary">
+
+    <ion-navbar>
+        <ion-title></ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only *ngIf="evenement.active" (click)="archiveEvent('a')">
+          <ion-icon name="ios-archive-outline"></ion-icon>
+        </button>
+            <button ion-button icon-only *ngIf="!evenement.active" (click)="archiveEvent('f')">
+          <ion-icon name="ios-remove-circle-outline"></ion-icon>
+        </button>
+            <button ion-button icon-only (click)="copyEvent()">
+          <ion-icon name="ios-copy-outline"></ion-icon>
+        </button>
+            <!-- <button ion-button icon-only (click)="deleteevenement()">
+          <ion-icon name="ios-trash-outline"></ion-icon>
+        </button> -->
+            <button ion-button icon-only (click)="editEvent()">
+          <ion-icon name="ios-create-outline"></ion-icon>
+        </button>
+            <button ion-button icon-only (click)="openLeftMenu()"> <ion-icon name="more"></ion-icon> </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <ion-grid no-padding>
+        <ion-row>
+            <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 no-padding>
+                <!-- Description du header -->
+                <div class="header">
+                    <ion-item transparent class="photo" text-wrap>
+
+                        <h2 class="titre"> {{evenement.name}} </h2>
+                        <ion-grid no-padding>
+                            <ion-row>
+                                <ion-col col-4>
+                                    <h4> {{'module.detail_events.address' | translate}}</h4>
+                                </ion-col>
+                                <ion-col col-8>{{evenement.address_id.name}}, {{objAdress?.street}} - {{objAdress?.city}}</ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col col-4>
+                                    <h4> {{'module.detail_events.agenda' | translate}}</h4>
+                                </ion-col>
+                                <ion-col col-8>{{evenement.organizer_id.name}}</ion-col>
+                            </ion-row>
+                            <ion-row *ngIf="evenement.event_type_id.id!=0">
+                                <ion-col col-4>
+                                    <h4> {{'module.detail_events.category' | translate}} </h4>
+                                </ion-col>
+                                <ion-col col-8>{{evenement.event_type_id.name}}</ion-col>
+                            </ion-row>
+
+                            <ion-row class="date">
+                                <ion-col col-2>
+                                    <ion-icon name="ios-calendar-outline"></ion-icon>
+                                </ion-col>
+                                <ion-col col-10>
+                                    <ion-row>
+                                        <ion-col col-4>
+                                            <h4> {{'module.detail_events.start_date' | translate}}</h4>
+                                        </ion-col>
+                                        <ion-col col-8>{{evenement.date_begin | date:'mediumDate'}} {{evenement.date_begin | date:'shortTime'}}</ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col col-4>
+                                            <h4> {{'module.detail_events.end_date' | translate}}</h4>
+                                        </ion-col>
+                                        <ion-col col-8>{{evenement.date_end | date:'mediumDate'}} {{evenement.date_end | date:'shortTime'}}</ion-col>
+                                    </ion-row>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="statut">
+                                <ion-col col-2>
+                                    <ion-icon name="ios-people"></ion-icon>
+                                </ion-col>
+                                <ion-col col-10>
+                                    <p *ngIf="evenement.seats_availability=='limited' && evenement.registration_ids.length==evenement.seats_max" class="error_save">Vous ne pouvez plus enregistrer de Participant</p>
+                                    <p *ngIf="evenement.seats_availability=='limited' && (evenement.seats_max > evenement.registration_ids.length)" class="ok_save">Il reste {{residual}} places</p>
+                                    <p>{{evenement.registration_ids.length}} {{'module.detail_events.part_confirmed' | translate}}</p>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+
+                    </ion-item>
+
+                </div>
+                <!-- Fin Description du header -->
+            </ion-col>
+            <ion-col col-12 no-padding>
+                <!-- Description du footer -->
+                <div class="bloc-footer">
+                    <ion-segment [(ngModel)]="roleType" color="secondary">
+                        <ion-segment-button value="coordonnees">
+                            <!-- <ion-icon name="ios-information-circle"></ion-icon><br> -->
+                            <span>{{'module.detail_events.general' | translate}}</span>
+                        </ion-segment-button>
+                        <ion-segment-button value="ticket">
+                            <!-- <ion-icon name="md-cash"></ion-icon><br> -->
+                            <span>{{'module.detail_events.tickets' | translate}}</span>
+                        </ion-segment-button>
+                        <ion-segment-button value="participant">
+                            <!-- <ion-icon name="ios-people"></ion-icon><br> -->
+                            <span>{{'module.detail_events.part' | translate}}</span>
+                        </ion-segment-button>
+
+                    </ion-segment>
+                    <div [ngSwitch]="roleType">
+                        <ion-list *ngSwitchCase="'coordonnees'" class="bloc-coord">
+                            <ion-item>
+                                <p>{{'module.detail_events.resp' | translate}}</p>
+                                <h3>{{evenement.user_id.name}}</h3>
+                            </ion-item>
+                            <ion-item>
+                                <p>{{'module.detail_events.min_places' | translate}}</p>
+                                <h3>{{evenement.seats_min}}</h3>
+                            </ion-item>
+                            <ion-item>
+                                <p>{{'module.detail_events.max_parts' | translate}}</p>
+                                <h3>{{evenement.seats_availability}}</h3>
+                            </ion-item>
+                            <ion-item *ngIf="evenement.seats_availability=='limited'">
+                                <p>{{'module.detail_events.max_place_numbers' | translate}}</p>
+                                <h3>{{evenement.seats_max}}</h3>
+                            </ion-item>
+
+                        </ion-list>
+
+                        <ion-list *ngSwitchCase="'ticket'" class="bloc-ticket" padding>
+                            <ion-item *ngFor="let item of tickets">
+                                <ion-icon name="md-bookmark" item-start></ion-icon>
+                                <h3>{{ item?.name }}</h3>
+                                <h5>{{ item?.price | currency:user.currency_id.name:'symbol':'':current_lang }}</h5>
+                                <p>{{item?.deadline | date:'mediumDate':'':'en'}}</p>
+                                <span class="places" item-end>{{item?.seats_reserved}} / {{item?.seats_max}}</span>
+                            </ion-item>
+                        </ion-list>
+
+                        <ion-grid *ngSwitchCase="'participant'">
+
+                            <ion-row class="bloc-participant">
+                                <ion-col no-padding col-12 col-sm-9 col-md-6 col-lg-3 col-xl-3 class="custom-grid-item" *ngFor="let item of lines | slice:0:10">
+                                    <ion-card>
+                                        <ion-item text-wrap>
+                                            <h3>{{ item?.name}}</h3>
+                                            <h5>{{item?.email}}</h5>
+                                            <p class="txtStatut" text-right *ngIf="item.state=='open'">{{'module.detail_events.conf' | translate}}</p>
+                                            <p class="txtStatut" text-right *ngIf="item.state=='done'">{{'module.detail_events.present' | translate}}</p>
+                                            <p class="txtStatut" text-right *ngIf="item.state=='cancel'">{{'module.detail_events.canceled' | translate}}</p>
+                                            <p text-right><span>{{'module.detail_events.ticket_type' | translate}} :</span> {{item?.event_ticket_id.name}}</p>
+                                        </ion-item>
+                                    </ion-card>
+                                </ion-col>
+                                <ion-col *ngIf="lines.length>10" no-padding col-12 col-sm-9 col-md-6 col-lg-3 col-xl-3>
+                                    <ion-card class="add-card">
+                                        <ion-item (click)="showMoreParticipants()">
+                                            <ion-icon name="ios-more" item-start></ion-icon>
+                                            <h3>{{'module.detail_events.show_more' | translate}}</h3>
+                                        </ion-item>
+                                    </ion-card>
+                                </ion-col>
+                                <ion-col *ngIf="(evenement.seats_availability=='limited' && residual!=0) || evenement.seats_availability!='limited'" no-padding col-12 col-sm-9 col-md-6 col-lg-3 col-xl-3 class="custom-grid-item">
+                                    <ion-card class="add-card">
+                                        <ion-item (click)="addParticipant()">
+                                            <ion-icon name="add" item-start></ion-icon>
+                                            <h3>{{'module.detail_events.add_att' | translate}}</h3>
+                                        </ion-item>
+                                    </ion-card>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+
+                    </div>
+
+                </div>
+                <!-- Fin Description du footer -->
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
+</ion-content>

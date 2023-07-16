@@ -1,0 +1,79 @@
+page-abonnements {
+    .content {
+        background-color: color($colors, lightest);
+        padding: 4px !important;
+    }
+
+    .toolbar-title {
+        .subtitle {
+          font-size: 66%;
+          margin: 0;
+        }
+    }
+
+    .bottom {
+        background-color: color($colors, grislight);
+        padding: 0 !important;
+        button{
+            font-size: 0.9em;
+        }    
+    }
+
+    ion-searchbar{
+        animation: fadeInRight 600ms;
+        -webkit-animation: fadeInRight 600ms;
+    }
+
+    .filter .toolbar-background{
+        background-color: color($colors, primary) !important;
+        box-shadow: none;
+    }
+
+    .timeOver {
+        border-left: 7px solid #f04040 !important;
+        // border-radius: 30px 30px 0px 0px !important
+    }
+    h1 {
+        color: white !important
+    }
+
+    #dates_block {
+        ion-icon{
+            color: color($colors, secondary);
+        }
+    }
+    .almostOver {
+        border-left: 7px solid orange !important;
+        // border-radius: 30px 30px 0px 0px !important
+    }
+    
+    .gotTime {
+        border-left: 7px solid color($colors, secondary) !important;
+        // border-radius: 30px 30px 0px 0px !important
+    }
+
+    ion-card.card {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+        width: calc(100% - 0px) !important;
+        border-radius: 0px !important
+    }
+    
+    
+    #days_left {
+        font-weight: 1300 !important;
+        font-size: 1.6rem !important
+    }
+    #renew_sub {
+        font-weight: 1300 !important;
+        // font-size: 1.6rem !important
+    }
+    
+    #end {
+        float: right;
+        ion-icon {
+            color: color($colors, grislight);
+        }
+    }
+    
+}

@@ -1,0 +1,143 @@
+walking {
+    [background-size] {
+        background-size: cover;
+        background-repeat: no-repeat;
+            background-position: center;
+        // background-color: color($colors, light);
+        // background-blend-mode: luminosity;
+        // &::before {
+        //   content: "";
+        //   display: block;
+        //   height: 100%;
+        //   width: 100%;
+        //   top: 0;
+        //   left: 0;
+        //   position: absolute;
+        //   pointer-events: none;
+        //   mix-blend-mode: multiply;
+        //  background-color: #424242;
+        // }
+      }
+    
+      [skip] {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 2;
+        ion-icon{
+          font-size: 1.8em;
+        }
+      }
+    
+      [navigation] {
+        position: absolute;
+        bottom: 55px;
+        text-align: right;
+        z-index: 2;
+        color: color($colors, light) !important;
+        width: 140px;
+        // left: 50%;
+        right: 10px;
+        // margin-left: -80px;
+      }
+    
+      [wizard-description] {
+        width: 75%;
+        margin: 0 auto;
+        z-index: 99;
+        position: relative;
+  
+      }
+    
+      .swiper-container-horizontal > .swiper-pagination-bullets {
+        bottom: 70px;
+      }
+    
+      .swiper-pagination-bullet-active {
+        background: color($colors, light);
+      }
+    
+      .swiper-pagination-bullet {
+        background: color($colors, light);
+      }
+
+      .bloc-logo-start img{
+        width: 200px;
+      }
+        
+      
+      [wizard-description]{ 
+          padding-bottom: 90px;
+          [wizard-title]{
+              margin-top: 0;
+              margin-bottom: 0;
+              font-family: 'Roboto-Bold' !important;
+              padding: 5px;
+              // background-color: color($colors, secondary);
+              color: color($colors, light);
+              font-size: 1.1em;
+          }
+  
+          [wizard-logo]{
+      
+            border-radius: 100%;
+            padding: 5px;
+            padding-top: 22px;
+            // background-color: color($colors, primary);
+            width: 90px;
+            height: 90px;
+            margin:auto;
+            ion-icon{
+              font-size: 2.2em;
+              color: color($colors, light);
+            }
+          }
+      }
+    
+      .bloc-sub{
+        [wizard-body-text]{
+          color: color($colors, light);
+          font-size: 1.0em;
+          text-align: center;
+        }
+      }
+    
+    
+      .btn-finish{
+        color: color($colors, light) !important;
+        font-family: 'Roboto-Regular' !important;
+      }
+  
+      [first-slide]{
+        padding: 10px;
+  
+        p{
+          font-family: 'Roboto-Thin' !important;
+          text-align: right;
+          color: color($colors, light);
+        }
+  
+        h3{
+          font-family: 'Roboto-Bold' !important;
+          font-size: 1.42em;
+          color: color($colors, light);
+          // text-align: right;
+          i{
+            // color: color($colors, secondary);
+            font-style: initial;
+          }
+        }
+  
+        [wizard-body-text]{
+          text-align: center;
+          // display: block;
+          width: 85%;
+          margin: auto;
+          font-size: 1.12em !important;
+          // padding: 3px;
+          // margin-left: 35%;
+          // text-align: right;
+          // background-color: color($colors, secondary);
+        }
+      }
+}

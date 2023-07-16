@@ -1,0 +1,42 @@
+<!--
+  Generated template for the FormMailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Envoyer mail a {{client.name}}</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content formAffaire>
+  <div padding class="post-example-view">
+
+    <ion-item transparent>
+      <ion-label stacked>Email du client</ion-label>
+      <ion-input [(ngModel)]="mailObj.email" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item transparent>
+      <ion-label stacked>Titre du mail</ion-label>
+      <ion-input [(ngModel)]="mailObj.object" type="text"></ion-input>
+    </ion-item>
+
+    <ion-textarea class="signe" autosize [(ngModel)]="mailObj.description" placeholder="{{'module.agenda.f_txt_description' | translate}}"></ion-textarea>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+    <div bloc-btn>
+        <button ion-button (click)="send()" block>Envoyer</button>
+    </div>
+  </ion-footer>

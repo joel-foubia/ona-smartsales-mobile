@@ -1,0 +1,99 @@
+user {
+    .prodcutName {
+		color: color($colors, dark) !important;
+    }
+    
+	.price-qty {
+        color: color($colors, secondary);
+		.vl {
+			border-left: 1px solid color($colors, secondary);
+            height: 18px;
+            display: inline-block !important;
+            margin-bottom: -3px !important;
+        }
+        
+        .rdv{
+            background-color: color($colors, primary);
+            padding: 3px;
+            font-size: 0.9em;
+            border-top-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            color: color($colors, light);
+        }
+	}
+	.cat {
+        color: color($colors, gris) !important;
+        
+    }
+    #off{
+        position: absolute !important;
+        top: 10px !important;
+        left: 10px !important;
+        width: 15px !important
+    }
+    .qty{
+        position: absolute !important;
+        width: 40px !important;
+        top: 10px !important;
+        right: 10px !important;
+        font-size: 0.85em;
+    }
+    
+    // .qty-indicator{
+    //     position: absolute !important;
+    //     width: 15px !important;
+    //     top: 10px !important;
+    //     right: 10px !important;
+    //     height: 15px !important;
+    //     border-radius: 100% !important;
+
+    // }
+
+    .empty{
+        color: color($colors, rouge) !important;
+    }
+
+    op-lazy-img{
+
+        img.loaded {
+            margin-left: 18px !important;
+            margin-right: 18px !important;
+            width: 70px;
+            height: 70px;
+            border-radius: 50% !important;
+            object-fit: cover;
+        }
+    }
+
+    .bloc-visible{
+        background-color: color($colors, primary);
+        color: color($colors, light);
+
+        img.loaded {
+            border: 3px solid color($colors, light);
+        }
+
+        .closed{
+            font-size: 1.2em;
+        }
+
+        .bloc-action{
+            ion-col:first-child{
+                border-right: 1px solid color($colors, light);
+            }
+
+            ion-col ion-icon{
+                color: color($colors, secondary);
+                font-size: 2em;
+            }
+        }
+
+        .bloc_price{
+            p{
+                text-align: left;
+                margin-bottom:0;
+                font-size: 0.9em;
+            }
+        }
+    }
+}

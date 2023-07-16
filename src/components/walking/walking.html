@@ -1,0 +1,35 @@
+
+<button color="light" skip button-clear clear ion-button text-right (click)="onEvent('onFinish')">
+  <!-- {{data?.btnSkip}} -->
+  <ion-icon name="md-close"></ion-icon>
+</button>
+<ion-slides #wizardSlider *ngIf="data.items!==undefined && data.items.length" (ionSlideWillChange)="slideWillChange()" (ionSlideDidChange)="slideHasChanged()" pager="true">
+  <ion-slide background-size *ngFor="let item of data.items; let i = index" [ngStyle]="{'background-image': 'url(' + item.backgroundImage + ')'}">
+    
+    <div *ngIf="i==0" first-slide text-center>
+      <div class="bloc-logo-start"><img src="{{item.logo}}" alt="logo" /></div>
+      <!-- <h3 class="animated fadeIn" [innerHTML]="item.title"></h3> -->
+      <p class="animated fadeIn" wizard-body-text>{{item.description}}</p>
+      <!-- <span class="animated slideInRight delay-1s"  *ngIf="data!==undefined">{{item.description}}</span> -->
+    
+    </div>
+    <div *ngIf="i>0" wizard-description text-center>
+      <div *ngIf="item.logo" class="bloc-logo" [ngStyle]="{'background-color': '' + item.couleur + ''}" wizard-logo><ion-icon [ngClass]="{'animated pulse':isActive}"><i class="{{item.logo}}"></i></ion-icon></div>
+      <h1 class="animated fadeIn" wizard-title>{{item.title}}</h1>
+      <!-- <h3 wizard-body-text *ngIf="data===undefined">{{item.description}}</h3> -->
+      <span class="animated slideInRight delay-1s" wizard-body-text *ngIf="data!==undefined">{{item.description}}</span>
+    
+    </div>
+  </ion-slide>
+</ion-slides>
+<!--Button section-->
+<!-- <button navigation text-center button-clear clear ion-button (click)="onEvent('onLogin')" *ngIf="show('valid')">
+    {{data?.btnValid}}
+</button> -->
+
+<button navigation text-right button-clear clear ion-button (click)="changeSlide(1)" *ngIf="show('next')">
+    {{data?.btnNext}}
+</button>
+<button class="btn-finish" navigation text-right button-clear clear ion-button (click)="onEvent('onFinish')" *ngIf="show('finish')">
+    {{data?.btnFinish}}
+</button> 

@@ -1,0 +1,116 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{txtFiltre.nom}}</ion-title>
+        <ion-buttons end>
+            <!-- <button ion-button icon-only (click)="onFilter($event)"><ion-icon name="md-funnel"></ion-icon></button> -->
+            <!-- <button ion-button icon-only (click)="onGroup($event)"><ion-icon name="ios-crop"></ion-icon></button> -->
+            <button class="count_btn" ion-button> {{nbeNotes}} </button>
+            <button [ngClass]="{'searchOn': display_search}" ion-button icon-only (click)="searchItems()">
+                <ion-icon name="ios-search-outline"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="showMenu()"><ion-icon name="md-more"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar *ngIf="display_search" custom-segment class="bg-segment">
+        <!-- <ion-title sub-title></ion-title> -->
+        <ion-item class="search-bloc" transparent no-lines no-padding>
+            <ion-searchbar item-start class="animated zoomIn" debounce="500" [showCancelButton]="false" (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}" animated="true"></ion-searchbar>
+            <ion-icon (click)="onSetClick($event)" color="gris" name="md-funnel" item-end></ion-icon>
+        </ion-item>
+
+        <ion-list class="animated fadeIn" text-center no-lines [hidden]="showQuickFilter == false">
+            <!-- <h6>Filter par couleur</h6> -->
+            <!-- liste des filtres -->
+            <ion-scroll *ngIf="colors.length > 0" class="color-horizontal-scroll" scrollX="true">
+                <span text-center *ngFor="let item of colors;let i = index" [ngStyle]="{'background-color': '' + item.val + ''}" class="color-filter-item" (click)="onColorFilter(item, i)">
+                    <ion-icon *ngIf="item.selected == true" name="checkmark"></ion-icon>
+                </span>
+            </ion-scroll>
+            <!-- liste des stages -->
+            <ion-scroll *ngIf="activeFilters.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let item of activeFilters" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true}"  (click)="filterbyActive(item)">
+                    {{item.nom}}
+                </span>
+            </ion-scroll>
+
+            <ion-scroll *ngIf="filter_years.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let int of filter_years" class="filter-item" [ngClass]="{'subCatSelected':int.selected == true}"  (click)="filterbyObjets(int,'year')">
+                        {{int.text}}
+                </span>
+            </ion-scroll>
+            
+        </ion-list>
+    </ion-toolbar>
+    <ion-toolbar  custom-segment class="bg-segment segment-toolbar">
+        <ion-segment [(ngModel)]="roleType">
+            <ion-segment-button *ngFor="let obj of notes" value="{{obj.couleur}}" (click)="segmentChanged(obj, $event)">
+
+                {{obj.nom}}
+                <ion-badge color="secondary">{{obj.tab.length}}</ion-badge>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [class]="(strGroup !== undefined && strGroup.ch=='file_id') ? 'addtop' : 'notop'">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <p *ngIf="objLoader" obj-loader>
+        <ion-spinner name="dots"></ion-spinner>
+    </p>
+    <div bloc-empty *ngIf="!objLoader && notes.length==0">
+        <div><img src="assets/images/empty/file.png"></div>
+        <h4 *ngIf="!strGroup && objFiltre">{{'module.notes.filter' | translate}}</h4>
+        <h4 *ngIf="!strGroup && !objFiltre && !affaire">{{'module.notes.empty_list' | translate}}</h4>
+        <!-- <h4 *ngIf="!strGroup && affaire">{{'module.notes.affaire_list' | translate:affaire}}</h4> -->
+        <h4 *ngIf="strGroup">{{'module.notes.list_group' | translate:strGroup}}</h4>
+        <button *ngIf="!strGroup && !objFiltre && !affaire && notes.length==0" color="primary" ion-button outline (click)="synchronizing()">
+            {{'btns.sync' | translate}} <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+        </button>
+    </div>
+
+    <div [ngSwitch]="roleType" *ngIf="!objLoader && notes.length!=0">
+
+        <div *ngFor="let stage of notes">
+            <ion-grid *ngSwitchCase="stage.couleur">
+                <ion-row #MesNotes>
+                    <ion-col *ngFor="let n of stage.tab" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
+                        <ion-card *ngIf="txtFiltre.slug=='archive' || n.open" class="animated fadeIn stage-{{stage.couleur}}" [ngStyle]="{'background-color': '' + n.bg + ''}" id={{n.id}}>
+
+                            <div>
+                                <img *ngIf="n.id == 0" src="assets/svg/refreshing.svg" id="off" alt="">
+                                <ion-item no-lines titre text-wrap (click)="onTapNote(stage.couleur, stage.nom, n, $event)">
+                                    {{n.memo | slice:0:128}}
+                                    <span *ngIf="n.memo.length>128">...</span>
+                                </ion-item>
+                                <ion-item sub-contenu>
+                                    <!-- <span client>{{'btns.affair' | translate}} : {{n.file_id.name}}</span> -->
+                                    <button ion-button item-end clear (click)="showListStage(n, $event)">
+                                        <ion-icon name="ios-options"></ion-icon>
+                                    </button>
+                                    <!-- <button ion-button item-end clear (click)="onShareToUser(n, $event)">
+                                        <ion-icon name="ios-share"></ion-icon>
+                                    </button> -->
+                                </ion-item>
+                            </div>
+                            
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+
+            </ion-grid>
+        </div>
+    </div>
+</ion-content>
+<ion-fab #fab bottom right>
+    <button ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="left">
+
+        <button ion-fab color="primary" (click)="onAddMicro($event)"><ion-icon name="ios-mic-outline"></ion-icon></button>
+        <!-- <button ion-fab color="primary" (click)="onAddImage($event)"><ion-icon name="ios-attach-outline"></ion-icon></button> -->
+        <button ion-fab (click)="onAdd('')" color="primary"><ion-icon name="ios-create-outline"></ion-icon></button>
+    </ion-fab-list>
+</ion-fab>

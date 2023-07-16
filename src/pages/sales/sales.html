@@ -1,0 +1,110 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'menu.vente' | translate}}
+      <p *ngIf="client" class="subtitle">{{client?.name}}</p>
+    </ion-title>
+    <ion-buttons end>
+      <!-- <button ion-button>{{nbeVentes}}</button> -->
+      <button class="count_btn" ion-button *ngIf="nbeVentes<=999" icon-only>{{nbeVentes}}</button>
+      <button class="count_btn" ion-button *ngIf="nbeVentes>999" icon-only>999+</button>
+      <button [ngClass]="{'searchOn': display_search}" ion-button icon-only (click)="searchItems()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="showMenu()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <!-- *ngIf="!objLoader" class="filter" -->
+  <ion-navbar *ngIf="display_search || txtFiltre.length > 0" custom-segment class="animated fadeIn">
+    <ion-title *ngIf="txtFiltre.length!=0">
+      <span *ngFor="let obj of txtFiltre">{{obj.nom}}</span>
+    </ion-title>
+    <ion-title *ngIf="client && (sales[0].tabs.length!=0 || sales[1].tabs.length!=0)" sub-title>
+      {{client.ref_partner}} : {{client.name}}
+    </ion-title>
+    <ion-item class="search-bloc" transparent no-lines no-padding>
+      <ion-searchbar item-start class="animated zoomIn" debounce="500" [showCancelButton]="false" (ionInput)="setFilteredItems($event)"
+        placeholder="{{'message.search' | translate}}"></ion-searchbar>
+      <ion-icon (click)="onSetClick()" color="gris" name="options" item-end></ion-icon>
+    </ion-item>
+
+    <ion-list class="animated fadeIn" text-center no-lines [hidden]="showQuickFilter == false">
+      <!-- liste des filtres -->
+      <ion-scroll *ngIf="filtres.length > 0" class="horizontal-scroll" scrollX="true">
+        <span *ngFor="let item of filtres;let i = index" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true}"
+          (click)="onQuickFilter(item, i)">
+          {{item.nom}}
+        </span>
+      </ion-scroll>
+
+      <!-- filtre par Année  -->
+      <ion-scroll *ngIf="filter_years.length > 0" class="horizontal-scroll" scrollX="true">
+          <span *ngFor="let int of filter_years" class="filter-item" [ngClass]="{'subCatSelected':int.selected == true}"  (click)="filterbyObjets(int,'year')">
+                  {{int.text}}
+          </span>
+      </ion-scroll>
+    </ion-list>
+
+    <!-- <div class="filters-selected animated fadeIn">
+      <span (click)="removeFilter(item)" *ngFor="let item of txtFiltre"> {{item.nom}} <ion-icon name="close"></ion-icon>
+      </span>
+    </div> -->
+  </ion-navbar>
+  <ion-toolbar class="sub-menu" custom-segment>
+    <ion-segment [(ngModel)]="roleType">
+      <ion-segment-button *ngFor="let obj of sales" value="{{obj.couleur}}" (click)="segmentChanged(obj, $event)">
+        {{obj.nom}} ({{obj.tabs.length}})
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<!-- (click)="onTapItem(fact)" -->
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <p *ngIf="objLoader" text-center>
+    <ion-spinner name="dots"></ion-spinner>
+  </p>
+  <div *ngIf="!objLoader" [ngSwitch]="roleType">
+    <div *ngFor="let stage of sales" >
+      <ion-grid *ngSwitchCase="stage.couleur" class="bloc-invoice" no-margin>
+        <ion-row>
+          <ion-col class="animated fadeIn" col-12 col-sm-9 col-md-9 col-lg-6 col-xl-4 *ngFor="let fact of stage.tabs | slice:0:max">
+            
+            <devis [fact]="fact" [events]="eventsBinding"></devis>
+          </ion-col>
+          <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{'message.txt_load' | translate}}"></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-row>
+
+      </ion-grid>
+
+    </div>
+    <div *ngIf="sales.length>0">
+
+      <div bloc-empty *ngIf="sales[0].tabs.length==0 && sales[1].tabs.length==0" class="animated zoomIn">
+          <div><img src="assets/images/empty/receipt.png" alt="Sale order" /></div>
+          <h4 *ngIf="filter_lists.length!=0">{{'module.sales.no_bill' | translate}} <span *ngFor="let obj of filter_lists">- {{obj.nom}} </span></h4>
+          <h4 *ngIf="client">{{'module.sales.no_customer' | translate:client}}</h4>
+          <h4 *ngIf="product">{{'module.sales.no_product' | translate:product}}</h4>
+          <h4 *ngIf="!client && !product && filter_lists.length==0 && searchTerm==''">{{'module.sales.empty_list' | translate}}</h4>
+          <h4 *ngIf="!client && !product && filter_lists.length==0 && searchTerm!=''"> {{searchTerm}} {{'module.sales.search_empty' | translate}}</h4>
+          <button ion-button outline (click)="synchronizing()" color="primary" icon-left *ngIf="!client && filter_lists.length==0 && searchTerm==''">
+              {{'btns.sync' | translate}} <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+          </button>
+          <p *ngIf="display" text-center>{{'message.txt_sync' | translate}}</p>
+      </div>
+    </div>
+    
+  </div>
+
+</ion-content>
+<ion-fab #fab bottom right>
+  <button button-ion-fab ion-fab (click)="onAdd($event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

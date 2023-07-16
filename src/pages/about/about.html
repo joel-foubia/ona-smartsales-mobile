@@ -1,0 +1,104 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'menu.about' | translate}}</ion-title>
+    <ion-buttons end>
+	      <button ion-button icon-only menuToggle>
+	        <ion-icon name="more"></ion-icon>
+	      </button>
+	  </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content has-header>
+
+  <ion-grid *ngIf="data!==undefined">
+      <ion-row class="photo">
+          <ion-col col-12>
+            <img [lazyLoad]="data.aboutimg" [defaultImage]="defaultImg" height="200px">
+            <ion-fab class="map-fab" color="secondary" bottom right edge>
+                <button (click)="onEvent('onEvaluate', data.playstore)" ion-fab><ion-icon name="star"></ion-icon></button>
+            </ion-fab>
+          </ion-col>
+        </ion-row>
+        <ion-card class="bloc-logo">
+            <img [lazyLoad]="data.logo" [defaultImage]="defaultLogo" />  
+            <h1 text-center>{{data.contentTitle}}</h1>
+            <p text-center>{{data.contentDescription}}</p>
+            <p text-center>{{'message.version' | translate}} {{data.versionName}}</p>
+            <!-- <button ion-button round (click)="testOcr()">OCR</button> -->
+        </ion-card>
+       
+        <ion-card>
+          <ion-card-header>{{'message.find_us' | translate}}</ion-card-header>
+          
+          <ion-grid class="social">
+            <ion-row>
+              <ion-col>
+                  <ion-icon (click)="onEvent('onFacebook', data.iconFaceText)">
+                      <img src="{{data.iconFace}}" />
+                  </ion-icon>
+               </ion-col> 
+               <ion-col>
+                  <ion-icon (click)="onEvent('onTwitter', data.iconEarthText)">
+                      <img src="{{data.iconEarth}}" >
+                  </ion-icon>  
+               </ion-col>
+               <ion-col>
+                  <ion-icon (click)="onEvent('onGoogle', data.iconGoogleText)">
+                      <img src="{{data.iconGoogle}}" >
+                  </ion-icon>
+               </ion-col> 
+               <ion-col>
+                  <ion-icon (click)="onEvent('onInstagram', data.iconInstagramText)">
+                      <img src="{{data.iconInstagram}}" >
+                  </ion-icon>
+               </ion-col>
+               <ion-col>
+                  <ion-icon (click)="onEvent('onLinkedIn', data.iconLinkedInText)">
+                      <img src="{{data.iconLinkedIn}}" >
+                  </ion-icon>
+               </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      
+        <ion-card>
+            <ion-card-header>{{data.title}}</ion-card-header>
+            <ion-card-content>
+              <p description>{{data.iconLoacationText}}, {{data.postalCode}}</p>
+              <br>
+              <p>{{data.titleDescription}}</p>
+            </ion-card-content>    
+        </ion-card>
+        <ion-card>
+          <ion-card-header>{{'menu.contact' | translate}}</ion-card-header>
+          <ion-card-content>
+            <p description>
+              <ion-icon icon-small><i class="icon icon-email-outline"></i></ion-icon> 
+              {{data.iconEmailText}}
+            </p> 
+            <p class="website" description (click)="onEvent('onAgreement', data.iconWebText)">
+                <ion-icon icon-small><i class="icon icon-earth"></i></ion-icon>
+              {{data.iconWebText}}
+            </p>
+          </ion-card-content>
+            
+        </ion-card>
+        <ion-card>
+          <ion-card-header>{{'message.licence' | translate}}</ion-card-header>
+          <ion-card-content>
+            <p class="website" (click)="onEvent('onAgreement', data.agreementText)">
+                <ion-icon icon-small><i class="icon icon-file-document"></i></ion-icon> 
+              {{data.agreementText}}
+            </p>
+          </ion-card-content>
+        </ion-card>
+      
+        <p text-center class="copyright">{{data.copyright}}</p>
+    </ion-grid>
+    <p *ngIf="data==undefined" text-center>
+      <ion-spinner name="dots"></ion-spinner>
+    </p>
+  </ion-content>

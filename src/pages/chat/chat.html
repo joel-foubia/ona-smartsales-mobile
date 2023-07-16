@@ -1,0 +1,60 @@
+ <ion-header>
+
+  <ion-navbar>
+    <ion-title>{{currentChannel.name}}</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="selectChannel($event)">
+          <ion-icon name="ios-radio-outline"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)="openLeftMenu()">
+          <ion-icon name="md-more"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+  <!-- <ion-navbar *ngIf="affaire" class="interest">
+    <ion-title sub-title *ngIf="affaire">{{affaire.code}} - {{affaire.name}}</ion-title>
+  </ion-navbar> -->
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isInfos && affaire===undefined" bloc-empty text-center>
+    <ion-icon name="ios-radio-outline"></ion-icon> 
+    <h4>{{'module.chat.select_channel' | translate}}</h4>
+  </div>
+  <p *ngIf="objLoader" obj-loader><ion-spinner name="dots"></ion-spinner></p>
+  <ion-list *ngIf="messages.length!=0">
+    <ion-item *ngFor="let m of messages" no-lines transparent>
+        <div class="chat-message">     
+          <div [class]="m.author_id.id == objUser.partner_id.id ? 'right-bubble' : 'left-bubble'">
+            <span class="msg-name">{{m.author_id.name}}</span>
+            <span class="msg-date">{{m.date | date:'short':'':current_lang}}</span>
+            <p text-wrap>{{m.body}}</p>
+            <p *ngIf="m.model!='mail.channel' && m.model!=''" class="record_name">{{m.record_name}}</p>
+            <p *ngIf="m.model!='mail.message' && m.model!='mail.channel' && m.model!='' && m.res_id!=0 && m.message_type!='notification'">
+              <button  color="secondary" ion-button clear (click)="readPage(m)">
+                  {{'module.chat.dossier' | translate}}
+              </button>
+            </p>
+          </div>
+        </div>
+    </ion-item>
+  </ion-list>
+  <div bloc-empty *ngIf="!isInfos && !objLoader && messages.length==0">
+      <div><img src="assets/images/empty/chatting.png" alt="empty" /></div> 
+      <h4 *ngIf="affaire===undefined"> {{'module.chat.empty' | translate:currentChannel}} </h4>
+      <h4 *ngIf="affaire!==undefined"> {{'module.chat.empty_affair' | translate:affaire}} </h4>
+  </div>     
+</ion-content>
+
+<ion-footer *ngIf="affaire===undefined && isOk">
+    <ion-grid>
+        <ion-row> 
+          <ion-col col-10>
+            <ion-input type="text" placeholder="{{'module.chat.txt_input' | translate}}" [(ngModel)]="txtMessage" name="txtMessage"></ion-input>
+          </ion-col>
+          <ion-col col-2 (click)="sendMessage()">
+            <ion-icon name="paper-plane"></ion-icon>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer> 

@@ -1,0 +1,30 @@
+page-pop-stage {
+
+	ion-item{
+		text-transform: uppercase !important;
+		font-size: 1.0em !important;
+	}
+
+	.active{
+		color:color($colors, vert) !important;
+		font-size: 1.4em;
+		font-weight: bold !important;
+	}
+
+	.bloc-tool{
+		text-align: center;
+		margin:0;
+		padding: 0;
+
+		li{
+			display: inline-block;
+			width: 70px;
+			padding: 5px;
+			
+			text-align: center;
+			ion-icon{
+				font-size: 2.5em;
+			}
+		}
+	}
+}

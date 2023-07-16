@@ -1,0 +1,88 @@
+<ion-header no-border color="secondary">
+
+  <ion-navbar>
+    <ion-title></ion-title>
+		<ion-buttons end>
+				
+				<button ion-button icon-only (click)="copyInvoice()">
+					<ion-icon name="ios-copy-outline"></ion-icon>
+				</button>	
+
+				<button ion-button icon-only (click)="editInvoice()">
+					<ion-icon name="ios-create-outline"></ion-icon>
+				</button>
+				<button ion-button icon-only (click)="openLeftMenu()"> <ion-icon name="more"></ion-icon> </button>
+			</ion-buttons>
+  </ion-navbar> 
+
+</ion-header>
+
+<ion-content>
+	<div class="header-invoice">
+		<ion-row>
+			<ion-col col-12>
+				<ion-row>
+					<ion-col col-9><h3>{{facture.number}}</h3><span>{{facture.state}}</span></ion-col>
+					<ion-col col-3> 
+						<button *ngIf="facture.state=='draft'" ion-button clear color="light" (click)="validate()">{{'pop.validate' | translate}}</button>
+						<button *ngIf="facture.state=='open'" ion-button clear color="light" (click)="send()">ENVOYER</button>
+					</ion-col>
+				</ion-row>
+				<div class="bloc-partner">
+					<h1>{{facture.amount_total | currency:facture.currency_id.name:'symbol':'':current_lang}}</h1>
+					<h5>{{facture.partner_id.name}}</h5>
+					<p><strong>{{'module.facture.delivery' | translate}}</strong> {{facture.user_id.name}}</p>
+				</div>
+				
+			</ion-col>
+		</ion-row>
+	
+	</div>
+	
+	<ion-row class="bloc-image" padding>
+		<ion-col text-left>
+			<span>{{'module.facture.invoice_at' | translate}}</span>
+			<h2> {{facture.date_invoice | date:'mediumDate'}}</h2>
+		</ion-col>
+		<ion-col text-right>
+			<span>{{'module.facture.meet_on' | translate}}</span>
+			<h2>{{facture.date_due | date:'mediumDate'}}</h2>
+		</ion-col>
+	</ion-row>
+
+	<!-- Description du footer -->
+	<div class="footer">
+		<ion-grid *ngIf="lines.length!=0" class="bloc-lines" no-padding>
+				<ion-row class="top">
+					<ion-col text-left>{{'module.facture.description' | translate}}</ion-col>
+					<!-- <ion-col>{{'module.facture.compte' | translate}}</ion-col> -->
+					<ion-col>{{'module.facture.amount' | translate}}</ion-col>
+				</ion-row>
+				<ion-row *ngFor="let obj of lines">
+					<ion-col text-left>{{obj.name}}</ion-col>
+					<!-- <ion-col>{{obj.account_id.name}}</ion-col> -->
+					<ion-col>{{obj.price_subtotal | currency:obj.currency_id.name:'symbol':'':current_lang}}</ion-col>
+				</ion-row>
+		</ion-grid>
+		<ion-grid class="bloc-details">
+			<ion-row>
+				<ion-col> {{'module.facture.untaxed' | translate}}</ion-col>
+				<ion-col> {{facture.amount_untaxed | currency:facture.currency_id.name:'symbol':'':current_lang}}</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col> {{'module.facture.tax' | translate}}</ion-col>
+				<ion-col> {{facture.amount_tax | currency:facture.currency_id.name:'symbol':'':current_lang}}</ion-col>
+			</ion-row>
+			<ion-row class="total">
+				<ion-col> {{'module.facture.total' | translate}}</ion-col>
+				<ion-col> {{facture.amount_total | currency:facture.currency_id.name:'symbol':'':current_lang}}</ion-col>
+			</ion-row>
+			<ion-row show-lines>
+				<ion-col>{{'module.facture.reste' | translate}} </ion-col>
+				<ion-col>{{facture.residual | currency:facture.currency_id.name:'symbol':'':current_lang}}</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+	<!-- Fin Description du footer -->
+	
+</ion-content>

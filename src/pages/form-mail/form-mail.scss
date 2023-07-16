@@ -1,0 +1,11 @@
+page-form-mail {
+    .scroll-content{
+		background-color: color($colors, lightest);
+	}
+    ion-item, ion-item-divider, ion-textarea, [ion-button], h3, h4{
+		color:color($colors,light) !important;
+    }
+    ion-textarea{
+		border: 1px solid color($colors, dark) !important
+	}
+}

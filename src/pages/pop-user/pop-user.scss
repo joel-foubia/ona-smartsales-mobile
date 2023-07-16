@@ -1,0 +1,15 @@
+page-pop-user {
+
+	.item{
+		background: transparent;
+		font-family: 'Roboto-Light';
+		img{
+			opacity: 1;
+		}
+	}
+
+	ion-item-divider{
+		background-color: transparent !important;
+		color:color($colors, secondary) !important;
+	}
+}

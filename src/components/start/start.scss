@@ -1,0 +1,161 @@
+start {
+
+    [background-size] {
+
+    }
+  
+    [skip] {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+    }
+  
+    [navigation] {
+      position: absolute;
+      bottom: 20px;
+      text-align: center;
+      z-index: 2;
+      color: white !important;
+      width: 160px;
+      left: 50%;
+      margin-left: -80px;
+    }
+  
+    [wizard-description] {
+      width: 75%;
+      margin: 0 auto;
+      z-index: 99;
+      position: relative;
+    }
+  
+    .swiper-container-horizontal > .swiper-pagination-bullets {
+      bottom: 70px;
+    }
+  
+    .swiper-pagination-bullet-active {
+      background: theme-colors('mainColors', 'secondary');
+    }
+  
+    .swiper-pagination-bullet {
+      background: theme-colors('mainColors', 'secondary', 'opacity60');
+    }
+    
+    [bloc-resume]{
+        margin:10px;
+        padding-bottom: 10px;
+      
+      ion-list{
+        border-radius: 0.50em !important;
+        background: rgba(255, 255, 255, 0.8);
+      }
+  
+      ion-item{
+            background: transparent;
+  
+        .item-inner{
+          border-bottom:1px solid rgba(255, 255, 255, 0.2) !important;  
+        }
+        
+            p{
+          color:color($colors, dark);
+                font-size: 0.75em !important;
+            }
+            
+        h4, h2{
+                color: color($colors, primary);
+                font-size: 0.9em !important;
+            }
+        }
+  
+      .item:last-child, .item-inner:last-child{
+          border-bottom: none !important;
+        }
+  
+    }
+  
+    [wizard-form-1]{
+      text-align: center;
+      ion-item{
+        background-color: theme-colors('mainColors', 'primary', 'opacity60');
+        margin-bottom: 10px;
+        border-radius: 1.8em;
+        color: color($colors, light);
+      }
+  
+      .item:last-child{
+        border-bottom: none !important;
+      }
+  
+      .label, p, button{
+        color: color($colors, light);
+      }
+  
+      .label{
+        position: relative;
+        top:-20%;
+        // left: 10%;
+      }
+  
+      .item-input-has-value .label{
+        color: color($colors, primary);
+        opacity: 0.2;
+      }
+  
+      .request{
+        button{
+          color: color($colors, secondary);
+          text-transform: lowercase !important;
+        }
+      }
+  
+      // p{ color: color($colors, light)}
+  
+    }
+    
+    [wizard-description]{ 
+        [wizard-title]{
+            margin-top: 0;
+        color: #84d525;
+            font-size: 1.1em;
+        }
+    }
+  
+    .bloc-sub{
+      [wizard-body-text]{
+        color: color($colors, light);
+        font-family: 'Roboto-Light' !important;
+        font-size: 0.9em;
+      }
+    }
+    
+    [custom-spinner]{
+        text-align:right;
+        ion-spinner * {
+            width: 28px;
+            height: 28px;
+            stroke:color($colors, light);
+            
+          }
+    }
+    
+    ion-item{
+      ion-thumbnail{
+        img{
+          transition: opacity 1s;
+          opacity: 0;
+        }
+  
+        img.ng-lazyloaded {
+          opacity: 1;
+        }
+      }
+      
+    }
+  
+    .btn-finish{
+      color: color($colors, light) !important;
+      font-family: 'Roboto-Bold' !important;
+    }
+   
+}

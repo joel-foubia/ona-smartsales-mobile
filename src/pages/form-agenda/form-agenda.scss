@@ -1,0 +1,93 @@
+page-form-agenda {
+	.scroll-content{
+		background-color: color($colors, lightest);
+	}
+
+	.sections{
+		padding:0;
+	}
+
+	.forms-examples-segment{
+		padding: 14px 0px;
+		background-color: color($colors, lightest);
+		.segment-button{
+			text-transform: uppercase;
+		}
+		
+		.segment-button.segment-activated {
+			// opacity: 1 !important;
+			border-bottom-color: color($colors, secondary) !important;
+		}
+	}
+
+	// ion-item, ion-item-divider, ion-textarea, [ion-button], h3, h4{
+	// 	color:color($colors,light) !important;
+		
+	// }
+
+	.post-details{
+		ion-item-divider{
+			background-color: color($colors, primary) !important;
+			color: color($colors, light) !important;
+			border: none !important;
+			margin-top: 20px;
+		}
+	}
+
+	h4{
+		text-align: left;
+	}
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, secondary);
+
+      [ion-button]{
+      	color:color($colors, light);
+      	// border: 1px solid color($colors, light);
+      }
+    }
+
+    .tag{
+			padding: 10px;
+			text-align: left;
+			// border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+			div{
+				display: inline-block;
+				border-radius: 0.20em;
+				color:color($colors, light);
+				background-color: color($colors, secondary);
+				padding:3px;
+				margin: 3px;
+			}
+
+			.add-tag{
+				background-color: transparent;
+				border:1px solid color($colors, dark);
+				color: color($colors, dark) !important;
+			}
+		}
+
+	ion-textarea{
+		border: 1px solid color($colors, gris);
+		background-color: color($colors, light);
+		// background-color : red !important;
+	}
+
+	input.text-input {
+      background-color: color($colors, light) !important;
+	}
+	
+	#bgc_check{
+		background-color : color($colors, light) !important;
+	}
+	.footer{
+		text-align: center;
+		background-color: color($colors, secondary);
+  
+		[ion-button]{
+			color:color($colors, light);
+			
+		}
+	  }
+}

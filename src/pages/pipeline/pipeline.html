@@ -1,0 +1,93 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'menu.pipeline' | translate}}
+            <p *ngIf="client" class="subtitle">{{client?.name}}</p>
+        </ion-title>
+
+        <ion-buttons end>
+            
+            <button class="count_btn" ion-button *ngIf="listeLeads.length<=999" icon-only>{{listeLeads.length}}</button>
+            <button class="count_btn" ion-button *ngIf="listeLeads.length>999" icon-only>999+</button>
+            <button [ngClass]="{'searchOn': display_search}" ion-button icon-only (click)="searchItems()">
+                <ion-icon name="ios-search-outline"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="openLeftMenu()"><ion-icon name="md-more"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+    <ion-toolbar *ngIf="display_search" custom-segment class="animated fadeIn">
+        <ion-item class="search-bloc" transparent no-lines no-padding>
+            <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}" animated="true"></ion-searchbar>
+            <ion-icon (click)="onSetClick()" color="{{colorFilterBtn}}" name="md-funnel" item-end></ion-icon>
+        </ion-item>
+        <ion-list class="animated fadeIn" text-center no-lines [hidden]="showQuickFilter == false">
+            <!-- liste des filtres -->
+            <ion-scroll *ngIf="filtres.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let item of filtres;let i = index" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true, 'plus':item.slug == 'plus'}" (click)="onQuickFilter(item, i)">
+                    {{item.nom}} 
+                </span>
+            </ion-scroll>
+            <!-- liste des stages -->
+            <ion-scroll *ngIf="dumpStage.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let item of dumpStage" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true}"  (click)="filterbyObjets(item,'stage')">
+                    {{item.me.name.me}}
+                </span>
+            </ion-scroll>
+            
+            <!-- filtre par Equipe  -->
+            <ion-scroll *ngIf="teams.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let int of teams" class="filter-item" [ngClass]="{'subCatSelected':int.selected == true}"  (click)="filterbyObjets(int,'team')">
+                        {{int.name}}
+                </span>
+            </ion-scroll>
+            
+            <!-- filtre par Année  -->
+            <ion-scroll *ngIf="filter_years.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let int of filter_years" class="filter-item" [ngClass]="{'subCatSelected':int.selected == true}"  (click)="filterbyObjets(int,'year')">
+                        {{int.text}}
+                </span>
+            </ion-scroll>
+            
+        </ion-list>
+    </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content [class]="txtGroup !== undefined ? 'addtop' : 'notop'">
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <p *ngIf="objLoader" obj-loader><ion-spinner name="dots"></ion-spinner></p>
+
+        <ion-grid *ngIf="!objLoader" no-padding>
+            <ion-row  *ngIf="listeLeads.length!=0">
+                <ion-col *ngFor="let item of listeLeads | slice:0:max" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
+
+                    <lead [opport]="item" [events]="eventsBinding" [stage]="true"></lead>
+                </ion-col>
+                <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+            </ion-row>
+            <div bloc-empty *ngIf="listeLeads.length==0">
+                <div><img src="assets/images/empty/error_pipeline.png"></div>
+                <h4 *ngIf="txtSearch && txtSearch!=''">{{'module.pipeline.no_search' | translate}} <strong>{{txtSearch}}</strong> </h4>
+                <h4 *ngIf="objFiltre.length>0">{{'module.pipeline.no_filter' | translate}} {{objFiltre.nom}} {{'module.pipeline.found' | translate}}</h4>
+                <h4 *ngIf="objFiltre.length==0 && (txtSearch==undefined || txtSearch=='')">{{'module.pipeline.no_opport' | translate}}</h4>
+                <!-- <h4 *ngIf="txtGroup!=undefined">{{'module.pipeline.no_opport_sales' | translate}} <strong>{{txtGroup.name}} {{'module.pipeline.no_opport_sales2' | translate}}</strong> {{'module.pipeline.no_opport_sales3' | translate}}</h4> -->
+                <button *ngIf="objFiltre.length==0 && (txtSearch==undefined || txtSearch=='')" ion-button color="primary" (click)="synchronizing()">
+                        {{'btns.sync' | translate}}
+                    <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+                </button>
+                <p *ngIf="display" style="text-align: center;">{{'module.pipeline.sync_process' | translate}}</p>
+            </div>
+        </ion-grid>
+        
+</ion-content>
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="onAdd($event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

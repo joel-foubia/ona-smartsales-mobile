@@ -1,0 +1,78 @@
+
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'module.subscription.subscription' | translate}}
+            <p *ngIf="client" class="subtitle">{{client?.name}}</p>
+        </ion-title>
+        <ion-buttons end>
+            <button *ngIf="filtered == true" ion-button icon-only (click)="cancelFilter($event)">
+        <ion-icon name="close"></ion-icon>
+      </button>
+            <button class="count_btn" *ngIf="subcriptions.length<=999" ion-button>{{subcriptions?.length}}</button>
+            <button class="count_btn" *ngIf="subcriptions.length>999" ion-button>999+</button>
+            <button [ngClass]="{'searchOn': display_search}" ion-button icon-only (click)="searchItems()">
+                <ion-icon name="ios-search-outline"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="openLeftMenu()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar *ngIf="display_search" custom-segment class="animated fadeIn">
+        <ion-item class="search-bloc" transparent no-lines no-padding>
+            <ion-searchbar (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}" animated="true"></ion-searchbar>
+            <ion-icon (click)="onSetClick()" color="{{colorFilterBtn}}" name="md-funnel" item-end></ion-icon>
+        </ion-item>
+
+        <ion-list class="animated fadeIn" text-center no-lines [hidden]="showQuickFilter == false">
+            <!-- liste des filtres -->
+            <ion-scroll *ngIf="filtres.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let item of filtres;let i = index" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true, 'plus':item.slug == 'plus'}" (click)="onQuickFilter(item, i)">
+                    {{item.text}} 
+                </span>
+            </ion-scroll>
+
+             <!-- filtre par Année  -->
+      <ion-scroll *ngIf="filter_years.length > 0" class="horizontal-scroll" scrollX="true">
+        <span *ngFor="let int of filter_years" class="filter-item" [ngClass]="{'subCatSelected':int.selected == true}"  (click)="filterbyObjets(int,'year')">
+                {{int.text}}
+        </span>
+    </ion-scroll>
+            
+        </ion-list>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding text-center>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+        <p *ngIf="objLoader" obj-loader><ion-spinner name="dots"></ion-spinner></p>
+    
+    <ion-grid no-padding *ngIf="!objLoader">    
+        <ion-row *ngIf="subcriptions.length > 0">
+            <ion-col col-12 col-sm-6 col-md-6 col-lg-3 *ngFor="let item of subcriptions">    
+                <abbonement [subscription]="item" [events]="eventsBinding" ></abbonement>
+            </ion-col>
+    </ion-row>
+        <ion-row *ngIf="subcriptions.length==0">
+            <ion-col col-12>
+                <div bloc-empty>
+                    <div><img src="assets/images/lawyer.png"></div>
+                    <h4 *ngIf="txtFiltre.length == 0 && !client">{{'module.subscription.no_sub' | translate}}</h4>
+                    <h4 *ngIf="txtFiltre.length !=0">{{'module.subscription.filter_empty' | translate}}</h4>
+                    <h4 *ngIf="txtFiltre.length ==0 && client">{{'module.subscription.client_empty' | translate:client}}</h4>
+                    
+                    <button *ngIf="txtFiltre.length == 0 && !client" ion-button outline color="light" (click)="synchronizing()">
+                    {{'module.subscription.sync' | translate}} <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+                    </button>
+                    <p *ngIf="display" style="text-align: center;">{{'module.subscription.sync_process' | translate}}</p>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

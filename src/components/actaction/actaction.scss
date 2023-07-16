@@ -1,0 +1,30 @@
+actaction {
+    ion-item{
+        background-color: color($colors, light) !important;
+
+    }
+    .gray{
+        border-left: 5px solid color($colors, gris) !important;
+    }
+    .plants{
+        border-left: 5px solid color($colors, plants) !important;
+    }
+    img{
+        width: 40px !important;
+    }
+    i{
+        span{
+
+            color: color($colors, secondary) !important
+        }
+    }
+    ion-label{
+        overflow: auto !important;
+        white-space: normal !important;
+    }
+    ion-avatar {
+        img{
+            border-radius: 0;
+        }
+	}
+}

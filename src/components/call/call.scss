@@ -1,0 +1,104 @@
+call {
+    ion-content.has-refresher>.scroll-content {
+        background-color: color($colors, primary);
+    }
+    ion-content.has-refresher>.scroll-content .content {
+        background-color: transparent !important;
+    }
+    
+    #off {
+        width: 15px !important;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+    ion-fab[bottom]{
+        bottom : -18px;
+    }
+
+    .green{
+        // border-left: 3px solid color($colors, vert) !important;  
+        float: right;
+        font-weight: bold;
+        color: color($colors, vert) !important;
+    }
+    
+    .orange{
+        border-left: 3px solid color($colors, orange) !important;  
+    }
+    .danger{
+        float: right;
+        font-weight: bold;
+        color: color($colors, rouge) !important;
+    }
+
+    .red{
+        // border-left: 4px solid color($colors, rouge) !important;
+        float: right;
+        font-weight: bold;
+        color: color($colors, rouge) !important;
+        // color: color($colors, rouge) !important;
+    }
+
+    [col-3]{
+
+        box-shadow: inset -5px 0 5px -5px rgba(0, 0, 0, 0.4);
+    }
+    
+    .date{
+        color: color($colors, gris) !important;
+        font-size: 1.35em;
+        margin-top: 25%;
+        vertical-align: middle;
+    }
+   
+    .time2{
+        float: right;
+        font-weight: bold;
+        color: color($colors, danger) !important;
+    }
+    .time{
+        float: right;
+        color: color($colors, vert) !important;
+    }
+    span{
+        font-size: 14px;
+        position: absolute;
+    }
+    .addtop {
+        margin-top: 40px !important;
+    }
+    
+    .custom-card {
+        ion-card {
+            border-radius: 0.45em;
+        }
+    }
+    
+    // .schedule-date {
+    //     background-color: color($colors, grislight);
+    //     // box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.4);
+
+    //     box-shadow: inset -5px 0 5px -5px rgba(0, 0, 0, 0.4);
+    //     .date {
+    //         font-size: 1.45em;
+    //         margin-top: 25%;
+    //         vertical-align: middle;
+    //     }
+    //     // span {
+    //     //     color: color($colors, primary);
+    //     //     font-size: 1.1em;
+    //     // }
+    // }
+    
+    .schedule-time {
+        color: color($colors, secondary) !important;
+    }
+    ion-item{
+        background-color: color($colors, lightest) !important;
+        #image{
+            height: 23px !important;
+        }
+    }
+    
+}

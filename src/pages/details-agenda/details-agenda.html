@@ -1,0 +1,81 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title></ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="event.agenda.active" (click)="onArchive('a')">
+	    <ion-icon name="ios-trash-outline"></ion-icon>
+	  </button>
+	  <button ion-button icon-only *ngIf="!event.agenda.active" (click)="onArchive('f')">
+	    <ion-icon name="ios-remove-circle-outline"></ion-icon>
+	  </button>
+      <button ion-button icon-only (click)="onDuplique()"> <ion-icon name="ios-copy-outline"></ion-icon> </button>
+      <button ion-button icon-only (click)="onModify(event.agenda,'update')"> <ion-icon name="ios-create-outline"></ion-icon> </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content [ngStyle]="bgColor">
+	<div class="animated zoomIn bloc-image">
+		<ion-card> 
+			<ion-card-content>
+					<h3>{{event.title | uppercase}}</h3>
+		
+					<p>
+						<span *ngIf="!event.allDay">
+						 <i class="icon icon-clock"></i>	
+						 {{event.startTime|date:'mediumDate':'':current_lang}},	
+						 {{event.startTime|date: 'HH:mm':'':current_lang}} - {{event.endTime|date: 'HH:mm':'':current_lang}}
+						</span>
+						<span *ngIf="event.allDay">
+							<i class="icon icon-calendar"></i>
+							{{event.startTime|date:'mediumDate':'':current_lang}} - {{event.endTime|date:'mediumDate':'':current_lang}}
+						</span>
+					</p>
+					<p class="address">
+						<!-- <i class="icon icon-map-marker-circle"></i>
+						<strong>{{'module.agenda.f_adress' | translate}}:</strong>  -->
+						{{event.agenda.location}}
+					</p>
+			</ion-card-content>
+		</ion-card>
+		
+	</div>
+	<p class="details">{{event.agenda.description}}</p>
+
+	<ion-grid>
+		<ion-row>
+			<ion-col *ngIf="event.agenda.categ_ids.length!=0">
+				<h3>{{'module.agenda.f_tag' | translate}}</h3>
+				<div class="tag">
+					<div *ngFor="let tag of tags">
+			    		<span>{{tag?.me.name.me}}</span>
+			    	</div>
+				</div>
+			</ion-col>
+			<ion-col *ngIf="event.agenda.alarm_ids.length!=0">
+				<h3>{{'module.agenda.f_rappel' | translate}}</h3>
+				<div class="tag">
+					<div *ngFor="let tag of reminders">
+			    		<span>{{tag?.me.name.me}}</span>
+			    	</div>
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	
+	<div padding class="bloc-person" *ngIf="event.agenda.partner_ids.length!=0">
+		<h3>{{'module.agenda.attendee' | translate}}</h3>
+		<div class="myUser" *ngFor="let user of attendees" (click)="openPartner(user)">
+			<!-- <img [lazyLoad]="user.me.image_url.me" /> -->
+			<op-lazy-img [source]="user.image_url" [defaultImage]="defaultImg"></op-lazy-img> 
+			<span id="user_name">{{user.name}}</span>
+		</div>
+		<!-- <div class="myUser" *ngIf="owner && isOwner"> 
+				<op-lazy-img [source]="owner.image_url" [defaultImage]="defaultImg"></op-lazy-img>
+				
+		</div> -->
+	</div>
+
+</ion-content>

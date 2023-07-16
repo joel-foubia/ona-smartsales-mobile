@@ -1,0 +1,113 @@
+<ion-header>
+
+    <ion-toolbar>
+      <ion-title>
+          {{objEvent.name}}
+      </ion-title>
+          <ion-buttons end>
+              <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+          </ion-buttons>
+      </ion-toolbar>
+  
+  </ion-header>
+  
+  <ion-content formAffaire>
+    <ion-segment class="forms-examples-segment" [(ngModel)]="section" (ionChange)="onSegmentChanged($event)">
+      <ion-segment-button value="post">
+        EVENT
+      </ion-segment-button>
+      <ion-segment-button value="event">
+        TICKETS
+      </ion-segment-button>
+      <!-- <ion-segment-button value="card">
+       PARTICIPANTS
+      </ion-segment-button> -->
+    </ion-segment>
+    <div [ngSwitch]="section" class="forms-wrapper" padding>
+      <div *ngSwitchCase="'post'" class="post-example-view">
+        <section class="form-section">
+          
+          <ion-item transparent>
+            <ion-label stacked>Event Name</ion-label>
+            <ion-input type="text" placeholder="Name: e.g. Ionic Courses" [(ngModel)]="objEvent.name"></ion-input>
+          </ion-item>
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-col>
+                <ion-item transparent>
+                  <ion-label stacked>Start at</ion-label>
+                  <ion-input type="datetime-local" [(ngModel)]="objEvent.date_begin"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item transparent>
+                  <ion-label stacked>End at</ion-label>
+                  <ion-input type="datetime-local" [(ngModel)]="objEvent.date_end"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-item class="country" (click)="selectPartner('contact','adress')">
+              <p color="primary">Location </p>
+              <h3>{{objEvent.address_id.name}}</h3>
+              <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+          </ion-item>
+          <ion-item class="country" (click)="selectPartner('contact','org')">
+              <p color="primary">Agenda </p>
+              <h3>{{objEvent.organizer_id.name}}</h3>
+              <ion-icon name="ios-arrow-down-outline" item-end></ion-icon>
+          </ion-item>
+        </section>
+      </div>
+      <div *ngSwitchCase="'event'" class="post-example-view">
+          <ion-item transparent *ngIf="types.length!=0">
+              <ion-label stacked>Event type</ion-label>
+              <ion-select [(ngModel)]="objEvent.event_type_id.id" (ionChange)="changeValue($event,'type_event')" interface="popover">
+                  <ion-option *ngFor="let p of types" [value]="p.me.id.me">
+                  {{p.me.name.me}}
+                </ion-option> 
+              </ion-select>
+          </ion-item>
+          <ion-item transparent>
+              <ion-label stacked>Minimum de participants</ion-label>
+              <ion-input type="number" [(ngModel)]="objEvent.seats_min"></ion-input>
+          </ion-item>
+          <ion-grid radio-group [(ngModel)]="objEvent.seats_availability">
+              <ion-row>
+                <ion-col>
+                  <ion-item transparent>
+                    <ion-label>Limité</ion-label>
+                    <ion-radio value="limited"></ion-radio>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item transparent>
+                    <ion-label>Illimité</ion-label>
+                    <ion-radio value="unlimited"></ion-radio>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-item transparent *ngIf="objEvent.seats_availability=='limited'">
+                <ion-label stacked>Maximum de participants</ion-label>
+                <ion-input type="number" [(ngModel)]="objEvent.seats_max"></ion-input>
+            </ion-item>
+        
+      </div>
+     
+    </div>
+          
+  </ion-content>
+  <ion-footer>
+    <div bloc-btn>
+    <button ion-button full clear *ngIf="modif && !copy" (click)="saveItem()" icon-right>
+      <ion-icon name="checkmark"></ion-icon> Update
+    </button> 
+    <button ion-button full clear *ngIf="!modif" (click)="saveItem()" icon-right>
+       <ion-icon name="checkmark"></ion-icon> Save
+    </button>
+    <button ion-button full clear *ngIf="copy" (click)="saveItem()" icon-right>
+      <ion-icon name="ios-copy-outline"></ion-icon> Copy
+    </button>
+    </div>
+  </ion-footer>

@@ -1,0 +1,23 @@
+page-pop-langue {
+    .content, .scroll-content{
+        // background-color: color($colors, dark);
+        // background-color: rgba($color: #000000, $alpha: 0.8);
+        background-color: transparent !important;
+    }
+
+    ion-card{
+        background-color: transparent !important;
+    }
+
+    ion-item{
+        background-color: transparent !important;
+        color: color($colors, light) !important;
+        ion-avatar{
+            img { border-radius: 0; }
+        }
+
+        .item-inner{
+            border-bottom: none !important;
+        }
+    }
+}

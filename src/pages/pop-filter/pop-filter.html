@@ -1,0 +1,50 @@
+<div *ngIf="!isPartner && !is_agenda && !is_task && !is_invoice && !is_sale && !is_piste">
+	<ion-list>
+	  <ion-item *ngFor="let filtre of filtres" (click)="onAction(filtre)">
+	    <ion-icon name="{{filtre.icon}}" item-start></ion-icon>
+	    {{filtre.nom}}
+	  </ion-item>	
+	</ion-list>
+	
+</div>
+
+<div *ngIf="isPartner || is_sale || is_piste">
+	<ion-list>
+	  <ion-item *ngFor="let filtre of filtres; let i = index">
+	    <ion-label>{{filtre.nom}}</ion-label>
+	    <ion-checkbox (ionChange)="onChange(filtre, $event.checked)" value="filtre.slug"></ion-checkbox>
+	  </ion-item>	
+	</ion-list>
+	<p text-center>
+		<button ion-button margin (click)="onFinish()"> {{'btns.search' | translate}} </button>
+	</p>
+</div>
+
+<div *ngIf="is_task">
+	<ion-list>
+	  <ion-item *ngFor="let filtre of filtres" (click)="onAction(filtre)">
+	    <ion-icon name="{{filtre.icon}}" item-start></ion-icon>
+	    {{filtre.nom}}
+	  </ion-item>	
+	</ion-list>
+</div>
+
+<div *ngIf="is_invoice">
+	<ion-list>
+	  <ion-item *ngFor="let filtre of filtres" (click)="onAction(filtre)">
+	    {{filtre.nom}}
+	  </ion-item>	
+	</ion-list>
+</div>
+
+<div *ngIf="is_agenda">
+		<ion-list>
+			<ion-item *ngFor="let filtre of filtres; let i = index">
+				<ion-label>{{filtre.nom}}</ion-label>
+				<ion-checkbox (ionChange)="onChange(filtre, $event.checked)" value="filtre.slug"></ion-checkbox>
+			</ion-item>	
+		</ion-list>
+		<p text-center>
+			<button ion-button margin (click)="onFinish()"> {{'btns.search' | translate}} </button>
+		</p>
+	</div>

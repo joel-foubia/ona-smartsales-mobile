@@ -1,0 +1,98 @@
+page-form-achats {
+    .scroll-content{
+		background-color: color($colors, lightest);
+	}
+
+	.country h3{
+		color: color($colors, primary);
+		text-transform: uppercase;
+	}
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, secondary);
+
+      [ion-button]{
+      	color:color($colors, light);
+      }
+	}
+	
+	.bloc-lines{
+		ion-row{
+			border-bottom: 1px solid color($colors, primary);
+		}
+		.col{
+			text-align: right;
+			font-size: 1.0em;
+			color: color($colors, light);
+		}
+		.top{
+			background-color:color($colors, secondary);
+		}
+		.top .col{
+			color:color($colors, light);
+		}
+	}
+	ion-segment-button {
+		color: color($colors, light) !important;
+		opacity: 0.5 !important;
+	}
+	.segment-md .segment-button.activated,
+	.segment-md .segment-button.segment-activated {
+		font-size: 1.1em;
+		color: color($colors, light) !important;
+		// font-weight: 300;
+		opacity: 1 !important;
+		// text-transform: lowercase !important;
+	}
+	ion-segment {
+		display: block;
+		white-space: nowrap;
+		// font-size: 0;
+		overflow: auto;
+		&::-webkit-scrollbar {
+			width: 0;
+			height: 0;
+			display: none;
+		}
+		ion-segment-button.segment-button {
+			display: inline-block;
+			min-width: 200px;
+			width: auto;
+		}
+	}
+	#line_btn{
+		color: color($colors, light) !important
+	}
+	ion-label{
+		color: color($colors, dark) !important
+	}
+	input.text-input, div.select-text{
+		color: color($colors,dark) !important
+	}
+
+	.tax-bloc{
+		color: color($colors, dark) !important;
+		margin-top: 10px !important;
+		margin-left: 13px !important;
+		margin-bottom: 10px !important
+	}
+
+	ion-item{
+		// background-color: color($colors, light) !important
+		ion-input{
+			background-color: white !important;
+			margin-top: 7px !important;
+			border-radius: 7px !important
+		}
+		ion-select{
+			background-color: white !important;	
+			border-radius: 7px !important;
+			margin-top: 7px !important;
+		}
+	
+	}
+	div.item-inner{
+			border-bottom: none !important
+	}	
+}

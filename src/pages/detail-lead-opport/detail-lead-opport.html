@@ -1,0 +1,155 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title></ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only *ngIf="lead?.active" (click)="archiveClient('a')">
+          <ion-icon name="ios-archive-outline"></ion-icon>
+        </button>
+            <button ion-button icon-only *ngIf="!lead?.active" (click)="archiveClient('f')">
+          <ion-icon name="ios-remove-circle-outline"></ion-icon>
+        </button>
+            <button ion-button icon-only (click)="copyClient()">
+          <ion-icon name="ios-copy-outline"></ion-icon>
+        </button>
+            <button ion-button icon-only (click)="openPopOver($event)">
+          <ion-icon name="ios-options-outline"></ion-icon>
+        </button>
+            <!-- <button ion-button icon-only (click)="deleteClient()">
+          <ion-icon name="ios-trash-outline"></ion-icon>
+        </button> -->
+            <button ion-button icon-only (click)="editClient()">
+          <ion-icon name="ios-create-outline"></ion-icon>
+        </button>
+            <button ion-button icon-only (click)="openLeftMenu()">
+          <ion-icon name="more"></ion-icon>
+        </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <!-- Description du header -->
+    <ion-grid class="bloc-header">
+        
+        <ion-row justify-content-center align-items-center>
+            <ion-col col-9>
+                <h2>{{lead.name}} </h2>
+                <h3>{{lead.partner_id.name}}</h3>
+                <rating [(ngModel)]="lead.priority" [readOnly]="true" max="3" emptyStarIconName="star-outline" class="ratings"></rating>
+                <p *ngIf="lead.planned_revenue">{{'module.detail_lead_opport.amount' | translate}} {{lead.planned_revenue | currency:lead.company_currency.name:'symbol':'':current_lang}}</p>
+                <div class="bloc-lead">
+                    <span *ngIf="lead.type=='opportunity'" > {{lead.stage_id.name}}</span><br *ngIf="lead.type=='opportunity'" />
+                    <span *ngIf="lead.type!='opportunity'" > {{'module.pipeline.lead' | translate}}</span>
+                </div>
+            </ion-col>
+            <ion-col col-3>
+                <circle-progress [showSubtitle]="false" [titleFontSize]="40" [unitsFontSize]="30" [toFixed]="1" [percent]="lead.probability" [radius]="100" [outerStrokeWidth]="12" [innerStrokeWidth]="8" [outerStrokeColor]="'#9ec470'" [innerStrokeColor]="'#bfd69c'"
+                [animation]="true" [animationDuration]="700"></circle-progress>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- Fin Description du header -->
+
+    <!-- Description du footer -->
+    
+        <ion-grid class="footer" no-padding>
+            <ion-card class="bloc-date">
+                <ion-row>
+                    <ion-col>
+                        <p>{{'module.detail_lead_opport.date_create' | translate}}</p>
+                        <span>{{lead.date_open | date:'mediumDate':'':current_lang }}</span>
+                    </ion-col>
+                    <ion-col text-right>
+                        <p>{{'module.detail_lead_opport.dead_line' | translate}}</p>
+                        <span>{{lead.date_deadline  | date:'mediumDate':'':current_lang}}</span>
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+            <ion-card class="bloc-user">
+                <p>{{'module.detail_lead_opport.seller' | translate:lead}}</p>
+            </ion-card>
+        </ion-grid>
+
+        <!-- Bloc contact -->
+        <ion-item-divider text-uppercase>{{'module.detail_lead_opport.contact' | translate}}</ion-item-divider>
+        <ion-list class="bloc-contact">
+            <h3 *ngIf="lead.partner_id.id!=0"><strong>{{'form.client' | translate}} :</strong> {{lead.partner_id.name}}</h3>
+            <h3 *ngIf="lead.partner_id.id==0"><strong>{{'form.client' | translate}} :</strong> {{lead.contact_name}}</h3>
+            <ion-item text-wrap *ngIf="lead.email_from!=''">
+                <ion-icon (click)="sendMail()" item-end><i class="icon icon-email"></i></ion-icon>
+                <p>{{'module.detail_lead_opport.email' | translate}}</p>
+                <!-- <h3>{{lead.email_from}}</h3> -->
+            </ion-item>
+                
+            <ion-item *ngIf="lead.phone!=''">
+                <ion-icon (click)="callProspect('p')" item-end><i class="icon icon-phone"></i></ion-icon>
+                <p>{{'module.detail_lead_opport.tel' | translate}}</p>
+                <!-- <h3>{{lead?.phone}}</h3> -->
+            </ion-item>
+            <ion-item *ngIf="lead.mobile!=''">
+                <ion-icon (click)="callProspect('m')" item-end><i class="icon icon-cellphone"></i></ion-icon>
+                <p>{{'module.detail_lead_opport.gsm' | translate}}</p>
+                <!-- <h3>{{lead?.mobile}}</h3> -->
+            </ion-item>
+        </ion-list>
+        <!-- end bloc contact -->
+
+        <!-- Bloc Calls, Activities, Devis, Commandes -->
+        <ion-grid>
+            <ion-row class="bloc-calls">
+                <ion-item-divider text-uppercase>{{'pop.call_queue' | translate}} ({{phonecalls.length}})
+                    <button *ngIf="phonecalls.length>4" color="light" ion-button clear (click)="showMore('call')" item-end>{{'pop.more' | translate}}</button>
+                </ion-item-divider>
+                <ion-col col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 no-padding *ngFor="let item of phonecalls | slice:0:4" class="animated fadeIn">
+                    <call [call]="item" [events]="callEvents"></call>
+                </ion-col>
+                <h6 *ngIf="phonecalls.length == 0">{{'module.detail_lead_opport.no_call' | translate}}</h6>									
+                <button ion-button color="secondary" (click)="addCall()">
+                    {{'pop.add_call' | translate}}
+                </button>
+            </ion-row>
+            <ion-row class="bloc-activity">
+                <ion-item-divider text-uppercase>{{'module.detail_lead_opport.activities' | translate}} ({{activities.length}})
+                    <button *ngIf="activities.length>4" color="light" ion-button clear (click)="showMore('activity')" item-end>{{'pop.more' | translate}}</button>
+                </ion-item-divider>
+                <ion-col col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4 padding class="animated fadeIn" *ngFor="let item of activities | slice:0:4">
+                    <actaction [action]="item" [current_lang]="current_lang" ></actaction>
+                </ion-col>
+                <h6 *ngIf="activities.length <= 0">{{'module.detail_lead_opport.no_activity' | translate}}</h6>									
+                <button ion-button color="secondary" (click)="addActivity()">
+                    {{'pop.activity' | translate}}
+                </button>
+            </ion-row>
+            
+            <ion-row class="bloc-devis">
+                <ion-item-divider text-uppercase>{{'menu.saleorder' | translate}} ({{commands.length}})
+                    <button *ngIf="commands.length>4" ion-button clear item-end color="light" (click)="showMore('commands')" >{{'pop.more' | translate}}</button>
+                </ion-item-divider>
+                
+                <ion-col class="animated fadeIn" col-12 col-sm-9 col-md-6 col-lg-6 col-xl-4 *ngFor="let devis of commands | slice:0:4">
+                    <devis [fact]="devis" [events]="devisEventsBinding" ></devis>
+                </ion-col>
+                <h6 *ngIf="commands.length <= 0">{{'module.detail_lead_opport.no_command' | translate}}</h6>
+            
+            </ion-row>
+            
+            <ion-row class="bloc-devis">
+                <ion-item-divider text-uppercase>{{'menu.devis_only' | translate}} ({{ventes.length}})
+                    <button *ngIf="ventes.length>4" ion-button clear item-end color="light" (click)="showMore('devis')" >{{'pop.more' | translate}}</button>
+                </ion-item-divider>
+                
+                <ion-col class="animated fadeIn" col-12 col-sm-9 col-md-6 col-lg-6 col-xl-4 *ngFor="let devis of ventes | slice:0:4">
+                    <devis [fact]="devis" [events]="devisEventsBinding" ></devis>
+                </ion-col>
+                <h6 *ngIf="ventes.length <= 0">{{'module.detail_lead_opport.no_devis' | translate}}</h6>
+                <button ion-button color="secondary" (click)="addDevis()" item-start>
+                    {{'pop.plus_devis' | translate}}
+                </button>
+            </ion-row>
+
+        </ion-grid>
+        <!-- end bloc activities, devis, commandes -->
+
+</ion-content>

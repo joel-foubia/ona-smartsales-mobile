@@ -1,0 +1,33 @@
+page-login {
+	.scroll-content{
+			
+	    background-color: color($colors, primary);
+	    
+	}
+
+	ion-content {
+		
+		ion-grid{
+			ion-col{
+				
+				border-radius: 5% !important;
+
+				ion-item{
+					
+					background: rgba(255,255,255,0.0) !important;
+				}
+
+				[login-libelle]{
+					text-align: center;
+					color:#000 !important;
+					border:1px solid none !important;
+				}
+			
+			}
+		  	
+		}
+
+  	}
+
+  
+}

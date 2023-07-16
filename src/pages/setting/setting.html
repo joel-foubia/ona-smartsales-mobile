@@ -1,0 +1,37 @@
+
+<ion-header>
+
+  <ion-navbar>
+  	
+	    <ion-title>{{'menu.abonne' | translate}}</ion-title>
+	    
+	    <ion-buttons end>
+	      <button ion-button icon-only menuToggle>
+	        <ion-icon name="more"></ion-icon>
+	      </button>
+	    </ion-buttons>
+	
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+	<ion-list *ngIf="logs.length!=0" no-lines>
+		<ion-card *ngFor="let item of logs" transparent class="bloc-log">
+			<ion-item text-wrap>
+				<ion-label (click)="showDetails(item)">
+					<h3>{{item.customer}}</h3>
+					<h5>{{item.abonneNumber}}</h5>
+					<p>{{'login.expired' | translate}}: {{item.endDate}}</p>
+				</ion-label>
+				<!-- <ion-icon *ngIf="item.abonneNumber==objSetting.abonneNumber && item.subNumber== objSetting.subNumber" name="md-checkmark-circle-outline" item-end></ion-icon> -->
+				<ion-toggle (ionChange)="changeSubscription($event, item)" checked="{{item?.is_subscriber}}"></ion-toggle>
+				<!-- <ion-radio (ionChange)="changeSubscription(item)" [value]="item"></ion-radio> -->
+			</ion-item>
+		</ion-card>
+	</ion-list>
+	<p padding text-center>
+		<button ion-button color="secondary" (click)="addSubscription()"> {{'parameters.add_sub' | translate}}</button>
+	</p>
+	
+	</ion-content>

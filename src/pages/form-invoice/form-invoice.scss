@@ -1,0 +1,36 @@
+page-form-invoice {
+	.scroll-content{
+		background-color: color($colors, lightest);
+	}
+
+	.country h3{
+		color: color($colors, primary);
+		text-transform: uppercase;
+	}
+
+	.footer{
+      text-align: center;
+      background-color: color($colors, primary);
+
+      [ion-button]{
+      	color:color($colors, light);
+      }
+	}
+	
+	.bloc-lines{
+		ion-row{
+			border-bottom: 1px solid color($colors, primary);
+		}
+		.col{
+			text-align: right;
+			font-size: 1.0em;
+			color: color($colors, light);
+		}
+		.top{
+			background-color:color($colors, secondary);
+		}
+		.top .col{
+			color:color($colors, light);
+		}
+	}
+}

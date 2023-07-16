@@ -1,0 +1,12 @@
+
+
+<ion-item no-lines [ngClass]="{'gray': action.type == 'last', 'plants': action.type == 'next'}">
+    <ion-avatar *ngIf="action.type!='call'" item-start>
+      <img src="assets/svg/layers.svg">
+    </ion-avatar>
+    <h2>{{action.name}}</h2>
+    <p *ngIf="action.type == 'next'"><i>{{'module.detail_lead_opport.next_activity' | translate}} <span>{{action.opport}}</span> </i></p>
+    <p *ngIf="action.type == 'last'"><i>{{'module.detail_lead_opport.last_activity' | translate}} <span>{{action.opport}}</span></i></p>
+    <!-- <p *ngIf="action.type == 'call'"><i>appels plannifiés sur prospect <span>{{action.opport}}</span></i></p> -->
+    <p>{{'module.detail_lead_opport.planon' | translate}} {{action.date | date:'mediumDate':'':current_lang}} {{'pop.by' | translate}} {{action.user}}</p>
+  </ion-item>

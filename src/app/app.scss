@@ -1,0 +1,1261 @@
+// http://ionicframework.com/docs/v2/theming/
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+$blanc: #ffffff;
+$green: #018821;
+$red: #c02202;
+@import "../theme/common";
+
+.scroll-content {
+	font-family: "Roboto-Light";
+	background-color: color($colors, lightest);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: "Roboto-Regular" !important;
+}
+
+ion-item {
+	font-family: "Roboto-Light";
+}
+
+//Toolbar
+.toolbar .toolbar-background {
+	background-color: color($colors, primary) !important;
+	// box-shadow: none;
+}
+
+.toolbar-title {
+	.subtitle {
+	  font-size: 66%;
+	  margin: 0;
+	}
+}
+
+img {
+	opacity: 1 !important;
+}
+
+// Spiner View
+.spinner-view {
+	img {
+		width: 100px;
+		height: 100px;
+		margin: 0 auto;
+	}
+}
+
+//SPINNER
+[obj-spinner] {
+	text-align: center !important;
+
+	ion-spinner {
+		width: 100px;
+		height: 100px;
+		stroke: #444;
+		fill: color($colors, dark);
+		text-align: center;
+	}
+}
+
+[obj-loader] {
+	text-align: center !important;
+
+	ion-spinner * {
+		fill: color($colors, dark) !important;
+		text-align: center;
+	}
+}
+
+.synchronize {
+	color: color($colors, light);
+	h5 {
+		font-size: 0.7em;
+	}
+
+	ion-icon {
+		font-size: 3.2em;
+	}
+}
+
+//EMPTY bloc
+[bloc-empty] {
+	margin-top: 50px;
+	padding: 10px;
+	text-align: center;
+
+	ion-icon {
+		font-size: 3em;
+	}
+
+	div:first-child {
+		height: 120px;
+		width: 120px;
+		margin: auto;
+		border-radius: 100%;
+		background-color: color($colors, grislight);
+		padding-top: 20px;
+	}
+
+	img {
+		height: 80px;
+		width: 80px;
+		color: color($colors, dark) !important;
+	}
+
+	h4 {
+		color: color($colors, dark);
+		font-size: 1.05em;
+	}
+}
+
+// Settings Style Main Meni
+.header-background-image {
+	margin: 5px;
+	height: 245px;
+
+	ion-thumbnail {
+		padding-top: 10px;
+
+		img {
+			margin: 0 auto;
+			position: relative;
+			z-index: 9;
+			max-width: 90px;
+		}
+	}
+
+	[item-title] {
+		position: relative;
+		z-index: 9;
+	}
+
+	[user] {
+		background-color: rgba(255, 255, 255, 0.4);
+		color: color($colors, light);
+		h2 {
+			font-size: 1.15em !important;
+		}
+		ion-icon,
+		p {
+			color: color($colors, light);
+		}
+		ion-avatar {
+			img {
+				width: 50px;
+				height: 50px;
+			}
+		}
+	}
+}
+
+[green] {
+	color: theme-colors('mainColors', 'active') !important;
+}
+
+[red] {
+	color: theme-colors('mainColors', 'inactive') !important;
+}
+// Settings Main  Menu
+
+[main-menu] {
+	background-color: transparent !important;
+	font-size: 1.05em !important;
+
+	ion-avatar img {
+		width: 25px;
+		height: 25px;
+		border-radius: 0;
+	}
+
+	ion-label {
+		margin-top: 3px;
+	}
+
+	.item-inner {
+		border-bottom-color: rgba(255, 255, 255, 0.0) !important;
+	}
+}
+
+.divider {
+	padding-left: 1.1em;
+	color: color($colors, secondary);
+}
+// Settings Submenu
+
+[submenu] {
+	ion-label {
+		padding-left: 30px !important;
+	}
+}
+
+[header-button] {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	padding: 0 10px;
+}
+
+[item-left-bcg] {
+	.scroll-content {
+		background-color: color($colors, primary) !important;
+	}
+
+	background-color: color($colors, primary) !important;
+	// background-image: url('../assets/images/background/bg-left.jpg');
+	// background-size: cover;
+	// background-position: center;
+	.divider {
+		padding-left: 10px;
+		text-transform: uppercase;
+		font-size: 0.7em;
+		display: block;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+		padding-bottom: 10px;
+	}
+
+	ion-list .item:last-child {
+		border-bottom: none !important;
+	}
+}
+
+.alert-wrapper {
+	.alert-head h2,
+	.alert-head h3 {
+		color: color($colors, primary) !important;
+	}
+
+	.button-inner {
+		color: color($colors, secondary) !important;
+	}
+}
+
+.boxAlert-success {
+	.alert-wrapper {
+		background-color: $blanc !important;
+
+		.alert-head h2,
+		.alert-head h3 {
+			color: $green !important;
+		}
+
+		button {
+			span {
+				color: $green !important;
+			}
+		}
+	}
+}
+
+.boxAlert-danger {
+	.alert-wrapper {
+		background-color: $blanc !important;
+
+		.alert-head h2,
+		.alert-head h3 {
+			color: color($colors, primary) !important;
+		}
+
+		button {
+			span {
+				color: color($colors, secondary) !important;
+			}
+		}
+	}
+}
+
+.custom-popover .popover-content {
+	width: 300px !important;
+	height: auto !important;
+	background-color: color($colors, primary);
+	border-radius: 0.45em !important;
+}
+
+.custom-agenda .popover-content {
+	border-radius: 0.45em !important;
+	width: 260px !important;
+}
+
+.custom-popuser .popover-content {
+	width: 80% !important;
+	background-color: transparent !important;
+	border-radius: 0.50em !important;
+}
+
+.custom-poplogin .popover-content {
+	width: 80% !important;
+	height: 350px !important;
+	border-radius: 0.50em !important;
+}
+
+.custom-popcolor .popover-content {
+	width: 300px !important;
+	height: 300px !important;
+	background-color: color($colors, primary) !important;
+}
+
+.custom-popaudio .popover-content {
+	width: 85% !important;
+	height: 60% !important;
+}
+
+.custom-popcalendar .popover-content {
+	width: 88% !important;
+	height: 350px !important;
+	background-color: color($colors, light) !important;
+}
+
+.custom-calendar .popover-content {
+	width: 90% !important;
+	height: 490px;
+}
+
+.custom-action-sheetMain {
+	.action-sheet-container .action-sheet-group {
+		border-top-left-radius: 10%;
+		border-top-right-radius: 10%;
+		border-top: 5px solid #82b14a;
+	}
+}
+
+.product-action-sheets,
+.custom-pipeline-sheets {
+	.action-sheet-group {
+		background-color: color($colors, light);
+	}
+
+	.action-sheet-title {
+		font-family: "Roboto-Bold";
+		color: color($colors, primary);
+	}
+
+	.icon-alert:before {
+		color: color($colors, rouge) !important;
+	}
+	.icon-alert {
+		color: color($colors, rouge) !important;
+	}
+	.icon-cash:before {
+		color: color($colors, plants) !important;
+	}
+	.icon-cash, .icon-check:before, .icon-check {
+		color: color($colors, plants) !important;
+	}
+	
+
+	[class^="icon-"]:before,
+	[class*=" icon-"]:before {
+		font-size: 1.6em !important;
+		margin-right: 20px !important;
+		font-weight: 100 !important;
+		color: color($colors, gris);
+	}
+	span.button-inner {
+		display: inline !important;
+		font-family: "Roboto-Light";
+	}
+}
+
+.custom-pipeline-sheets {
+	[class^="icon-emoticon"]:before,
+	[class*=" icon-emoticon"]:before {
+		color: color($colors, plants);
+	}
+
+	[class*=" icon-emoticon"] {
+		span.button-inner {
+			color: color($colors, plants);
+		}
+	}
+
+	[class*=" icon-emoticon-sad"]:before {
+		color: color($colors, rouge);
+	}
+
+	[class*=" icon-emoticon-sad"] {
+		span.button-inner {
+			color: color($colors, rouge);
+		}
+	}
+}
+
+.my-custom-action-sheet {
+	.action-sheet-container {
+		.btn-sheet-messages {
+			background-image: url("../assets/logo_blue/message.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-agenda {
+			background-image: url("../assets/logo_blue/agenda.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-notes {
+			background-image: url("../assets/logo_blue/note.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-leads {
+			background-image: url("../assets/logo_blue/opportunity.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-contacts {
+			background-image: url("../assets/logo_blue/contacts.svg") !important;
+			background-size: 40px;
+			background-repeat: no-repeat !important;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-customer {
+			background-image: url("../assets/logo_blue/customer.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-sale {
+			background-image: url("../assets/logo_blue/sales.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-catalogue {
+			background-image: url("../assets/logo_blue/catalogue.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-pipeline {
+			background-image: url("../assets/logo_blue/pipeline.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-calls {
+			background-image: url("../assets/logo_blue/call.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-quots {
+			background-image: url("../assets/logo_blue/quots.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-orders {
+			background-image: url("../assets/logo_blue/order.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-subs {
+			background-image: url("../assets/menu/subs.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-devis_form {
+			background-image: url("../assets/logo_blue/add_devis.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-sondages {
+			background-image: url("../assets/menu/survey.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-events {
+			background-image: url("../assets/menu/events.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-docs {
+			background-image: url("../assets/menu/docs.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-bills {
+			background-image: url("../assets/menu/bill.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-view {
+			background-image: url("../assets/images/logo/black/profile.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-sales {
+			background-image: url("../assets/images/logo/black/sales.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-sub {
+			background-image: url("../assets/images/logo/black/sub.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-lead {
+			background-image: url("../assets/images/logo/black/lead.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-maj {
+			background-image: url("../assets/images/logo/black/create.svg") !important;
+			background-size: 40px;
+			background-repeat: no-repeat !important;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-meeting {
+			background-image: url("../assets/images/logo/black/meeting.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-call {
+			background-image: url("../assets/images/logo/black/call.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-sms {
+			background-image: url("../assets/images/logo/black/sms.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-map {
+			background-image: url("../assets/images/logo/black/destination.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-mail {
+			background-image: url("../assets/images/logo/black/mail.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+
+		.action-sheet-title {
+			color: color($colors, primary);
+			text-align: center;
+		}
+
+		button {
+			width: 90px !important;
+			height: 100px !important;
+			margin-left: 0 !important;
+			padding-left: 0 !important;
+
+			.action-sheet-icon,
+			.button-inner {
+				display: block !important;
+			}
+
+			.button-inner {
+				font-size: 0.7em;
+				padding-top: 80px !important;
+				width: 90px !important;
+				// height: 90px !important;
+				text-align: center;
+				color: color($colors, primary) !important;
+			}
+
+			.action-sheet-icon {
+				// font-size: 4.0em !important;
+				padding-left: 15px;
+				margin-left: 0;
+			}
+
+			.icon-ios {
+				font-size: 3.0em !important;
+				padding-left: 10px;
+				margin-left: 0;
+			}
+		}
+	}
+}
+
+.custom-action-sheet-login {
+	.action-sheet-container{
+		text-align: center !important;
+		.btn-sheet-lock {
+			background-image: url("../assets/images/logo/black/lock.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-fingerprint {
+			background-image: url("../assets/images/logo/black/fingerprint.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+		.action-sheet-title {
+			color: color($colors, secondary);
+			text-align: center;
+		}
+
+		button {
+			width: 90px !important;
+			height: 100px !important;
+			margin-left: 0 !important;
+			padding-left: 0 !important;
+
+			.action-sheet-icon,
+			.button-inner {
+				display: block !important;
+			}
+
+			.button-inner {
+				font-size: 0.7em;
+				padding-top: 80px !important;
+				width: 90px !important;
+				// height: 90px !important;
+				text-align: center;
+				color: color($colors, primary) !important;
+			}
+
+			.action-sheet-icon {
+				// font-size: 4.0em !important;
+				padding-left: 15px;
+				margin-left: 0;
+			}
+
+			.icon-ios {
+				font-size: 3.0em !important;
+				padding-left: 10px;
+				margin-left: 0;
+			}
+		}
+	}
+}
+
+.custom-action-sheet {
+	i {
+		color: color($colors, gris) !important;
+	}
+
+	.action-sheet-container {
+		.btn-sheet-messages {
+			background-image: url("../assets/images/chat.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-agenda {
+			background-image: url("../assets/images/agenda.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-notes {
+			background-image: url("../assets/images/memo.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-leads {
+			background-image: url("../assets/images/opportunity.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-contacts {
+			background-image: url("../assets/images/contact.svg") !important;
+			background-size: 40px;
+			background-repeat: no-repeat !important;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-customer {
+			background-image: url("../assets/images/customer.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-sale {
+			background-image: url("../assets/images/hr.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-catalogue {
+			background-image: url("../assets/images/brochure.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-pipeline {
+			background-image: url("../assets/images/pipes.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-calls {
+			background-image: url("../assets/images/talking.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-quots {
+			background-image: url("../assets/images/quotation.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-orders {
+			background-image: url("../assets/images/order.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-view {
+			background-image: url("../assets/images/logo/black/profile.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-sales {
+			background-image: url("../assets/images/logo/black/sales.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+		.btn-sheet-sub {
+			background-image: url("../assets/images/logo/black/sub.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-lead {
+			background-image: url("../assets/images/logo/black/lead.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-maj {
+			background-image: url("../assets/images/logo/black/create.svg") !important;
+			background-size: 40px;
+			background-repeat: no-repeat !important;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-meeting {
+			background-image: url("../assets/images/logo/black/meeting.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-call {
+			background-image: url("../assets/images/logo/black/call.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-sms {
+			background-image: url("../assets/images/logo/black/sms.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-map {
+			background-image: url("../assets/images/logo/black/destination.png") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// padding-left: 70px !important;
+		}
+
+		.btn-sheet-mail {
+			background-image: url("../assets/images/logo/black/mail.svg") !important;
+			background-repeat: no-repeat !important;
+			background-size: 40px;
+			background-position: center !important;
+			// background-position: 10px 10px !important;
+			// padding-left: 70px !important;
+		}
+
+		.action-sheet-title {
+			color: color($colors, secondary);
+			text-align: center;
+		}
+
+		button {
+			width: 90px !important;
+			height: 100px !important;
+			margin-left: 0 !important;
+			padding-left: 0 !important;
+
+			.action-sheet-icon,
+			.button-inner {
+				display: block !important;
+			}
+
+			.button-inner {
+				font-size: 0.7em;
+				padding-top: 80px !important;
+				width: 90px !important;
+				// height: 90px !important;
+				text-align: center;
+				color: color($colors, primary) !important;
+			}
+
+			.action-sheet-icon {
+				// font-size: 4.0em !important;
+				padding-left: 15px;
+				margin-left: 0;
+			}
+
+			.icon-ios {
+				font-size: 3.0em !important;
+				padding-left: 10px;
+				margin-left: 0;
+			}
+		}
+	}
+}
+
+.custom-note {
+	.action-sheet-container {
+		// border-top-left-radius: 50%;
+		// border-top-right-radius: 50%;
+		// border-top: 5px solid color($colors, primary);
+		padding-top: 50px;
+
+		.action-sheet-group {
+			border-top-left-radius: 50%;
+			border-top-right-radius: 50%;
+			border-top: 5px solid color($colors, primary);
+			padding-top: 50px;
+		}
+		.action-sheet-title {
+			color: color($colors, primary);
+			text-align: center;
+		}
+
+		button {
+			width: 90px !important;
+			margin-left: 0 !important;
+			padding-left: 0 !important;
+			margin-bottom: 10px;
+
+			.action-sheet-icon,
+			.button-inner {
+				display: block !important;
+			}
+
+			.button-inner {
+				font-size: 0.7em;
+				width: 90px !important;
+				text-align: center;
+			}
+
+			.action-sheet-icon {
+				font-size: 4.0em !important;
+				padding-left: 15px;
+				margin-left: 0;
+			}
+
+			.icon-ios {
+				font-size: 3.0em !important;
+				padding-left: 10px;
+				margin-left: 0;
+			}
+		}
+	}
+}
+
+.custom-poplangue{
+    // left: 7% !important;
+    .popover-content{
+        height: 330px !important;
+        top: 30% !important;
+        border-radius: 0.45em !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    ion-backdrop {
+        opacity: 0.9;
+    }
+}
+
+.dialog_answer {
+	.alert-message {
+		min-height: 200px !important;
+		max-height: 100% !important;
+		line-height: 23px;
+	}
+}
+
+[formAffaire] {
+	ion-slides {
+		height: unset;
+	}
+
+	ion-item-divider,
+	.time-zone {
+		background-color: color($colors, primary) !important;
+		border-bottom: none !important;
+		color: color($colors, light);
+	}
+
+	ion-item .item-inner {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.7) !important;
+	}
+
+	.signe {
+		margin: 10px;
+		border-radius: 0.45em;
+		min-height: 100px;
+		width: 95%;
+		border: 1px solid rgba(255, 255, 255, 0.5);
+	}
+
+	ion-item {
+		margin-bottom: 12px;
+		ion-avatar img {
+			height: 30px;
+			width: 30px;
+		}
+	}
+
+	ion-item .label {
+		color: color($colors, dark) !important;
+		font-weight: bold;
+	}
+
+	ion-item,
+	ion-item-divider,
+	ion-textarea,
+	[ion-button],
+	.time-zone {
+		color: color($colors, dark) !important;
+	}
+
+	[bloc-btn] {
+		text-align: center;
+		button {
+			border: 1px solid rgba(255, 255, 255, 0.8);
+		}
+	}
+
+	.swiper-pagination-bullet-active {
+		background: theme-colors('mainColors', 'secondary');
+	}
+
+	.swiper-pagination-bullet {
+		background: theme-colors('mainColors', 'secondary', 'opacity60');
+	}
+
+	ion-item{
+		ion-input, ion-textarea{
+			background-color: color($colors, light);
+			padding:4px;
+		}
+	}
+
+	
+}
+
+/* STYLE SCSS TOAST */
+.toast-info {
+	// padding: 4px;
+	div.toast-wrapper {
+		width: 95%;
+		margin-top: 10px;
+		border-radius: 1em;
+		background: #cbe4ff;
+		// border: 1px solid lightblue
+	}
+	.toast-container {
+		.toast-message,
+		button {
+			color: #004085;
+		}
+	}
+}
+
+.toast-error {
+	// padding: 4px;
+	div.toast-wrapper {
+		width: 95%;
+		margin-top: 10px;
+		border-radius: 1em;
+		background: #f8d6d9;
+		// border: 1px solid lightcoral
+	}
+	.toast-container {
+		.toast-message,
+		button {
+			color: #9b1b24;
+		}
+	}
+}
+
+.toast-success {
+	// padding: 4px;
+	div.toast-wrapper {
+		width: 95%;
+		margin-top: 10px;
+		border-radius: 1em;
+		background: #d4edda;
+		// border: 1px solid lightgreen
+	}
+	.toast-container {
+		.toast-message,
+		button {
+			color: color($colors, vert);
+		}
+	}
+}
+
+.catalogue-popover .popover-content {
+	width: 90% !important;
+	// color: red;
+	left: 18.7125px !important;
+	div.toolbar-title {
+		color: black !important;
+	}
+	div.toolbar-background {
+		background-color: white !important;
+	}
+	ion-icon {
+		color: black !important;
+	}
+	.scroll-content {
+		padding-top: 62px !important;
+		// background-color: #018821 !important;
+	}
+	ion-item-divider.item.item-divider {
+		background-color: transparent !important;
+	}
+	ion-item {
+		background-color: transparent !important;
+	}
+	ion-label {
+		color: black !important;
+		font-size: 1.6rem !important;
+	}
+}
+
+.bloc-invoice {
+  .card {
+      width: calc(100% - 20px) !important;
+      border-radius: 0.45em;
+      margin: 10px !important;
+      ion-col {
+          padding: 10px;
+      }
+
+      h5 {
+          color: color($colors, secondary);
+          margin-bottom: 7px;
+      }
+
+      [col-5]{
+          background-color: color($colors, lightest); 
+          box-shadow: inset 5px 0 6px -5px rgba(0, 0, 0, 0.4);
+      }
+  }
+
+  [date] {
+      color: color($colors, gris);
+  }
+  .myPage {
+    .myActionSheetBtnStyle {
+        color: red;
+    }
+}
+
+  .amount,
+  .draft,
+  .sale,
+  .paid {
+      text-align: right;
+  }
+
+  .amount {
+      font-size: 1.35em;
+      font-weight: normal;
+      color: color($colors, dark);
+  }
+
+  .opport {
+      color: color($colors, primary);
+  }
+  .draft,
+  .sale,
+  .paid {
+      padding: 6px;
+  }
+  .draft span,
+  .sale span,
+  .paid span {
+      padding: 6px;
+      color: color($colors, light);
+  }
+  .draft {
+      // background-color: #e6413a;
+      // box-shadow: inset 5px 0 27px -5px rgba($color: #e6413a, $alpha: 0.6) !important;
+      h4{
+          color: #e6413a;
+      }
+  }
+  .sale {
+      // background-color: color($colors, orange);
+      // box-shadow: inset 5px 0 27px -5px rgba($color: #f6b338, $alpha: 0.6) !important;
+      h4{
+          color: color($colors, orange);
+      }
+  }
+
+  .paid {
+      // background-color: color($colors, vert);
+      // box-shadow: inset 5px 0 87px -5px rgba($color: #e6413a, $alpha: 0.6);
+      h4{
+          color: color($colors, vert);
+      }
+  }
+  .image {
+      color: color($colors, primary);
+      font-weight: bold;
+      img {
+          width: 35px;
+          opacity: 1 !important;
+      }
+  }
+  .payment {
+      text-align: right;
+      font-size: 0.8em;
+      color: green;
+      margin-top: 10px;
+  }
+}

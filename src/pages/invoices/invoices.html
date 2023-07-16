@@ -1,0 +1,94 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'menu.compta' | translate}}
+            <p class="subtitle" *ngIf="client"> {{client?.name}}</p>
+        </ion-title>
+        <ion-buttons end>
+            <!-- <button class="count_btn" ion-button>{{invoices.length}}</button> -->
+            <button class="count_btn" ion-button *ngIf="nbeInvoices<=999" icon-only>{{nbeInvoices}}</button>
+            <button class="count_btn" ion-button *ngIf="nbeInvoices>999" icon-only>999+</button>
+            <button [ngClass]="{'searchOn': display_search}" ion-button icon-only (click)="searchItems()">
+                <ion-icon name="ios-search-outline"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="showMenu()"><ion-icon name="md-more"></ion-icon></button>
+
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-navbar *ngIf="display_search || txtFiltre.length > 0" custom-segment>
+        
+        <ion-item class="search-bloc" transparent no-lines no-padding>
+            <ion-searchbar [(ngModel)]="srcTxt" item-start class="animated zoomIn" debounce="500" [showCancelButton]="false" (ionInput)="setFilteredItems($event)" placeholder="{{'message.search' | translate}}"></ion-searchbar>
+            <ion-icon (click)="onSetClick($event)" color="gris" name="md-funnel" item-end></ion-icon>
+        </ion-item>
+        <ion-list class="animated fadeIn" text-center no-lines [hidden]="showQuickFilter == false">
+            <!-- liste des filtres -->
+            <ion-scroll *ngIf="filters.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let item of filters;let i = index" class="filter-item" [ngClass]="{'subCatSelected':item.selected == true, 'plus':item.slug == 'plus'}" (click)="onQuickFilter(item, i)">
+                    {{item.nom}} 
+                </span>
+            </ion-scroll>
+
+            <!-- filtre par Année  -->
+            <ion-scroll *ngIf="filter_years.length > 0" class="horizontal-scroll" scrollX="true">
+                <span *ngFor="let int of filter_years" class="filter-item" [ngClass]="{'subCatSelected':int.selected == true}"  (click)="filterbyObjets(int,'year')">
+                        {{int.text}}
+                </span>
+            </ion-scroll>
+            
+        </ion-list>
+    </ion-navbar>
+    <ion-toolbar class="sub-menu" custom-segment>
+        <ion-segment [(ngModel)]="roleType">
+          <ion-segment-button *ngFor="let obj of invoices" value="{{obj.couleur}}" (click)="segmentChanged(obj, $event)">
+            {{obj.nom}} ({{obj.tabs.length}})
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <p *ngIf="objSpinner" text-center>
+        <ion-spinner name="dots"></ion-spinner>
+    </p>
+    <div *ngIf="!objSpinner" [ngSwitch]="roleType">
+        <div *ngFor="let stage of invoices" >
+          <ion-grid *ngSwitchCase="stage.couleur" class="bloc-invoice" no-margin>
+            <ion-row>
+                <ion-col class="animated fadeIn" no-padding col-12 col-sm-9 col-md-6 col-lg-4 col-xl-4 *ngFor="let fact of stage.tabs | slice:0:max">
+                   <invoice [facture]="fact" [events]="eventsBinding" ></invoice>
+                </ion-col>
+                <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{'message.txt_load' | translate}}"></ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+            </ion-row>
+            <div bloc-empty *ngIf="stage.tabs.length==0">
+                <div>
+                    <img src="assets/images/empty/receipt.png">
+                </div>
+                <h4 *ngIf="objFiltre">{{'module.facture.no_bill' | translate:txtFiltre}}</h4>
+                <!-- <h4 *ngIf="affaire">{{'module.facture.no_affair' | translate}}</h4> -->
+                <h4 *ngIf="client">{{'module.facture.no_customer' | translate:client}}</h4>
+                <h4 *ngIf="!affaire && !client && !objFiltre && srcTxt == ''">{{'module.facture.empty' | translate}}</h4>
+                <h4 *ngIf="!affaire && !client && !objFiltre && srcTxt != ''">{{'module.facture.empty_srch' | translate}} <strong>{{srcTxt}}</strong></h4>
+                <button ion-button outline (click)="synchronizing()" color="primary" icon-left *ngIf="!affaire && !client && !objFiltre && srcTxt == ''">    
+                  {{'btns.sync' | translate}} <ion-spinner *ngIf="display" name="bubbles"></ion-spinner>
+              </button>
+                <p *ngIf="display" style="text-align: center;">{{'message.txt_sync' | translate}}</p>
+            </div>
+          </ion-grid>
+    
+        </div>
+        
+    </div>
+
+</ion-content>
+<ion-fab #fab bottom right>
+    <button button-ion-fab ion-fab (click)="onAdd($event)">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

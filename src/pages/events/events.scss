@@ -1,0 +1,64 @@
+page-events {
+
+    ion-content.has-refresher > .scroll-content{
+        background-color: color($colors, primary);
+    }
+
+    ion-content.has-refresher > .scroll-content .content{
+        background-color: transparent !important;
+    }
+
+    .scroll-content {
+        
+        background-color: color($colors, primary);
+        padding-top: 40px;
+    }
+
+    .addtop {
+        margin-top: 40px !important;
+    }
+
+    .filter .toolbar-background{
+        background-color: color($colors, primary) !important;
+        box-shadow: none;
+    }
+
+    .filter .toolbar-title{
+        font-size: 0.9em;
+    }
+
+    .custom-card{
+        ion-card{
+            border-radius: 0.45em;
+        }
+    }
+
+    .schedule-date{
+        background-color: color($colors, grislight);
+        // box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.4);
+        box-shadow: inset -5px 0 5px -5px rgba(0,0,0,0.4);
+        .date{
+            font-size: 1.5em;
+            margin-top: 25%;
+        }
+    }
+
+    .person{
+        margin-top: 9px;
+        ion-col:first-child{
+            border-right: 1px solid color($colors, grislight);
+            text-align: left;
+            padding:0;
+            ion-icon{
+                font-size: 1.9em;
+                color: color($colors, secondary);
+            }
+        }
+
+        ion-col:last-child{
+            p{
+                color: color($colors, primary);
+            }
+        }
+    }
+}

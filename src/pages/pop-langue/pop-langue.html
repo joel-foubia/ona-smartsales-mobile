@@ -1,0 +1,35 @@
+
+<ion-content>
+  <ion-card>
+    <ion-item text-wrap>
+      {{'form.start_lang' | translate}}
+      <ion-icon name="ios-arrow-down" item-end></ion-icon>
+    </ion-item>
+  </ion-card>
+  <ion-list>
+    <ion-item text-uppercase (click)="changeLangue('fr')">
+    <ion-avatar item-start>
+      <img src="assets/images/icons/france.svg" alt="france" />
+    </ion-avatar>
+    {{'form.tab_lang.fr' | translate}}
+  </ion-item>
+  <ion-item text-uppercase (click)="changeLangue('en')">
+      <ion-avatar item-start>
+        <img src="assets/images/icons/united-kingdom.svg" alt="UK" />
+      </ion-avatar>
+        {{'form.tab_lang.us' | translate}}
+    </ion-item>
+  <ion-item text-uppercase (click)="changeLangue('de')">
+      <ion-avatar item-start>
+        <img src="assets/images/icons/germany.svg" alt="DE" />
+      </ion-avatar>
+        {{'form.tab_lang.de' | translate}}
+    </ion-item>
+  <ion-item text-uppercase (click)="changeLangue('es')">
+      <ion-avatar item-start>
+        <img src="assets/images/icons/spain.svg" alt="Spain" />
+      </ion-avatar>
+        {{'form.tab_lang.es' | translate}}
+    </ion-item>
+  </ion-list>
+</ion-content>
